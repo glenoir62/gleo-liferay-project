@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.gleo.plugins.hexiagon.model.Announcement" />
+	<import class="com.gleo.plugins.hexiagon.model.AnnouncementImage" />
+	<import class="com.gleo.plugins.hexiagon.model.Currency" />
+	<import class="com.gleo.plugins.hexiagon.model.Favorite" />
+	<import class="com.gleo.plugins.hexiagon.model.Type" />
+	<class name="com.gleo.plugins.hexiagon.model.impl.AnnouncementImpl" table="Hexiagon_Announcement">
+		<id name="announcementId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property column="uuid_" name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="typeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="folderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="currencyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="phoneNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="price" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="statusByUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="statusByUserName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="statusDate" type="org.hibernate.type.TimestampType" />
+		<property name="countryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="regionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="city" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="site" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="building" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.gleo.plugins.hexiagon.model.impl.AnnouncementImageImpl" table="Hexiagon_AnnouncementImage">
+		<id name="announcementImageId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="announcementId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="fileEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="com.gleo.plugins.hexiagon.model.impl.CurrencyImpl" table="Hexiagon_Currency">
+		<id name="currencyId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="label" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="symbol" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="rate" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.gleo.plugins.hexiagon.model.impl.FavoriteImpl" table="Hexiagon_Favorite">
+		<id name="favoriteId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="announcementId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.gleo.plugins.hexiagon.model.impl.TypeImpl" table="Hexiagon_Type">
+		<id name="typeId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+</hibernate-mapping>
