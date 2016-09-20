@@ -22,5 +22,6 @@ plugins-sdk/dist
 plugins-sdk/lib
 test-results
 
+service.xml
 .settings
 .metadata
