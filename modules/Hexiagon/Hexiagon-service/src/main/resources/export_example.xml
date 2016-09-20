@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:asset xmlns:ns2="com.gleo.plugins.hexiagon">
+    <vocabularies>
+        <vocabulary totalChildCount="13">
+            <title>Announcements</title>
+            <description></description>
+            <category childCategoryCount="1">
+                <title>A</title>
+                <description></description>
+                <category childCategoryCount="1">
+                    <title>AA</title>
+                    <description></description>
+                    <category childCategoryCount="0">
+                        <title>AAA</title>
+                        <description></description>
+                    </category>
+                </category>
+            </category>
+            <category childCategoryCount="1">
+                <title>B</title>
+                <description></description>
+                <category childCategoryCount="1">
+                    <title>BB</title>
+                    <description></description>
+                    <category childCategoryCount="0">
+                        <title>BBB</title>
+                        <description></description>
+                    </category>
+                </category>
+            </category>
+            <category childCategoryCount="0">
+                <title>fzef</title>
+                <description>zefzefzefzef</description>
+            </category>
+        </vocabulary>
+        <vocabulary totalChildCount="7">
+            <title>Topic</title>
+            <description></description>
+            <category childCategoryCount="2">
+                <title>A</title>
+                <description></description>
+                <category childCategoryCount="2">
+                    <title>AA</title>
+                    <description></description>
+                    <category childCategoryCount="0">
+                        <title>AAA</title>
+                        <description></description>
+                    </category>
+                    <category childCategoryCount="0">
+                        <title>AAA</title>
+                        <description></description>
+                    </category>
+                </category>
+                <category childCategoryCount="1">
+                    <title>AA</title>
+                    <description></description>
+                    <category childCategoryCount="0">
+                        <title>AAA</title>
+                        <description></description>
+                    </category>
+                </category>
+            </category>
+            <category childCategoryCount="2">
+                <title>B</title>
+                <description></description>
+                <category childCategoryCount="2">
+                    <title>BB</title>
+                    <description></description>
+                    <category childCategoryCount="0">
+                        <title>BBB</title>
+                        <description></description>
+                    </category>
+                    <category childCategoryCount="0">
+                        <title>BBB</title>
+                        <description></description>
+                    </category>
+                </category>
+                <category childCategoryCount="1">
+                    <title>BB</title>
+                    <description></description>
+                    <category childCategoryCount="0">
+                        <title>BBB</title>
+                        <description></description>
+                    </category>
+                </category>
+            </category>
+            <category childCategoryCount="0">
+                <title>fzef</title>
+                <description>zefzefzefzef</description>
+            </category>
+        </vocabulary>
+    </vocabularies>
+    <companyName>Liferay</companyName>
+</ns2:asset>

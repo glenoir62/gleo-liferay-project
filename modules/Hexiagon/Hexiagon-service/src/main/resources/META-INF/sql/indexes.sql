@@ -6,6 +6,8 @@ create unique index IX_9950D24F on Hexiagon_Announcement (uuid_[$COLUMN_LENGTH:7
 
 create index IX_32C092C9 on Hexiagon_AnnouncementImage (announcementId, order_);
 
+create unique index IX_B05F9BE on Hexiagon_Currency (countryId);
+
 create unique index IX_F84C8C8C on Hexiagon_Favorite (announcementId, userId, groupId);
 create index IX_4B56C782 on Hexiagon_Favorite (userId, groupId);
 

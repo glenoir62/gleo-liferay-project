@@ -252,6 +252,21 @@ public class AnnouncementWrapper implements Announcement,
 		return new AnnouncementWrapper(_announcement.toUnescapedModel());
 	}
 
+	@Override
+	public AnnouncementImage getImage() {
+		return _announcement.getImage();
+	}
+
+	@Override
+	public Type getType() {
+		return _announcement.getType();
+	}
+
+	@Override
+	public boolean hasCategories() {
+		return _announcement.hasCategories();
+	}
+
 	/**
 	* Returns <code>true</code> if this announcement is approved.
 	*
@@ -302,6 +317,11 @@ public class AnnouncementWrapper implements Announcement,
 		return _announcement.isExpired();
 	}
 
+	@Override
+	public boolean isFavorite(long userId) {
+		return _announcement.isFavorite(userId);
+	}
+
 	/**
 	* Returns <code>true</code> if this announcement is inactive.
 	*
@@ -348,6 +368,11 @@ public class AnnouncementWrapper implements Announcement,
 	}
 
 	@Override
+	public boolean isValidAgreement() {
+		return _announcement.isValidAgreement();
+	}
+
+	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return _announcement.getExpandoBridge();
 	}
@@ -358,8 +383,26 @@ public class AnnouncementWrapper implements Announcement,
 	}
 
 	@Override
+	public com.liferay.portal.kernel.model.User getUser() {
+		return _announcement.getUser();
+	}
+
+	@Override
 	public int compareTo(Announcement announcement) {
 		return _announcement.compareTo(announcement);
+	}
+
+	@Override
+	public int getMessagesCount() {
+		return _announcement.getMessagesCount();
+	}
+
+	/**
+	* @return
+	*/
+	@Override
+	public int getRatingsCount() {
+		return _announcement.getRatingsCount();
 	}
 
 	/**
@@ -385,6 +428,21 @@ public class AnnouncementWrapper implements Announcement,
 	@Override
 	public java.lang.Object clone() {
 		return new AnnouncementWrapper((Announcement)_announcement.clone());
+	}
+
+	/**
+	* @param liferayPortletRequest
+	* @param liferayPortletResponse
+	* @return
+	* @throws WindowStateException
+	*/
+	@Override
+	public java.lang.String getAnnouncementUrl(
+		com.liferay.portal.kernel.portlet.LiferayPortletRequest liferayPortletRequest,
+		com.liferay.portal.kernel.portlet.LiferayPortletResponse liferayPortletResponse)
+		throws java.lang.Exception {
+		return _announcement.getAnnouncementUrl(liferayPortletRequest,
+			liferayPortletResponse);
 	}
 
 	/**
@@ -475,6 +533,23 @@ public class AnnouncementWrapper implements Announcement,
 		return _announcement.getContentCurrentValue();
 	}
 
+	/**
+	* @param locale
+	* @return
+	*/
+	@Override
+	public java.lang.String getCountry(java.util.Locale locale) {
+		return _announcement.getCountry(locale);
+	}
+
+	/**
+	* @return
+	*/
+	@Override
+	public java.lang.String getCurrencySymbol() {
+		return _announcement.getCurrencySymbol();
+	}
+
 	@Override
 	public java.lang.String getDefaultLanguageId() {
 		return _announcement.getDefaultLanguageId();
@@ -511,6 +586,15 @@ public class AnnouncementWrapper implements Announcement,
 	}
 
 	/**
+	* @param locale
+	* @return
+	*/
+	@Override
+	public java.lang.String getStatus(java.util.Locale locale) {
+		return _announcement.getStatus(locale);
+	}
+
+	/**
 	* Returns the status by user name of this announcement.
 	*
 	* @return the status by user name of this announcement
@@ -528,6 +612,11 @@ public class AnnouncementWrapper implements Announcement,
 	@Override
 	public java.lang.String getStatusByUserUuid() {
 		return _announcement.getStatusByUserUuid();
+	}
+
+	@Override
+	public java.lang.String getSummary(java.util.Locale locale) {
+		return _announcement.getSummary(locale);
 	}
 
 	/**
@@ -670,6 +759,16 @@ public class AnnouncementWrapper implements Announcement,
 	@Override
 	public Date getStatusDate() {
 		return _announcement.getStatusDate();
+	}
+
+	@Override
+	public java.util.List<AnnouncementImage> getAnnouncementImages() {
+		return _announcement.getAnnouncementImages();
+	}
+
+	@Override
+	public java.util.List<AnnouncementImage> getImages() {
+		return _announcement.getImages();
 	}
 
 	/**
@@ -838,6 +937,12 @@ public class AnnouncementWrapper implements Announcement,
 	@Override
 	public void setAnnouncementId(long announcementId) {
 		_announcement.setAnnouncementId(announcementId);
+	}
+
+	@Override
+	public void setAnnouncementImages(
+		java.util.List<AnnouncementImage> announcementImages) {
+		_announcement.setAnnouncementImages(announcementImages);
 	}
 
 	/**
@@ -1243,6 +1348,11 @@ public class AnnouncementWrapper implements Announcement,
 	@Override
 	public void setUuid(java.lang.String uuid) {
 		_announcement.setUuid(uuid);
+	}
+
+	@Override
+	public void setValidAgreement(boolean isValidAgreement) {
+		_announcement.setValidAgreement(isValidAgreement);
 	}
 
 	@Override

@@ -136,6 +136,20 @@ public interface CurrencyModel extends BaseModel<Currency>, ShardedModel {
 	public void setOrder(int order);
 
 	/**
+	 * Returns the country ID of this currency.
+	 *
+	 * @return the country ID of this currency
+	 */
+	public long getCountryId();
+
+	/**
+	 * Sets the country ID of this currency.
+	 *
+	 * @param countryId the country ID of this currency
+	 */
+	public void setCountryId(long countryId);
+
+	/**
 	 * Returns the rate of this currency.
 	 *
 	 * @return the rate of this currency

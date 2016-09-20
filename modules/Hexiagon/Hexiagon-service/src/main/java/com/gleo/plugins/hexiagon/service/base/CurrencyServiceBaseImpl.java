@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiService;
 import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
+import com.liferay.portal.kernel.service.persistence.CountryPersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -208,6 +209,44 @@ public abstract class CurrencyServiceBaseImpl extends BaseServiceImpl
 	}
 
 	/**
+	 * Returns the ext country remote service.
+	 *
+	 * @return the ext country remote service
+	 */
+	public com.gleo.plugins.hexiagon.service.ExtCountryService getExtCountryService() {
+		return extCountryService;
+	}
+
+	/**
+	 * Sets the ext country remote service.
+	 *
+	 * @param extCountryService the ext country remote service
+	 */
+	public void setExtCountryService(
+		com.gleo.plugins.hexiagon.service.ExtCountryService extCountryService) {
+		this.extCountryService = extCountryService;
+	}
+
+	/**
+	 * Returns the ext region remote service.
+	 *
+	 * @return the ext region remote service
+	 */
+	public com.gleo.plugins.hexiagon.service.ExtRegionService getExtRegionService() {
+		return extRegionService;
+	}
+
+	/**
+	 * Sets the ext region remote service.
+	 *
+	 * @param extRegionService the ext region remote service
+	 */
+	public void setExtRegionService(
+		com.gleo.plugins.hexiagon.service.ExtRegionService extRegionService) {
+		this.extRegionService = extRegionService;
+	}
+
+	/**
 	 * Returns the favorite local service.
 	 *
 	 * @return the favorite local service
@@ -377,6 +416,43 @@ public abstract class CurrencyServiceBaseImpl extends BaseServiceImpl
 	}
 
 	/**
+	 * Returns the country remote service.
+	 *
+	 * @return the country remote service
+	 */
+	public com.liferay.portal.kernel.service.CountryService getCountryService() {
+		return countryService;
+	}
+
+	/**
+	 * Sets the country remote service.
+	 *
+	 * @param countryService the country remote service
+	 */
+	public void setCountryService(
+		com.liferay.portal.kernel.service.CountryService countryService) {
+		this.countryService = countryService;
+	}
+
+	/**
+	 * Returns the country persistence.
+	 *
+	 * @return the country persistence
+	 */
+	public CountryPersistence getCountryPersistence() {
+		return countryPersistence;
+	}
+
+	/**
+	 * Sets the country persistence.
+	 *
+	 * @param countryPersistence the country persistence
+	 */
+	public void setCountryPersistence(CountryPersistence countryPersistence) {
+		this.countryPersistence = countryPersistence;
+	}
+
+	/**
 	 * Returns the resource local service.
 	 *
 	 * @return the resource local service
@@ -515,6 +591,10 @@ public abstract class CurrencyServiceBaseImpl extends BaseServiceImpl
 	protected CurrencyService currencyService;
 	@BeanReference(type = CurrencyPersistence.class)
 	protected CurrencyPersistence currencyPersistence;
+	@BeanReference(type = com.gleo.plugins.hexiagon.service.ExtCountryService.class)
+	protected com.gleo.plugins.hexiagon.service.ExtCountryService extCountryService;
+	@BeanReference(type = com.gleo.plugins.hexiagon.service.ExtRegionService.class)
+	protected com.gleo.plugins.hexiagon.service.ExtRegionService extRegionService;
 	@BeanReference(type = com.gleo.plugins.hexiagon.service.FavoriteLocalService.class)
 	protected com.gleo.plugins.hexiagon.service.FavoriteLocalService favoriteLocalService;
 	@BeanReference(type = FavoritePersistence.class)
@@ -533,6 +613,10 @@ public abstract class CurrencyServiceBaseImpl extends BaseServiceImpl
 	protected com.liferay.portal.kernel.service.ClassNameService classNameService;
 	@ServiceReference(type = ClassNamePersistence.class)
 	protected ClassNamePersistence classNamePersistence;
+	@ServiceReference(type = com.liferay.portal.kernel.service.CountryService.class)
+	protected com.liferay.portal.kernel.service.CountryService countryService;
+	@ServiceReference(type = CountryPersistence.class)
+	protected CountryPersistence countryPersistence;
 	@ServiceReference(type = com.liferay.portal.kernel.service.ResourceLocalService.class)
 	protected com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService;
 	@ServiceReference(type = com.liferay.portal.kernel.service.UserLocalService.class)

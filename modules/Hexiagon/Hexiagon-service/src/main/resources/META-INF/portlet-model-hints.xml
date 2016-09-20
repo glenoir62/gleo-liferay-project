@@ -44,6 +44,7 @@
 		<field name="label" type="String" />
 		<field name="symbol" type="String" />
 		<field name="order" type="int" />
+		<field name="countryId" type="long" />
 		<field name="rate" type="long" />
 	</model>
 	<model name="com.gleo.plugins.hexiagon.model.Favorite">

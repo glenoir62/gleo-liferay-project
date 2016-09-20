@@ -16,9 +16,16 @@ package com.gleo.plugins.hexiagon.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.gleo.plugins.hexiagon.service.TypeServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link com.gleo.plugins.hexiagon.service.TypeServiceUtil} service utility. The
+ * {@link TypeServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,75 @@ import aQute.bnd.annotation.ProviderType;
  * @author guillaumelenoir
  * @see TypeServiceHttp
  * @see com.gleo.plugins.hexiagon.model.TypeSoap
- * @see com.gleo.plugins.hexiagon.service.TypeServiceUtil
+ * @see TypeServiceUtil
  * @generated
  */
 @ProviderType
 public class TypeServiceSoap {
+	public static com.gleo.plugins.hexiagon.model.TypeSoap addType(
+		com.gleo.plugins.hexiagon.model.TypeSoap type,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.gleo.plugins.hexiagon.model.Type returnValue = TypeServiceUtil.addType(com.gleo.plugins.hexiagon.model.impl.TypeModelImpl.toModel(
+						type), serviceContext);
+
+			return com.gleo.plugins.hexiagon.model.TypeSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.plugins.hexiagon.model.TypeSoap updateType(
+		com.gleo.plugins.hexiagon.model.TypeSoap type)
+		throws RemoteException {
+		try {
+			com.gleo.plugins.hexiagon.model.Type returnValue = TypeServiceUtil.updateType(com.gleo.plugins.hexiagon.model.impl.TypeModelImpl.toModel(
+						type));
+
+			return com.gleo.plugins.hexiagon.model.TypeSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.plugins.hexiagon.model.TypeSoap deleteType(
+		long typeId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.gleo.plugins.hexiagon.model.Type returnValue = TypeServiceUtil.deleteType(typeId,
+					serviceContext);
+
+			return com.gleo.plugins.hexiagon.model.TypeSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.plugins.hexiagon.model.TypeSoap[] getTypesByGroupId(
+		long groupId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<com.gleo.plugins.hexiagon.model.Type> returnValue = TypeServiceUtil.getTypesByGroupId(groupId,
+					start, end);
+
+			return com.gleo.plugins.hexiagon.model.TypeSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(TypeServiceSoap.class);
 }

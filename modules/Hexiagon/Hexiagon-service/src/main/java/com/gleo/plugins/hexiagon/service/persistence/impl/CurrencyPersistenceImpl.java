@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
@@ -83,6 +84,209 @@ public class CurrencyPersistenceImpl extends BasePersistenceImpl<Currency>
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CurrencyModelImpl.ENTITY_CACHE_ENABLED,
 			CurrencyModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_FETCH_BY_COUNTRYID = new FinderPath(CurrencyModelImpl.ENTITY_CACHE_ENABLED,
+			CurrencyModelImpl.FINDER_CACHE_ENABLED, CurrencyImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByCountryId",
+			new String[] { Long.class.getName() },
+			CurrencyModelImpl.COUNTRYID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_COUNTRYID = new FinderPath(CurrencyModelImpl.ENTITY_CACHE_ENABLED,
+			CurrencyModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCountryId",
+			new String[] { Long.class.getName() });
+
+	/**
+	 * Returns the currency where countryId = &#63; or throws a {@link NoSuchCurrencyException} if it could not be found.
+	 *
+	 * @param countryId the country ID
+	 * @return the matching currency
+	 * @throws NoSuchCurrencyException if a matching currency could not be found
+	 */
+	@Override
+	public Currency findByCountryId(long countryId)
+		throws NoSuchCurrencyException {
+		Currency currency = fetchByCountryId(countryId);
+
+		if (currency == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("countryId=");
+			msg.append(countryId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchCurrencyException(msg.toString());
+		}
+
+		return currency;
+	}
+
+	/**
+	 * Returns the currency where countryId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param countryId the country ID
+	 * @return the matching currency, or <code>null</code> if a matching currency could not be found
+	 */
+	@Override
+	public Currency fetchByCountryId(long countryId) {
+		return fetchByCountryId(countryId, true);
+	}
+
+	/**
+	 * Returns the currency where countryId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param countryId the country ID
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the matching currency, or <code>null</code> if a matching currency could not be found
+	 */
+	@Override
+	public Currency fetchByCountryId(long countryId, boolean retrieveFromCache) {
+		Object[] finderArgs = new Object[] { countryId };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = finderCache.getResult(FINDER_PATH_FETCH_BY_COUNTRYID,
+					finderArgs, this);
+		}
+
+		if (result instanceof Currency) {
+			Currency currency = (Currency)result;
+
+			if ((countryId != currency.getCountryId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_CURRENCY_WHERE);
+
+			query.append(_FINDER_COLUMN_COUNTRYID_COUNTRYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(countryId);
+
+				List<Currency> list = q.list();
+
+				if (list.isEmpty()) {
+					finderCache.putResult(FINDER_PATH_FETCH_BY_COUNTRYID,
+						finderArgs, list);
+				}
+				else {
+					Currency currency = list.get(0);
+
+					result = currency;
+
+					cacheResult(currency);
+
+					if ((currency.getCountryId() != countryId)) {
+						finderCache.putResult(FINDER_PATH_FETCH_BY_COUNTRYID,
+							finderArgs, currency);
+					}
+				}
+			}
+			catch (Exception e) {
+				finderCache.removeResult(FINDER_PATH_FETCH_BY_COUNTRYID,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Currency)result;
+		}
+	}
+
+	/**
+	 * Removes the currency where countryId = &#63; from the database.
+	 *
+	 * @param countryId the country ID
+	 * @return the currency that was removed
+	 */
+	@Override
+	public Currency removeByCountryId(long countryId)
+		throws NoSuchCurrencyException {
+		Currency currency = findByCountryId(countryId);
+
+		return remove(currency);
+	}
+
+	/**
+	 * Returns the number of currencies where countryId = &#63;.
+	 *
+	 * @param countryId the country ID
+	 * @return the number of matching currencies
+	 */
+	@Override
+	public int countByCountryId(long countryId) {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_COUNTRYID;
+
+		Object[] finderArgs = new Object[] { countryId };
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_CURRENCY_WHERE);
+
+			query.append(_FINDER_COLUMN_COUNTRYID_COUNTRYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(countryId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_COUNTRYID_COUNTRYID_2 = "currency.countryId = ?";
 
 	public CurrencyPersistenceImpl() {
 		setModelClass(Currency.class);
@@ -97,6 +301,9 @@ public class CurrencyPersistenceImpl extends BasePersistenceImpl<Currency>
 	public void cacheResult(Currency currency) {
 		entityCache.putResult(CurrencyModelImpl.ENTITY_CACHE_ENABLED,
 			CurrencyImpl.class, currency.getPrimaryKey(), currency);
+
+		finderCache.putResult(FINDER_PATH_FETCH_BY_COUNTRYID,
+			new Object[] { currency.getCountryId() }, currency);
 
 		currency.resetOriginalValues();
 	}
@@ -149,6 +356,8 @@ public class CurrencyPersistenceImpl extends BasePersistenceImpl<Currency>
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache((CurrencyModelImpl)currency);
 	}
 
 	@Override
@@ -159,6 +368,46 @@ public class CurrencyPersistenceImpl extends BasePersistenceImpl<Currency>
 		for (Currency currency : currencies) {
 			entityCache.removeResult(CurrencyModelImpl.ENTITY_CACHE_ENABLED,
 				CurrencyImpl.class, currency.getPrimaryKey());
+
+			clearUniqueFindersCache((CurrencyModelImpl)currency);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		CurrencyModelImpl currencyModelImpl, boolean isNew) {
+		if (isNew) {
+			Object[] args = new Object[] { currencyModelImpl.getCountryId() };
+
+			finderCache.putResult(FINDER_PATH_COUNT_BY_COUNTRYID, args,
+				Long.valueOf(1));
+			finderCache.putResult(FINDER_PATH_FETCH_BY_COUNTRYID, args,
+				currencyModelImpl);
+		}
+		else {
+			if ((currencyModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_COUNTRYID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { currencyModelImpl.getCountryId() };
+
+				finderCache.putResult(FINDER_PATH_COUNT_BY_COUNTRYID, args,
+					Long.valueOf(1));
+				finderCache.putResult(FINDER_PATH_FETCH_BY_COUNTRYID, args,
+					currencyModelImpl);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(CurrencyModelImpl currencyModelImpl) {
+		Object[] args = new Object[] { currencyModelImpl.getCountryId() };
+
+		finderCache.removeResult(FINDER_PATH_COUNT_BY_COUNTRYID, args);
+		finderCache.removeResult(FINDER_PATH_FETCH_BY_COUNTRYID, args);
+
+		if ((currencyModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_COUNTRYID.getColumnBitmask()) != 0) {
+			args = new Object[] { currencyModelImpl.getOriginalCountryId() };
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_COUNTRYID, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_COUNTRYID, args);
 		}
 	}
 
@@ -270,6 +519,8 @@ public class CurrencyPersistenceImpl extends BasePersistenceImpl<Currency>
 
 		boolean isNew = currency.isNew();
 
+		CurrencyModelImpl currencyModelImpl = (CurrencyModelImpl)currency;
+
 		Session session = null;
 
 		try {
@@ -293,12 +544,15 @@ public class CurrencyPersistenceImpl extends BasePersistenceImpl<Currency>
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 
-		if (isNew) {
+		if (isNew || !CurrencyModelImpl.COLUMN_BITMASK_ENABLED) {
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
 
 		entityCache.putResult(CurrencyModelImpl.ENTITY_CACHE_ENABLED,
 			CurrencyImpl.class, currency.getPrimaryKey(), currency, false);
+
+		clearUniqueFindersCache(currencyModelImpl);
+		cacheUniqueFindersCache(currencyModelImpl, isNew);
 
 		currency.resetOriginalValues();
 
@@ -320,6 +574,7 @@ public class CurrencyPersistenceImpl extends BasePersistenceImpl<Currency>
 		currencyImpl.setLabel(currency.getLabel());
 		currencyImpl.setSymbol(currency.getSymbol());
 		currencyImpl.setOrder(currency.getOrder());
+		currencyImpl.setCountryId(currency.getCountryId());
 		currencyImpl.setRate(currency.getRate());
 
 		return currencyImpl;
@@ -735,9 +990,12 @@ public class CurrencyPersistenceImpl extends BasePersistenceImpl<Currency>
 	protected FinderCache finderCache;
 	private static final String _SQL_SELECT_CURRENCY = "SELECT currency FROM Currency currency";
 	private static final String _SQL_SELECT_CURRENCY_WHERE_PKS_IN = "SELECT currency FROM Currency currency WHERE currencyId IN (";
+	private static final String _SQL_SELECT_CURRENCY_WHERE = "SELECT currency FROM Currency currency WHERE ";
 	private static final String _SQL_COUNT_CURRENCY = "SELECT COUNT(currency) FROM Currency currency";
+	private static final String _SQL_COUNT_CURRENCY_WHERE = "SELECT COUNT(currency) FROM Currency currency WHERE ";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "currency.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Currency exists with the primary key ";
+	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No Currency exists with the key {";
 	private static final Log _log = LogFactoryUtil.getLog(CurrencyPersistenceImpl.class);
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
 				"order"

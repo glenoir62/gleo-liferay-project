@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -71,6 +72,14 @@ public interface CurrencyLocalService extends BaseLocalService,
 	public Currency addCurrency(Currency currency);
 
 	/**
+	* Adds the currency to the database incrementing the primary key
+	*
+	* @throws PortalException
+	*/
+	public Currency addCurrency(Currency currency, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	/**
 	* Creates a new currency with the primary key. Does not add the currency to the database.
 	*
 	* @param currencyId the primary key for the new currency
@@ -93,9 +102,11 @@ public interface CurrencyLocalService extends BaseLocalService,
 	* @param currencyId the primary key of the currency
 	* @return the currency that was removed
 	* @throws PortalException if a currency with the primary key could not be found
+	* @throws SystemException
 	*/
 	@Indexable(type = IndexableType.DELETE)
-	public Currency deleteCurrency(long currencyId) throws PortalException;
+	public Currency deleteCurrency(long currencyId)
+		throws PortalException, SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Currency fetchCurrency(long currencyId);
@@ -110,14 +121,19 @@ public interface CurrencyLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Currency getCurrency(long currencyId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Currency getCurrencyByCountryId(long countryId)
+		throws PortalException, SystemException;
+
 	/**
 	* Updates the currency in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param currency the currency
 	* @return the currency that was updated
+	* @throws SystemException
 	*/
 	@Indexable(type = IndexableType.REINDEX)
-	public Currency updateCurrency(Currency currency);
+	public Currency updateCurrency(Currency currency) throws SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

@@ -107,10 +107,11 @@ public abstract class TypeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param typeId the primary key of the type
 	 * @return the type that was removed
 	 * @throws PortalException if a type with the primary key could not be found
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Type deleteType(long typeId) throws PortalException {
+	public Type deleteType(long typeId) throws PortalException, SystemException {
 		return typePersistence.remove(typeId);
 	}
 
@@ -305,10 +306,11 @@ public abstract class TypeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param type the type
 	 * @return the type that was updated
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public Type updateType(Type type) {
+	public Type updateType(Type type) throws SystemException {
 		return typePersistence.update(type);
 	}
 

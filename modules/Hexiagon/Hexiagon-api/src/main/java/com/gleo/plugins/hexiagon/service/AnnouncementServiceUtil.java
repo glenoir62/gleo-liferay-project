@@ -41,6 +41,43 @@ public class AnnouncementServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.gleo.plugins.hexiagon.service.impl.AnnouncementServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.gleo.plugins.hexiagon.model.Announcement addAnnouncement(
+		com.gleo.plugins.hexiagon.model.Announcement announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().addAnnouncement(announcement, serviceContext);
+	}
+
+	public static com.gleo.plugins.hexiagon.model.Announcement deleteAnnouncement(
+		long announcementId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().deleteAnnouncement(announcementId);
+	}
+
+	public static com.gleo.plugins.hexiagon.model.Announcement getAnnouncement(
+		long announcementId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncement(announcementId);
+	}
+
+	public static com.gleo.plugins.hexiagon.model.Announcement updateAnnouncement(
+		com.gleo.plugins.hexiagon.model.Announcement announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().updateAnnouncement(announcement, serviceContext);
+	}
+
+	public static int getAnnouncementsCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsCountByGroupId(groupId);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
@@ -49,6 +86,12 @@ public class AnnouncementServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List<com.gleo.plugins.hexiagon.model.Announcement> getAnnouncementsByGroupId(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsByGroupId(groupId, start, end);
 	}
 
 	public static AnnouncementService getService() {

@@ -155,6 +155,59 @@ public interface TypePersistence extends BasePersistence<Type> {
 		throws NoSuchTypeException;
 
 	/**
+	* Returns all the types that the user has permission to view where groupId = &#63;.
+	*
+	* @param groupId the group ID
+	* @return the matching types that the user has permission to view
+	*/
+	public java.util.List<Type> filterFindByGroupId(long groupId);
+
+	/**
+	* Returns a range of all the types that the user has permission to view where groupId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link TypeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param groupId the group ID
+	* @param start the lower bound of the range of types
+	* @param end the upper bound of the range of types (not inclusive)
+	* @return the range of matching types that the user has permission to view
+	*/
+	public java.util.List<Type> filterFindByGroupId(long groupId, int start,
+		int end);
+
+	/**
+	* Returns an ordered range of all the types that the user has permissions to view where groupId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link TypeModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param groupId the group ID
+	* @param start the lower bound of the range of types
+	* @param end the upper bound of the range of types (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching types that the user has permission to view
+	*/
+	public java.util.List<Type> filterFindByGroupId(long groupId, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator<Type> orderByComparator);
+
+	/**
+	* Returns the types before and after the current type in the ordered set of types that the user has permission to view where groupId = &#63;.
+	*
+	* @param typeId the primary key of the current type
+	* @param groupId the group ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next type
+	* @throws NoSuchTypeException if a type with the primary key could not be found
+	*/
+	public Type[] filterFindByGroupId_PrevAndNext(long typeId, long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator<Type> orderByComparator)
+		throws NoSuchTypeException;
+
+	/**
 	* Removes all the types where groupId = &#63; from the database.
 	*
 	* @param groupId the group ID
@@ -168,6 +221,14 @@ public interface TypePersistence extends BasePersistence<Type> {
 	* @return the number of matching types
 	*/
 	public int countByGroupId(long groupId);
+
+	/**
+	* Returns the number of types that the user has permission to view where groupId = &#63;.
+	*
+	* @param groupId the group ID
+	* @return the number of matching types that the user has permission to view
+	*/
+	public int filterCountByGroupId(long groupId);
 
 	/**
 	* Caches the type in the entity cache if it is enabled.

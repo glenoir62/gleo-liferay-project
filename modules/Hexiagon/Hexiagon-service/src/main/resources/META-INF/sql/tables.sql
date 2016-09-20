@@ -43,6 +43,7 @@ create table Hexiagon_Currency (
 	label VARCHAR(75) null,
 	symbol VARCHAR(75) null,
 	order_ INTEGER,
+	countryId LONG,
 	rate LONG
 );
 

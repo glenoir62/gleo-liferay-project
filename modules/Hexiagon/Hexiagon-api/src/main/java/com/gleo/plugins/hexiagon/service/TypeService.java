@@ -16,14 +16,21 @@ package com.gleo.plugins.hexiagon.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.gleo.plugins.hexiagon.model.Type;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for Type. Methods of this
@@ -49,6 +56,14 @@ public interface TypeService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TypeServiceUtil} to access the type remote service. Add custom service methods to {@link com.gleo.plugins.hexiagon.service.impl.TypeServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public Type addType(Type type, ServiceContext serviceContext)
+		throws PortalException, SystemException, PrincipalException;
+
+	public Type deleteType(long typeId, ServiceContext serviceContext)
+		throws PortalException, SystemException, PrincipalException;
+
+	public Type updateType(Type type)
+		throws PortalException, SystemException, PrincipalException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -56,4 +71,8 @@ public interface TypeService extends BaseService {
 	* @return the OSGi service identifier
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Type> getTypesByGroupId(long groupId, int start, int end)
+		throws SystemException;
 }

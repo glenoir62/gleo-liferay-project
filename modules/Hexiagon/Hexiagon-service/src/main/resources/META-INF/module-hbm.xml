@@ -5,6 +5,8 @@
 	<import class="com.gleo.plugins.hexiagon.model.Announcement" />
 	<import class="com.gleo.plugins.hexiagon.model.AnnouncementImage" />
 	<import class="com.gleo.plugins.hexiagon.model.Currency" />
+	<import class="com.gleo.plugins.hexiagon.model.ExtCountry" />
+	<import class="com.gleo.plugins.hexiagon.model.ExtRegion" />
 	<import class="com.gleo.plugins.hexiagon.model.Favorite" />
 	<import class="com.gleo.plugins.hexiagon.model.Type" />
 	<class name="com.gleo.plugins.hexiagon.model.impl.AnnouncementImpl" table="Hexiagon_Announcement">
@@ -56,6 +58,7 @@
 		<property name="label" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="symbol" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="countryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="rate" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="com.gleo.plugins.hexiagon.model.impl.FavoriteImpl" table="Hexiagon_Favorite">

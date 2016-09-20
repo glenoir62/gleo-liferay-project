@@ -38,6 +38,7 @@ public class CurrencySoap implements Serializable {
 		soapModel.setLabel(model.getLabel());
 		soapModel.setSymbol(model.getSymbol());
 		soapModel.setOrder(model.getOrder());
+		soapModel.setCountryId(model.getCountryId());
 		soapModel.setRate(model.getRate());
 
 		return soapModel;
@@ -131,6 +132,14 @@ public class CurrencySoap implements Serializable {
 		_order = order;
 	}
 
+	public long getCountryId() {
+		return _countryId;
+	}
+
+	public void setCountryId(long countryId) {
+		_countryId = countryId;
+	}
+
 	public long getRate() {
 		return _rate;
 	}
@@ -144,5 +153,6 @@ public class CurrencySoap implements Serializable {
 	private String _label;
 	private String _symbol;
 	private int _order;
+	private long _countryId;
 	private long _rate;
 }

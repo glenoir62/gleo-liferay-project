@@ -42,6 +42,50 @@ public interface CurrencyPersistence extends BasePersistence<Currency> {
 	 */
 
 	/**
+	* Returns the currency where countryId = &#63; or throws a {@link NoSuchCurrencyException} if it could not be found.
+	*
+	* @param countryId the country ID
+	* @return the matching currency
+	* @throws NoSuchCurrencyException if a matching currency could not be found
+	*/
+	public Currency findByCountryId(long countryId)
+		throws NoSuchCurrencyException;
+
+	/**
+	* Returns the currency where countryId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param countryId the country ID
+	* @return the matching currency, or <code>null</code> if a matching currency could not be found
+	*/
+	public Currency fetchByCountryId(long countryId);
+
+	/**
+	* Returns the currency where countryId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param countryId the country ID
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the matching currency, or <code>null</code> if a matching currency could not be found
+	*/
+	public Currency fetchByCountryId(long countryId, boolean retrieveFromCache);
+
+	/**
+	* Removes the currency where countryId = &#63; from the database.
+	*
+	* @param countryId the country ID
+	* @return the currency that was removed
+	*/
+	public Currency removeByCountryId(long countryId)
+		throws NoSuchCurrencyException;
+
+	/**
+	* Returns the number of currencies where countryId = &#63;.
+	*
+	* @param countryId the country ID
+	* @return the number of matching currencies
+	*/
+	public int countByCountryId(long countryId);
+
+	/**
 	* Caches the currency in the entity cache if it is enabled.
 	*
 	* @param currency the currency

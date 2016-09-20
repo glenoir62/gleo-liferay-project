@@ -111,6 +111,61 @@ public class CurrencyUtil {
 	}
 
 	/**
+	* Returns the currency where countryId = &#63; or throws a {@link NoSuchCurrencyException} if it could not be found.
+	*
+	* @param countryId the country ID
+	* @return the matching currency
+	* @throws NoSuchCurrencyException if a matching currency could not be found
+	*/
+	public static Currency findByCountryId(long countryId)
+		throws com.gleo.plugins.hexiagon.exception.NoSuchCurrencyException {
+		return getPersistence().findByCountryId(countryId);
+	}
+
+	/**
+	* Returns the currency where countryId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param countryId the country ID
+	* @return the matching currency, or <code>null</code> if a matching currency could not be found
+	*/
+	public static Currency fetchByCountryId(long countryId) {
+		return getPersistence().fetchByCountryId(countryId);
+	}
+
+	/**
+	* Returns the currency where countryId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param countryId the country ID
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the matching currency, or <code>null</code> if a matching currency could not be found
+	*/
+	public static Currency fetchByCountryId(long countryId,
+		boolean retrieveFromCache) {
+		return getPersistence().fetchByCountryId(countryId, retrieveFromCache);
+	}
+
+	/**
+	* Removes the currency where countryId = &#63; from the database.
+	*
+	* @param countryId the country ID
+	* @return the currency that was removed
+	*/
+	public static Currency removeByCountryId(long countryId)
+		throws com.gleo.plugins.hexiagon.exception.NoSuchCurrencyException {
+		return getPersistence().removeByCountryId(countryId);
+	}
+
+	/**
+	* Returns the number of currencies where countryId = &#63;.
+	*
+	* @param countryId the country ID
+	* @return the number of matching currencies
+	*/
+	public static int countByCountryId(long countryId) {
+		return getPersistence().countByCountryId(countryId);
+	}
+
+	/**
 	* Caches the currency in the entity cache if it is enabled.
 	*
 	* @param currency the currency

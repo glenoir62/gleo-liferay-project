@@ -5,6 +5,15 @@
 	<author>guillaumelenoir</author>
 	<namespace>Hexiagon</namespace>
 	
+	<entity name="ExtCountry" local-service="false" remote-service="true" json-enabled="false">
+		<reference package-path="com.liferay.portal" entity="Country"/>
+	</entity>
+	
+	<entity name="ExtRegion" local-service="false" remote-service="true" json-enabled="false">
+		<reference package-path="com.liferay.portal" entity="Region"/>
+		<reference package-path="com.liferay.portal" entity="Country"/>
+	</entity>
+	
 	<entity name="Announcement" local-service="true" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
@@ -151,12 +160,19 @@
 		<column name="symbol" type="String" />
 		<column name="order" type="int"/>
 		
+		<column name="countryId" type="long" />
+		
 		<!-- Todo -->
 		<column name="rate" type="long"/>
 
         <order by="desc">
         	<order-column name="order"/>
         </order>
+        
+        <finder name="CountryId" return-type="Currency" unique="true">
+			<finder-column name="countryId" />
+		</finder>
+        <reference package-path="com.liferay.portal" entity="Country"/>
 	</entity>
 	
 	<entity name="Type" uuid="false" local-service="true" remote-service="true">
@@ -177,7 +193,6 @@
 			<finder-column name="groupId" />
 		</finder>
 	</entity>
-
 	
 	<exceptions>
 		<exception>ImageSize</exception>

@@ -54,6 +54,19 @@ public class AnnouncementLocalServiceUtil {
 	}
 
 	/**
+	* Adds the Announcement to the database incrementing the primary key
+	*
+	* @throws PortalException
+	*/
+	public static com.gleo.plugins.hexiagon.model.Announcement addAnnouncement(
+		com.gleo.plugins.hexiagon.model.Announcement announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addAnnouncement(announcement, serviceContext);
+	}
+
+	/**
 	* Creates a new announcement with the primary key. Does not add the announcement to the database.
 	*
 	* @param announcementId the primary key for the new announcement
@@ -81,10 +94,12 @@ public class AnnouncementLocalServiceUtil {
 	* @param announcementId the primary key of the announcement
 	* @return the announcement that was removed
 	* @throws PortalException if a announcement with the primary key could not be found
+	* @throws SystemException
 	*/
 	public static com.gleo.plugins.hexiagon.model.Announcement deleteAnnouncement(
 		long announcementId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return getService().deleteAnnouncement(announcementId);
 	}
 
@@ -137,10 +152,49 @@ public class AnnouncementLocalServiceUtil {
 	*
 	* @param announcement the announcement
 	* @return the announcement that was updated
+	* @throws SystemException
 	*/
 	public static com.gleo.plugins.hexiagon.model.Announcement updateAnnouncement(
-		com.gleo.plugins.hexiagon.model.Announcement announcement) {
+		com.gleo.plugins.hexiagon.model.Announcement announcement)
+		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().updateAnnouncement(announcement);
+	}
+
+	/**
+	* Update announcement
+	*
+	* @param announcement
+	* @param serviceContext
+	* @return announcement
+	* @throws SystemException
+	* @throws PortalException
+	*/
+	public static com.gleo.plugins.hexiagon.model.Announcement updateAnnouncement(
+		com.gleo.plugins.hexiagon.model.Announcement announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().updateAnnouncement(announcement, serviceContext);
+	}
+
+	/**
+	* Update workflow status
+	*
+	* @param userId
+	* @param resourcePrimKey
+	* @param status
+	* @param serviceContext
+	* @return
+	* @throws PortalException
+	* @throws SystemException
+	*/
+	public static com.gleo.plugins.hexiagon.model.Announcement updateStatus(
+		long userId, long resourcePrimKey, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateStatus(userId, resourcePrimKey, status, serviceContext);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
@@ -182,6 +236,30 @@ public class AnnouncementLocalServiceUtil {
 	*/
 	public static int getAnnouncementsCount() {
 		return getService().getAnnouncementsCount();
+	}
+
+	/**
+	* Gets the number of Announcements by currency Id
+	*/
+	public static int getAnnouncementsCountByCurrencyId(long currencyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsCountByCurrencyId(currencyId);
+	}
+
+	/**
+	* Gets the number of Announcements in a group
+	*/
+	public static int getAnnouncementsCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsCountByGroupId(groupId);
+	}
+
+	/**
+	* Gets the number of Announcements by type Id
+	*/
+	public static int getAnnouncementsCountByTypeId(long typeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsCountByTypeId(typeId);
 	}
 
 	/**
@@ -260,6 +338,41 @@ public class AnnouncementLocalServiceUtil {
 	}
 
 	/**
+	* Gets a list with all the Announcements by currency Id
+	*/
+	public static java.util.List<com.gleo.plugins.hexiagon.model.Announcement> getAnnouncementsByCurrencyId(
+		long currencyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsByCurrencyId(currencyId);
+	}
+
+	/**
+	* Gets a list with all the Announcements in a group
+	*/
+	public static java.util.List<com.gleo.plugins.hexiagon.model.Announcement> getAnnouncementsByGroupId(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsByGroupId(groupId);
+	}
+
+	/**
+	* Gets a list with a range of Announcements from a group
+	*/
+	public static java.util.List<com.gleo.plugins.hexiagon.model.Announcement> getAnnouncementsByGroupId(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsByGroupId(groupId, start, end);
+	}
+
+	/**
+	* Gets a list with all the Announcements by type Id
+	*/
+	public static java.util.List<com.gleo.plugins.hexiagon.model.Announcement> getAnnouncementsByTypeId(
+		long typeId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementsByTypeId(typeId);
+	}
+
+	/**
 	* Returns all the announcements matching the UUID and company.
 	*
 	* @param uuid the UUID of the announcements
@@ -290,6 +403,24 @@ public class AnnouncementLocalServiceUtil {
 	}
 
 	/**
+	* Get favorites
+	*
+	* @param groupId
+	* @param userId
+	* @param start
+	* @param end
+	* @return favorites list
+	* @throws SystemException
+	*/
+	public static java.util.List<com.gleo.plugins.hexiagon.model.Announcement> getFavoritesAnnouncementsByGroupIUserId(
+		long groupId, long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getFavoritesAnnouncementsByGroupIUserId(groupId, userId,
+			start, end);
+	}
+
+	/**
 	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
@@ -311,6 +442,27 @@ public class AnnouncementLocalServiceUtil {
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	/**
+	* Delete Announcements
+	*
+	* @param announcements
+	*/
+	public static void deleteAnnouncements(
+		java.util.List<com.gleo.plugins.hexiagon.model.Announcement> announcements) {
+		getService().deleteAnnouncements(announcements);
+	}
+
+	public static void updateAsset(long userId,
+		com.gleo.plugins.hexiagon.model.Announcement announcement,
+		long[] assetCategoryIds, java.lang.String[] assetTagNames,
+		long[] assetLinkEntryIds)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.updateAsset(userId, announcement, assetCategoryIds, assetTagNames,
+			assetLinkEntryIds);
 	}
 
 	public static AnnouncementLocalService getService() {

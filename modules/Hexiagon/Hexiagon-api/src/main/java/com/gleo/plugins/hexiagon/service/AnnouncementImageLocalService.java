@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -71,6 +72,10 @@ public interface AnnouncementImageLocalService extends BaseLocalService,
 	public AnnouncementImage addAnnouncementImage(
 		AnnouncementImage announcementImage);
 
+	public AnnouncementImage addAnnouncementImage(
+		AnnouncementImage announcementImage, long annoucementFolderId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
 	/**
 	* Creates a new announcement image with the primary key. Does not add the announcement image to the database.
 	*
@@ -84,10 +89,13 @@ public interface AnnouncementImageLocalService extends BaseLocalService,
 	*
 	* @param announcementImage the announcement image
 	* @return the announcement image that was removed
+	* @throws PortalException
+	* @throws SystemException
 	*/
 	@Indexable(type = IndexableType.DELETE)
 	public AnnouncementImage deleteAnnouncementImage(
-		AnnouncementImage announcementImage);
+		AnnouncementImage announcementImage)
+		throws PortalException, SystemException;
 
 	/**
 	* Deletes the announcement image with the primary key from the database. Also notifies the appropriate model listeners.
@@ -114,6 +122,10 @@ public interface AnnouncementImageLocalService extends BaseLocalService,
 	public AnnouncementImage getAnnouncementImage(long announcementImageId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public AnnouncementImage getAnnouncementImageByAnnouncementIdOrder(
+		long announcementId, int order) throws SystemException;
+
 	/**
 	* Updates the announcement image in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
@@ -123,6 +135,10 @@ public interface AnnouncementImageLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public AnnouncementImage updateAnnouncementImage(
 		AnnouncementImage announcementImage);
+
+	public AnnouncementImage updateAnnouncementImage(
+		AnnouncementImage announcementImage, long annoucementFolderId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -197,6 +213,10 @@ public interface AnnouncementImageLocalService extends BaseLocalService,
 	*/
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end, OrderByComparator<T> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AnnouncementImage> getAnnouncementImageByAnnouncementId(
+		long announcementId) throws SystemException;
 
 	/**
 	* Returns a range of all the announcement images.

@@ -61,6 +61,7 @@ public class CurrencyWrapper implements Currency, ModelWrapper<Currency> {
 		attributes.put("label", getLabel());
 		attributes.put("symbol", getSymbol());
 		attributes.put("order", getOrder());
+		attributes.put("countryId", getCountryId());
 		attributes.put("rate", getRate());
 
 		return attributes;
@@ -96,6 +97,12 @@ public class CurrencyWrapper implements Currency, ModelWrapper<Currency> {
 
 		if (order != null) {
 			setOrder(order);
+		}
+
+		Long countryId = (Long)attributes.get("countryId");
+
+		if (countryId != null) {
+			setCountryId(countryId);
 		}
 
 		Long rate = (Long)attributes.get("rate");
@@ -211,6 +218,16 @@ public class CurrencyWrapper implements Currency, ModelWrapper<Currency> {
 	}
 
 	/**
+	* Returns the country ID of this currency.
+	*
+	* @return the country ID of this currency
+	*/
+	@Override
+	public long getCountryId() {
+		return _currency.getCountryId();
+	}
+
+	/**
 	* Returns the currency ID of this currency.
 	*
 	* @return the currency ID of this currency
@@ -258,6 +275,16 @@ public class CurrencyWrapper implements Currency, ModelWrapper<Currency> {
 	@Override
 	public void setCompanyId(long companyId) {
 		_currency.setCompanyId(companyId);
+	}
+
+	/**
+	* Sets the country ID of this currency.
+	*
+	* @param countryId the country ID of this currency
+	*/
+	@Override
+	public void setCountryId(long countryId) {
+		_currency.setCountryId(countryId);
 	}
 
 	/**

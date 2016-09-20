@@ -71,6 +71,7 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 			{ "label", Types.VARCHAR },
 			{ "symbol", Types.VARCHAR },
 			{ "order_", Types.INTEGER },
+			{ "countryId", Types.BIGINT },
 			{ "rate", Types.BIGINT }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
@@ -81,10 +82,11 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 		TABLE_COLUMNS_MAP.put("label", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("symbol", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("order_", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("countryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("rate", Types.BIGINT);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table Hexiagon_Currency (currencyId LONG not null primary key,companyId LONG,label VARCHAR(75) null,symbol VARCHAR(75) null,order_ INTEGER,rate LONG)";
+	public static final String TABLE_SQL_CREATE = "create table Hexiagon_Currency (currencyId LONG not null primary key,companyId LONG,label VARCHAR(75) null,symbol VARCHAR(75) null,order_ INTEGER,countryId LONG,rate LONG)";
 	public static final String TABLE_SQL_DROP = "drop table Hexiagon_Currency";
 	public static final String ORDER_BY_JPQL = " ORDER BY currency.order DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY Hexiagon_Currency.order_ DESC";
@@ -97,7 +99,11 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.plugins.hexiagon.service.util.PropsUtil.get(
 				"value.object.finder.cache.enabled.com.gleo.plugins.hexiagon.model.Currency"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.gleo.plugins.hexiagon.service.util.PropsUtil.get(
+				"value.object.column.bitmask.enabled.com.gleo.plugins.hexiagon.model.Currency"),
+			true);
+	public static final long COUNTRYID_COLUMN_BITMASK = 1L;
+	public static final long ORDER_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -117,6 +123,7 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 		model.setLabel(soapModel.getLabel());
 		model.setSymbol(soapModel.getSymbol());
 		model.setOrder(soapModel.getOrder());
+		model.setCountryId(soapModel.getCountryId());
 		model.setRate(soapModel.getRate());
 
 		return model;
@@ -187,6 +194,7 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 		attributes.put("label", getLabel());
 		attributes.put("symbol", getSymbol());
 		attributes.put("order", getOrder());
+		attributes.put("countryId", getCountryId());
 		attributes.put("rate", getRate());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
@@ -225,6 +233,12 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 
 		if (order != null) {
 			setOrder(order);
+		}
+
+		Long countryId = (Long)attributes.get("countryId");
+
+		if (countryId != null) {
+			setCountryId(countryId);
 		}
 
 		Long rate = (Long)attributes.get("rate");
@@ -296,7 +310,32 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 
 	@Override
 	public void setOrder(int order) {
+		_columnBitmask = -1L;
+
 		_order = order;
+	}
+
+	@JSON
+	@Override
+	public long getCountryId() {
+		return _countryId;
+	}
+
+	@Override
+	public void setCountryId(long countryId) {
+		_columnBitmask |= COUNTRYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCountryId) {
+			_setOriginalCountryId = true;
+
+			_originalCountryId = _countryId;
+		}
+
+		_countryId = countryId;
+	}
+
+	public long getOriginalCountryId() {
+		return _originalCountryId;
 	}
 
 	@JSON
@@ -308,6 +347,10 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 	@Override
 	public void setRate(long rate) {
 		_rate = rate;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -342,6 +385,7 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 		currencyImpl.setLabel(getLabel());
 		currencyImpl.setSymbol(getSymbol());
 		currencyImpl.setOrder(getOrder());
+		currencyImpl.setCountryId(getCountryId());
 		currencyImpl.setRate(getRate());
 
 		currencyImpl.resetOriginalValues();
@@ -411,6 +455,13 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 
 	@Override
 	public void resetOriginalValues() {
+		CurrencyModelImpl currencyModelImpl = this;
+
+		currencyModelImpl._originalCountryId = currencyModelImpl._countryId;
+
+		currencyModelImpl._setOriginalCountryId = false;
+
+		currencyModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -439,6 +490,8 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 
 		currencyCacheModel.order = getOrder();
 
+		currencyCacheModel.countryId = getCountryId();
+
 		currencyCacheModel.rate = getRate();
 
 		return currencyCacheModel;
@@ -446,7 +499,7 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{currencyId=");
 		sb.append(getCurrencyId());
@@ -458,6 +511,8 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 		sb.append(getSymbol());
 		sb.append(", order=");
 		sb.append(getOrder());
+		sb.append(", countryId=");
+		sb.append(getCountryId());
 		sb.append(", rate=");
 		sb.append(getRate());
 		sb.append("}");
@@ -467,7 +522,7 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.gleo.plugins.hexiagon.model.Currency");
@@ -494,6 +549,10 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 		sb.append(getOrder());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>countryId</column-name><column-value><![CDATA[");
+		sb.append(getCountryId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>rate</column-name><column-value><![CDATA[");
 		sb.append(getRate());
 		sb.append("]]></column-value></column>");
@@ -512,6 +571,10 @@ public class CurrencyModelImpl extends BaseModelImpl<Currency>
 	private String _label;
 	private String _symbol;
 	private int _order;
+	private long _countryId;
+	private long _originalCountryId;
+	private boolean _setOriginalCountryId;
 	private long _rate;
+	private long _columnBitmask;
 	private Currency _escapedModel;
 }

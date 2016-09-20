@@ -45,6 +45,18 @@ public class TypeLocalServiceWrapper implements TypeLocalService,
 	}
 
 	/**
+	* Adds the Type to the database incrementing the primary key
+	*/
+	@Override
+	public com.gleo.plugins.hexiagon.model.Type addType(
+		com.gleo.plugins.hexiagon.model.Type type,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _typeLocalService.addType(type, serviceContext);
+	}
+
+	/**
 	* Creates a new type with the primary key. Does not add the type to the database.
 	*
 	* @param typeId the primary key for the new type
@@ -73,10 +85,12 @@ public class TypeLocalServiceWrapper implements TypeLocalService,
 	* @param typeId the primary key of the type
 	* @return the type that was removed
 	* @throws PortalException if a type with the primary key could not be found
+	* @throws SystemException
 	*/
 	@Override
 	public com.gleo.plugins.hexiagon.model.Type deleteType(long typeId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _typeLocalService.deleteType(typeId);
 	}
 
@@ -103,10 +117,12 @@ public class TypeLocalServiceWrapper implements TypeLocalService,
 	*
 	* @param type the type
 	* @return the type that was updated
+	* @throws SystemException
 	*/
 	@Override
 	public com.gleo.plugins.hexiagon.model.Type updateType(
-		com.gleo.plugins.hexiagon.model.Type type) {
+		com.gleo.plugins.hexiagon.model.Type type)
+		throws com.liferay.portal.kernel.exception.SystemException {
 		return _typeLocalService.updateType(type);
 	}
 
@@ -150,6 +166,12 @@ public class TypeLocalServiceWrapper implements TypeLocalService,
 	@Override
 	public int getTypesCount() {
 		return _typeLocalService.getTypesCount();
+	}
+
+	@Override
+	public int getTypesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _typeLocalService.getTypesCount(groupId);
 	}
 
 	/**
@@ -230,6 +252,13 @@ public class TypeLocalServiceWrapper implements TypeLocalService,
 	public java.util.List<com.gleo.plugins.hexiagon.model.Type> getTypes(
 		int start, int end) {
 		return _typeLocalService.getTypes(start, end);
+	}
+
+	@Override
+	public java.util.List<com.gleo.plugins.hexiagon.model.Type> getTypes(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _typeLocalService.getTypes(groupId, start, end);
 	}
 
 	/**

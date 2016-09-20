@@ -41,6 +41,30 @@ public class TypeServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.gleo.plugins.hexiagon.service.impl.TypeServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.gleo.plugins.hexiagon.model.Type addType(
+		com.gleo.plugins.hexiagon.model.Type type,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().addType(type, serviceContext);
+	}
+
+	public static com.gleo.plugins.hexiagon.model.Type deleteType(long typeId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().deleteType(typeId, serviceContext);
+	}
+
+	public static com.gleo.plugins.hexiagon.model.Type updateType(
+		com.gleo.plugins.hexiagon.model.Type type)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().updateType(type);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
@@ -49,6 +73,12 @@ public class TypeServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List<com.gleo.plugins.hexiagon.model.Type> getTypesByGroupId(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTypesByGroupId(groupId, start, end);
 	}
 
 	public static TypeService getService() {

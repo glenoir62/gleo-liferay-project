@@ -44,6 +44,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
+import com.liferay.portal.kernel.service.persistence.CountryPersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -107,10 +108,12 @@ public abstract class CurrencyLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param currencyId the primary key of the currency
 	 * @return the currency that was removed
 	 * @throws PortalException if a currency with the primary key could not be found
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Currency deleteCurrency(long currencyId) throws PortalException {
+	public Currency deleteCurrency(long currencyId)
+		throws PortalException, SystemException {
 		return currencyPersistence.remove(currencyId);
 	}
 
@@ -306,10 +309,11 @@ public abstract class CurrencyLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param currency the currency
 	 * @return the currency that was updated
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public Currency updateCurrency(Currency currency) {
+	public Currency updateCurrency(Currency currency) throws SystemException {
 		return currencyPersistence.update(currency);
 	}
 
@@ -558,6 +562,24 @@ public abstract class CurrencyLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the country persistence.
+	 *
+	 * @return the country persistence
+	 */
+	public CountryPersistence getCountryPersistence() {
+		return countryPersistence;
+	}
+
+	/**
+	 * Sets the country persistence.
+	 *
+	 * @param countryPersistence the country persistence
+	 */
+	public void setCountryPersistence(CountryPersistence countryPersistence) {
+		this.countryPersistence = countryPersistence;
+	}
+
+	/**
 	 * Returns the resource local service.
 	 *
 	 * @return the resource local service
@@ -691,6 +713,8 @@ public abstract class CurrencyLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected com.liferay.portal.kernel.service.ClassNameLocalService classNameLocalService;
 	@ServiceReference(type = ClassNamePersistence.class)
 	protected ClassNamePersistence classNamePersistence;
+	@ServiceReference(type = CountryPersistence.class)
+	protected CountryPersistence countryPersistence;
 	@ServiceReference(type = com.liferay.portal.kernel.service.ResourceLocalService.class)
 	protected com.liferay.portal.kernel.service.ResourceLocalService resourceLocalService;
 	@ServiceReference(type = com.liferay.portal.kernel.service.UserLocalService.class)

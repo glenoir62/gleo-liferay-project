@@ -41,6 +41,13 @@ public class FavoriteLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.gleo.plugins.hexiagon.service.impl.FavoriteLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static boolean isUserFavoriteAnnouncement(long userId,
+		long announcementId, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .isUserFavoriteAnnouncement(userId, announcementId, groupId);
+	}
 
 	/**
 	* Adds the favorite to the database. Also notifies the appropriate model listeners.
@@ -51,6 +58,14 @@ public class FavoriteLocalServiceUtil {
 	public static com.gleo.plugins.hexiagon.model.Favorite addFavorite(
 		com.gleo.plugins.hexiagon.model.Favorite favorite) {
 		return getService().addFavorite(favorite);
+	}
+
+	public static com.gleo.plugins.hexiagon.model.Favorite addUserFavoriteAnnouncement(
+		long announcementId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addUserFavoriteAnnouncement(announcementId, serviceContext);
 	}
 
 	/**
@@ -142,6 +157,12 @@ public class FavoriteLocalServiceUtil {
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static int countUserFavoriteAnnouncement(long userId, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().countUserFavoriteAnnouncement(userId, groupId);
 	}
 
 	/**
@@ -250,6 +271,13 @@ public class FavoriteLocalServiceUtil {
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	public static void removeUserFavoriteAnnouncement(long announcementId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.removeUserFavoriteAnnouncement(announcementId, serviceContext);
 	}
 
 	public static FavoriteLocalService getService() {
