@@ -5,9 +5,8 @@ dependencies {
 	compile 'com.liferay.portal:com.liferay.util.bridges:2.0.0'
 	compile 'com.liferay.portal:com.liferay.util.taglib:2.0.0'
 	
-	compile group: 'joda-time', name: 'joda-time', version: '2.3'
 	compile 'biz.aQute.bnd:biz.aQute.bndlib:3.1.0'
-	compile 'com.liferay.portal:com.liferay.portal.kernel:2.6.0'
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "2.6.0"
 	compile 'com.liferay:com.liferay.osgi.service.tracker.collections:2.0.0'
 	compile 'com.liferay:com.liferay.osgi.util:2.0.4'
 	compile 'com.liferay:com.liferay.portal.spring.extender:2.0.0'

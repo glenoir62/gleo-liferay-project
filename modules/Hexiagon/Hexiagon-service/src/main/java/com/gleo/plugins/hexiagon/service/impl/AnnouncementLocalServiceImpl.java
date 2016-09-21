@@ -2,12 +2,11 @@
 package com.gleo.plugins.hexiagon.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import org.joda.time.DateTime;
 
 import com.gleo.plugins.hexiagon.constants.AnnouncementActivityKeys;
 import com.gleo.plugins.hexiagon.constants.AnnouncementConstants;
@@ -99,7 +98,7 @@ public class AnnouncementLocalServiceImpl extends AnnouncementLocalServiceBaseIm
 		announcement.setAnnouncementId(announcementId);
 		announcement.setUserId(userId);
 
-		Date now = DateTime.now().toDate();
+		Date now = Calendar.getInstance().getTime();
 
 		User user = userPersistence.findByPrimaryKey(userId);
 

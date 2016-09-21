@@ -35,12 +35,13 @@ import com.liferay.portal.kernel.util.WebKeys;
 	immediate = true,
 	property = {
 		"com.liferay.portlet.display-category=category.sample",
-		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=Hexiagion.web Portlet",
+		"com.liferay.portlet.instanceable=false",
+		"javax.portlet.display-name=Hexiagion regions Portlet",
 		"javax.portlet.init-param.template-path=/",
-		"javax.portlet.init-param.view-template=/regions/configurations/view.jsp",
+		"javax.portlet.init-param.view-template=/jsp/regions/configuration/view.jsp",
 		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=power-user,user"
+		"javax.portlet.security-role-ref=power-user,user",
+		"javax.portlet.init-param.copy-request-parameters=false"
 	},
 	service = Portlet.class
 )
@@ -55,7 +56,7 @@ public class RegionsConfigurationController extends MVCPortlet {
 			RenderResponse renderResponse) throws IOException, PortletException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-		long countryId = ParamUtil.getLong(renderRequest, "countryId");
+		long countryId = ParamUtil.getLong(renderRequest, "countryId", 1);
 		String countryName = StringPool.BLANK;
 		
 		PortletURL iteratorURL = renderResponse.createRenderURL();

@@ -1,5 +1,5 @@
 <%@page import="javax.portlet.WindowState"%>
-<%@page import="com.liferay.portal.util.PortalUtil"%>
+<%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
 <%@include file="/jsp/init.jsp" %>
 
 <liferay-portlet:renderURL var="countriesUrl" plid="<%= themeDisplay.getPlid() %>" portletName="countryconfiguration_WAR_Hexiagonportlet" windowState="<%=  WindowState.NORMAL.toString() %>"/>
@@ -33,11 +33,10 @@
 <liferay-ui:search-container  searchContainer="${searchRegionsContainer}" id="regions">
 	<liferay-ui:search-container-results
 		results="${searchRegionsContainer.results}"
-		total="${searchRegionsContainer.total}" 
 	/>
 	
 	<liferay-ui:search-container-row 
-		className="com.liferay.portal.model.Region"
+		className="com.liferay.portal.kernel.model.Region"
 		keyProperty="regionId"
 		modelVar="region" escapedModel="true"
 	>

@@ -1,5 +1,5 @@
-<%@page import="com.liferay.portal.service.RegionServiceUtil"%>
-<%@page import="com.liferay.portal.model.Region"%>
+<%@page import="com.liferay.portal.kernel.service.RegionServiceUtil"%>
+<%@page import="com.liferay.portal.kernel.model.Region"%>
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@include file="/jsp/init.jsp" %>
 

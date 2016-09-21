@@ -4,7 +4,7 @@ package com.gleo.plugins.hexiagon.validator;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.gleo.plugins.hexiagon.model.Announcement;
 import com.gleo.plugins.hexiagon.model.AnnouncementImage;
