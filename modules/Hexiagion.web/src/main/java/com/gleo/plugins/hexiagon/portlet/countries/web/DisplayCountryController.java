@@ -20,7 +20,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 @Component(
 		immediate = true,
 		property = {
-			"com.liferay.portlet.display-category=category.hexiagon",
+			"com.liferay.portlet.display-category=category.sample",
 			"com.liferay.portlet.instanceable=false",
 			"com.liferay.portlet.css-class-wrapper=regions-configuration-portlet",
 			"javax.portlet.name=display-country-portlet",

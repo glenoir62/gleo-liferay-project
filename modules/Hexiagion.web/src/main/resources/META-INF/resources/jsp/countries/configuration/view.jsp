@@ -7,8 +7,8 @@
 
 <liferay-ui:error key="country-error" message="annoucements.countries.errors" />
 
-<aui:nav-bar cssClass="label-info">
-	<aui:nav >
+<aui:nav-bar markupView="lexicon">
+	<aui:nav cssClass="navbar-nav">
 		<portlet:renderURL var="addCountryURL">
 			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
 			<portlet:param name="jspPage" value="/jsp/countries/configuration/edit.jsp"/>
@@ -16,13 +16,13 @@
 		<aui:nav-item href="${addCountryURL}" iconCssClass="icon-plus" label="annoucements.countries.add.label" />
 	</aui:nav>
 	
-	<aui:nav >
+	<aui:nav cssClass="navbar-nav">
 		<portlet:actionURL var="desactivateAllCountryURL" name="desactivateAllCountry">
 			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
 	    </portlet:actionURL>
 		<aui:nav-item href="${desactivateAllCountryURL}" iconCssClass="icon-minus" label="annoucements.countries.desactivate.all.label" />
 	</aui:nav>
-	<aui:nav >
+	<aui:nav cssClass="navbar-nav">
 		<portlet:actionURL var="activateAllCountryURL" name="activateAllCountry">
 			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
 	    </portlet:actionURL>

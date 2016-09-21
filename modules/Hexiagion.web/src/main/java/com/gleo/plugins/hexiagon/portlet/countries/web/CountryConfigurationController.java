@@ -32,13 +32,14 @@ import com.liferay.portal.kernel.util.ParamUtil;
 			"com.liferay.portlet.display-category=category.hidden",
 			"com.liferay.portlet.instanceable=false",
 			"com.liferay.portlet.css-class-wrapper=country-configuration-portlet",
-			"javax.portlet.name=country-configuration",
+			"javax.portlet.name=com_gleo_plugins_hexiagon_portlet_regions_web_RegionsConfigurationPortlet",
 			"javax.portlet.display-name=Country Configuration",
 			"javax.portlet.init-param.template-path=/",
 			"javax.portlet.init-param.view-template=/jsp/countries/configuration/view.jsp",
 			"javax.portlet.resource-bundle=content.Language",
 			"javax.portlet.security-role-ref=power-user,user",
-			"javax.portlet.init-param.copy-request-parameters=false"
+			"javax.portlet.init-param.copy-request-parameters=false",
+			"javax.portlet.supports.mime-type=text/html"
 		},
 		service = Portlet.class
 	)
