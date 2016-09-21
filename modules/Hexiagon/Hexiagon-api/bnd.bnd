@@ -6,5 +6,4 @@ Export-Package: \
 	com.gleo.plugins.hexiagon.service.persistence,\
 	com.gleo.plugins.hexiagon.constants,\
 	com.gleo.plugins.hexiagon.permission,\
-	com.gleo.plugins.hexiagon,\
 	com.gleo.plugins.hexiagon.exception

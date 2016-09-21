@@ -20,9 +20,11 @@ import com.liferay.portal.kernel.util.WebKeys;
 @Component(
 		immediate = true,
 		property = {
-			"com.liferay.portlet.display-category=category.sample",
+			"com.liferay.portlet.display-category=category.hexiagon",
 			"com.liferay.portlet.instanceable=false",
-			"javax.portlet.display-name=Hexiagion country display Portlet",
+			"com.liferay.portlet.css-class-wrapper=regions-configuration-portlet",
+			"javax.portlet.name=display-country-portlet",
+			"javax.portlet.display-name=Display Country Portlet",
 			"javax.portlet.init-param.template-path=/",
 			"javax.portlet.init-param.view-template=/jsp/countries/view.jsp",
 			"javax.portlet.resource-bundle=content.Language",

@@ -29,9 +29,11 @@ import com.liferay.portal.kernel.util.ParamUtil;
 @Component(
 		immediate = true,
 		property = {
-			"com.liferay.portlet.display-category=category.sample",
+			"com.liferay.portlet.display-category=category.hidden",
 			"com.liferay.portlet.instanceable=false",
-			"javax.portlet.display-name=Hexiagion country Portlet",
+			"com.liferay.portlet.css-class-wrapper=country-configuration-portlet",
+			"javax.portlet.name=country-configuration",
+			"javax.portlet.display-name=Country Configuration",
 			"javax.portlet.init-param.template-path=/",
 			"javax.portlet.init-param.view-template=/jsp/countries/configuration/view.jsp",
 			"javax.portlet.resource-bundle=content.Language",
@@ -58,7 +60,7 @@ public class CountryConfigurationController extends MVCPortlet {
 
 		// create search container
 		SearchContainer<Country> searchCountryContainer = new SearchContainer<Country>(renderRequest, null, null, "curCountry", cur, delta, iteratorURL, null, "country-empty-results-message");
-
+		
 		int start = searchCountryContainer.getStart();
 		int end = searchCountryContainer.getEnd();
 		
