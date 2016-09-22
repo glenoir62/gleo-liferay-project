@@ -39,9 +39,9 @@ public class AddRegionMVCActionCommand
 		
 		String name = ParamUtil.getString(actionRequest, "name");
 		String regionCode = ParamUtil.getString(actionRequest, "regionCode");
-		
+		Region region = null;
 		try {
-			Region region = RegionServiceUtil.addRegion(countryId, regionCode, name, isActive);
+			region = RegionServiceUtil.addRegion(countryId, regionCode, name, isActive);
 			SessionMessages.add(actionRequest, "region-added");
 			LOGGER.debug(region);
 			actionResponse.setRenderParameter("countryId", String.valueOf(region.getCountryId()));
@@ -50,6 +50,12 @@ public class AddRegionMVCActionCommand
 			SessionErrors.add(actionRequest,"region-error");
 		}
 		
+		String redirect = ParamUtil.getString(actionRequest, "redirect");
+		
+		actionResponse.setRenderParameter("redirect", redirect);
+		if(region != null)
+			actionResponse.setRenderParameter("regionId", String.valueOf(region.getRegionId()));
+		actionResponse.setRenderParameter("mvcPath", "/jsp/regions/configuration/edit.jsp");
 	}
 
 }

@@ -35,9 +35,10 @@ public class ActivateRegionMVCActionCommand
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		long regionId = ParamUtil.getLong(actionRequest, "regionId");
 		boolean isActive = ParamUtil.getBoolean(actionRequest, "isActive");
+		Region region = null;
 		
 		try {
-			Region region = ExtRegionServiceUtil.setActive(regionId, !isActive);
+			region = ExtRegionServiceUtil.setActive(regionId, !isActive);
 			
 			SessionMessages.add(actionRequest, "region-updated-active");
 			LOGGER.debug(region);
@@ -47,6 +48,13 @@ public class ActivateRegionMVCActionCommand
 			SessionErrors.add(actionRequest,"region-error");
 		}
 		
+		String redirect = ParamUtil.getString(actionRequest, "redirect");
+		
+		actionResponse.setRenderParameter("redirect", redirect);
+		if (region != null)
+			actionResponse.setRenderParameter("countryId", String.valueOf(region.getCountryId()));
+		
+		actionResponse.setRenderParameter("mvcRenderCommandName", "/jsp/regions/configuration");
 	}
 
 }

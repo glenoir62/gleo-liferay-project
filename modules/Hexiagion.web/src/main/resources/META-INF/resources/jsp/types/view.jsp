@@ -9,7 +9,7 @@
 <liferay-ui:error key="no-type-deleted" message="annoucements.types.errors.type.deleted.unsuccessfully" />
 
 <c:if test='<%= HexiagonPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_TYPE") %>'>
-	<aui:nav-bar cssClass="label-info">
+	<aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
 		<aui:nav >
 			<portlet:renderURL var="addTypeURL">
 				<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />

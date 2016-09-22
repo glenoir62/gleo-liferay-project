@@ -2,6 +2,7 @@ package com.gleo.plugins.hexiagon.portlet.countries.action;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtRegionServiceUtil;
+import com.gleo.plugins.hexiagon.util.PortalUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -11,6 +12,7 @@ import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.CountryServiceUtil;
+import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -48,6 +50,7 @@ public class RegionsViewMVCRenderCommand implements MVCRenderCommand {
 		String countryName = StringPool.BLANK;
 		
 		PortletURL iteratorURL = renderResponse.createRenderURL();
+		iteratorURL.setParameter("mvcRenderCommandName", "/jsp/regions/configuration");
 		iteratorURL.setParameter("countryId", String.valueOf(countryId));
 		iteratorURL.setParameter("redirect", ParamUtil.getString(renderRequest, "redirect"));
 		
@@ -55,7 +58,7 @@ public class RegionsViewMVCRenderCommand implements MVCRenderCommand {
 		int cur = ParamUtil.getInteger(renderRequest, "curRegion", SearchContainer.DEFAULT_CUR);
 
 		// create search container
-		SearchContainer<Region> searchRegionsContainer = new SearchContainer<Region>(renderRequest, null, null, "curRegion", cur, delta, iteratorURL, null, "region-empty-results-message");
+		SearchContainer<Region> searchRegionsContainer = new SearchContainer<Region>(renderRequest, null, null, "curRegion", cur, delta, iteratorURL, null, "region-empty-results-message", "taglib-empty-search-result-message-header");
 		
 		int start = searchRegionsContainer.getStart();
 		int end = searchRegionsContainer.getEnd();
@@ -75,7 +78,13 @@ public class RegionsViewMVCRenderCommand implements MVCRenderCommand {
 			LOGGER.error(e);
 		}
 		
+		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
+		
+		portletDisplay.setShowBackIcon(true);
+		portletDisplay.setURLBack(renderResponse.createRenderURL().toString());
+		
 		renderRequest.setAttribute("countryName", countryName);
+		renderRequest.setAttribute("redirect", PortalUtil.getCurrentURL(renderRequest));
 		renderRequest.setAttribute("countryId", countryId);
 		renderRequest.setAttribute("searchRegionsContainer", searchRegionsContainer);
 		

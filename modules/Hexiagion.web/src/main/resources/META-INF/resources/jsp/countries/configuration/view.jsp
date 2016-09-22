@@ -5,10 +5,10 @@
 
 <liferay-ui:error key="country-error" message="annoucements.countries.errors" />
 
-<aui:nav-bar markupView="lexicon">
+<aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
 	<aui:nav cssClass="navbar-nav">
 		<portlet:renderURL var="addCountryURL">
-			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
+			<portlet:param name="redirect" value="${redirect}" />
 			<portlet:param name="jspPage" value="/jsp/countries/configuration/edit.jsp"/>
 	    </portlet:renderURL>
 		<aui:nav-item href="${addCountryURL}" iconCssClass="icon-plus" label="annoucements.countries.add.label" />
@@ -16,13 +16,13 @@
 	
 	<aui:nav cssClass="navbar-nav">
 		<portlet:actionURL var="desactivateAllCountryURL" name="desactivateAllCountry">
-			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
+			<portlet:param name="redirect" value="${redirect}" />
 	    </portlet:actionURL>
 		<aui:nav-item href="${desactivateAllCountryURL}" iconCssClass="icon-minus" label="annoucements.countries.desactivate.all.label" />
 	</aui:nav>
 	<aui:nav cssClass="navbar-nav">
 		<portlet:actionURL var="activateAllCountryURL" name="activateAllCountry">
-			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
+			<portlet:param name="redirect" value="${redirect}" />
 	    </portlet:actionURL>
 		<aui:nav-item href="${activateAllCountryURL}" iconCssClass="icon-plus" label="annoucements.countries.activate.all.label" />
 	</aui:nav>
@@ -80,5 +80,5 @@
 		/>
 	</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator paginate="true" searchContainer="${searchCountryContainer}"/>
+	<liferay-ui:search-iterator markupView="lexicon" paginate="true" searchContainer="${searchCountryContainer}"/>
 </liferay-ui:search-container>

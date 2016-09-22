@@ -1,29 +1,18 @@
+<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
 <%@include file="/jsp/init.jsp" %>
-
-<liferay-portlet:renderURL var="countriesUrl" />
-
-<liferay-ui:header
-	backURL='${countriesUrl}'
-	title='${countryName} Regions'
-/>
-
-<liferay-ui:success key="region-added" message="annoucements.region.success.added" />
-<liferay-ui:success key="region-updated" message="annoucements.region.success.updated" />
+<%
+	renderResponse.setTitle(renderRequest.getAttribute("countryName") + " Regions");
+%>
 <liferay-ui:success key="region-updated-active" message="annoucements.region.success.update.active" />
 
 <liferay-ui:error key="region-error" message="annoucements.region.errors" />
 
-<liferay-portlet:renderURL var="regionURL">
-	<portlet:param name="mvcRenderCommandName" value="/jsp/regions/configuration" />
-	<portlet:param name="countryId" value="${countryId}"/>
-</liferay-portlet:renderURL>
-
-<aui:nav-bar cssClass="label-info">
-	<aui:nav >
+<aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
+	<aui:nav cssClass="navbar-nav">
 		<portlet:renderURL var="addRegionURL">
-			<portlet:param name="redirect" value="<%= regionURL.toString() %>" />
+			<portlet:param name="redirect" value="${redirect}" />
 			<portlet:param name="jspPage" value="/jsp/regions/configuration/edit.jsp"/>
 			<portlet:param name="countryId" value="${countryId}"/>
 	    </portlet:renderURL>
@@ -60,5 +49,5 @@
 		/>
 	</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator paginate="true" searchContainer="${searchRegionsContainer}"/>
+	<liferay-ui:search-iterator markupView="lexicon" paginate="true" searchContainer="${searchRegionsContainer}"/>
 </liferay-ui:search-container>

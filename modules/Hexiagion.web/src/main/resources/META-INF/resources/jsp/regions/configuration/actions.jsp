@@ -15,19 +15,15 @@
 
 	boolean isActive = region.getActive();
 	String label = isActive?"desactive":"active";
+	String redirect = PortalUtil.getCurrentURL(renderRequest);
 %>
-
-<liferay-portlet:renderURL var="regionEditURL">
-	<portlet:param name="mvcRenderCommandName" value="/jsp/regions/configuration" />
-	<portlet:param name="countryId" value="<%= String.valueOf(region.getCountryId()) %>"/>
-</liferay-portlet:renderURL>
 		
-<liferay-ui:icon-menu>
+<liferay-ui:icon-menu direction="left-side" markupView="lexicon">
 	<c:if test="${themeDisplay.getPermissionChecker().isOmniadmin()}">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="regionId" value="<%= String.valueOf(region.getRegionId()) %>"/>
 			<portlet:param name="jspPage" value="/jsp/regions/configuration/edit.jsp"/>
-			<portlet:param name="redirect" value="${regionEditURL}"/>
+			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</portlet:renderURL>
 		
 		<liferay-ui:icon image="edit" url="<%= editURL.toString() %>" />
@@ -35,7 +31,7 @@
 		<portlet:actionURL var="activateURL" name="activateRegion">
 			<portlet:param name="regionId" value="<%= String.valueOf(region.getRegionId()) %>"/>
 			<portlet:param name="isActive" value="<%= String.valueOf(isActive) %>" />
-			<portlet:param name="redirect" value="${regionEditURL}"/>
+			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</portlet:actionURL>
 		
 		<liferay-ui:icon image='<%= isActive?"delete":"check" %>' message='<%= isActive?"desactivate":"activate" %>' label='true' url="<%= activateURL.toString() %>" />

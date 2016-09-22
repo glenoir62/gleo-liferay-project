@@ -49,5 +49,10 @@ public class UpdateRegionMVCActionCommand
 			LOGGER.error(e);
 			SessionErrors.add(actionRequest,"region-error");
 		}
+		String redirect = ParamUtil.getString(actionRequest, "redirect");
+		
+		actionResponse.setRenderParameter("redirect", redirect);
+		actionResponse.setRenderParameter("regionId", String.valueOf(regionId));
+		actionResponse.setRenderParameter("mvcPath", "/jsp/regions/configuration/edit.jsp");
 	}
 }

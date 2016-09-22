@@ -2,6 +2,7 @@ package com.gleo.plugins.hexiagon.portlet.countries.web;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtCountryServiceUtil;
+import com.gleo.plugins.hexiagon.util.PortalUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -56,7 +57,7 @@ public class CountryConfigurationController extends MVCPortlet {
 		int cur = ParamUtil.getInteger(renderRequest, "curCountry", SearchContainer.DEFAULT_CUR);
 
 		// create search container
-		SearchContainer<Country> searchCountryContainer = new SearchContainer<Country>(renderRequest, null, null, "curCountry", cur, delta, iteratorURL, null, "country-empty-results-message");
+		SearchContainer<Country> searchCountryContainer = new SearchContainer<Country>( renderRequest, null, null, "curCountry", cur, delta, iteratorURL, null, "country-empty-results-message", "taglib-empty-search-result-message-header");
 		
 		int start = searchCountryContainer.getStart();
 		int end = searchCountryContainer.getEnd();
@@ -73,6 +74,7 @@ public class CountryConfigurationController extends MVCPortlet {
 			LOGGER.error(pe);
 		}
 		
+		renderRequest.setAttribute("redirect", PortalUtil.getCurrentURL(renderRequest));
 		renderRequest.setAttribute("searchCountryContainer", searchCountryContainer);
 		
 		super.doView(renderRequest, renderResponse);
