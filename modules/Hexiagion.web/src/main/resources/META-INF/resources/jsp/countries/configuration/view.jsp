@@ -18,12 +18,14 @@
 	
 	<aui:nav cssClass="navbar-nav">
 		<portlet:actionURL var="desactivateAllCountryURL" name="desactivateAllCountry">
+			<portlet:param name="mvcPath" value="desactivateAllCountry" />
 			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
 	    </portlet:actionURL>
 		<aui:nav-item href="${desactivateAllCountryURL}" iconCssClass="icon-minus" label="annoucements.countries.desactivate.all.label" />
 	</aui:nav>
 	<aui:nav cssClass="navbar-nav">
 		<portlet:actionURL var="activateAllCountryURL" name="activateAllCountry">
+			<portlet:param name="mvcPath" value="activateAllCountry" />
 			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
 	    </portlet:actionURL>
 		<aui:nav-item href="${activateAllCountryURL}" iconCssClass="icon-plus" label="annoucements.countries.activate.all.label" />

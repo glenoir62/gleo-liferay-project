@@ -1,5 +1,6 @@
 package com.gleo.plugins.hexiagon.portlet.countries.application.list;
 
+import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
 import com.liferay.application.list.constants.PanelCategoryKeys;
@@ -10,6 +11,10 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+/**
+ * @author guillaumelenoir
+ *
+ */
 @Component(
 		immediate = true,
 		property = {
@@ -22,7 +27,7 @@ public class CountryConfigurationPanelApp extends BasePanelApp {
 
 	@Override
 	public String getPortletId() {
-		return "com_gleo_plugins_hexiagon_portlet_regions_web_RegionsConfigurationPortlet";
+		return PortletKeys.HEXIAGON_COUNTRY_CONFIGURATION;
 	}
 	
 	@Override
@@ -32,7 +37,7 @@ public class CountryConfigurationPanelApp extends BasePanelApp {
 
 	@Override
 	@Reference(
-		target = "(javax.portlet.name=com_gleo_plugins_hexiagon_portlet_regions_web_RegionsConfigurationPortlet)",
+		target = "(javax.portlet.name=" + PortletKeys.HEXIAGON_COUNTRY_CONFIGURATION + ")",
 		unbind = "-"
 	)
 	public void setPortlet(Portlet portlet) {

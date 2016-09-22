@@ -13,6 +13,7 @@ import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
+import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtRegionServiceUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -34,10 +35,10 @@ import com.liferay.portal.kernel.util.WebKeys;
 @Component(
 	immediate = true,
 	property = {
-		"com.liferay.portlet.display-category=category.sample",
+		"com.liferay.portlet.display-category=category.hidden",
 		"com.liferay.portlet.instanceable=false",
 		"com.liferay.portlet.css-class-wrapper=regions-configuration-portlet",
-		"javax.portlet.name=com_gleo_plugins_hexiagon_portlet_regions_web_RegionsConfigurationPortlet",
+		"javax.portlet.name=" + PortletKeys.HEXIAGON_REGION_CONFIGURATION,
 		"javax.portlet.display-name=Regions Configuration",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/jsp/regions/configuration/view.jsp",
@@ -60,7 +61,7 @@ public class RegionsConfigurationController extends MVCPortlet {
 			RenderResponse renderResponse) throws IOException, PortletException {
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-		long countryId = ParamUtil.getLong(renderRequest, "countryId", 1);
+		long countryId = ParamUtil.getLong(renderRequest, "countryId");
 		String countryName = StringPool.BLANK;
 		
 		PortletURL iteratorURL = renderResponse.createRenderURL();

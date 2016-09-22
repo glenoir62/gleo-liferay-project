@@ -9,6 +9,7 @@ import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
+import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.util.CountryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -20,10 +21,10 @@ import com.liferay.portal.kernel.util.WebKeys;
 @Component(
 		immediate = true,
 		property = {
-			"com.liferay.portlet.display-category=category.sample",
+			"com.liferay.portlet.display-category=category.hidden",
 			"com.liferay.portlet.instanceable=false",
 			"com.liferay.portlet.css-class-wrapper=regions-configuration-portlet",
-			"javax.portlet.name=display-country-portlet",
+			"javax.portlet.name=" + PortletKeys.HEXIAGON_COUNTRY_DISPLAY,
 			"javax.portlet.display-name=Display Country Portlet",
 			"javax.portlet.init-param.template-path=/",
 			"javax.portlet.init-param.view-template=/jsp/countries/view.jsp",
