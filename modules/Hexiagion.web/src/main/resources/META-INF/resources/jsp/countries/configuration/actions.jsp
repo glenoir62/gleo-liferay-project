@@ -29,7 +29,8 @@
 		
 		<liferay-ui:icon image="edit" url="<%= editURL.toString() %>" />
 		
-		<liferay-portlet:renderURL var="regionEditURL" plid="<%= themeDisplay.getPlid() %>" portletName="regionsconfiguration_WAR_Hexiagonportlet" windowState="<%=  WindowState.NORMAL.toString() %>">
+		<liferay-portlet:renderURL var="regionEditURL" windowState="<%=  WindowState.NORMAL.toString() %>">
+			<portlet:param name="mvcRenderCommandName" value="/jsp/regions/configuration" />
 			<portlet:param name="countryId" value="<%= String.valueOf(country.getCountryId()) %>"/>
 			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</liferay-portlet:renderURL>
@@ -37,7 +38,7 @@
 		<liferay-ui:icon image="edit" message="edit-regions" url="<%= regionEditURL.toString() %>" />
 		
 		<portlet:actionURL var="activateURL" name="activateCountry">
-			<portlet:param name="mvcPath" value="activateCountry" />
+			<portlet:param name="mvcActionCommand" value="activateCountry" />
 			<portlet:param name="countryId" value="<%= String.valueOf(country.getCountryId()) %>"/>
 			<portlet:param name="isActive" value="<%= String.valueOf(isActive) %>" />
 			<portlet:param name="redirect" value="<%= redirect %>"/>

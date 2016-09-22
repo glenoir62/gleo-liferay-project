@@ -1,8 +1,6 @@
 <%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
 <%@include file="/jsp/init.jsp" %>
 
-<liferay-ui:success key="country-added" message="annoucements.countries.success.added" />
-<liferay-ui:success key="country-updated" message="annoucements.countries.success.updated" />
 <liferay-ui:success key="country-updated-active" message="annoucements.countries.success.update.active" />
 
 <liferay-ui:error key="country-error" message="annoucements.countries.errors" />
@@ -18,14 +16,12 @@
 	
 	<aui:nav cssClass="navbar-nav">
 		<portlet:actionURL var="desactivateAllCountryURL" name="desactivateAllCountry">
-			<portlet:param name="mvcPath" value="desactivateAllCountry" />
 			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
 	    </portlet:actionURL>
 		<aui:nav-item href="${desactivateAllCountryURL}" iconCssClass="icon-minus" label="annoucements.countries.desactivate.all.label" />
 	</aui:nav>
 	<aui:nav cssClass="navbar-nav">
 		<portlet:actionURL var="activateAllCountryURL" name="activateAllCountry">
-			<portlet:param name="mvcPath" value="activateAllCountry" />
 			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
 	    </portlet:actionURL>
 		<aui:nav-item href="${activateAllCountryURL}" iconCssClass="icon-plus" label="annoucements.countries.activate.all.label" />

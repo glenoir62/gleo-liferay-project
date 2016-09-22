@@ -2,7 +2,7 @@
 <%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
 <%@include file="/jsp/init.jsp" %>
 
-<liferay-portlet:renderURL var="countriesUrl" plid="<%= themeDisplay.getPlid() %>" portletName="countryconfiguration_WAR_Hexiagonportlet" windowState="<%=  WindowState.NORMAL.toString() %>"/>
+<liferay-portlet:renderURL var="countriesUrl" />
 
 <liferay-ui:header
 	backURL='${countriesUrl}'
@@ -15,7 +15,8 @@
 
 <liferay-ui:error key="region-error" message="annoucements.region.errors" />
 
-<liferay-portlet:renderURL var="regionURL" plid="<%= themeDisplay.getPlid() %>" portletName="regionsconfiguration_WAR_Hexiagonportlet" windowState="<%=  WindowState.NORMAL.toString() %>">
+<liferay-portlet:renderURL var="regionURL">
+	<portlet:param name="mvcRenderCommandName" value="/jsp/regions/configuration" />
 	<portlet:param name="countryId" value="${countryId}"/>
 </liferay-portlet:renderURL>
 

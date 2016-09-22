@@ -17,7 +17,8 @@
 	String label = isActive?"desactive":"active";
 %>
 
-<liferay-portlet:renderURL var="regionEditURL" plid="<%= themeDisplay.getPlid() %>" portletName="regionsconfiguration_WAR_Hexiagonportlet" windowState="<%=  WindowState.NORMAL.toString() %>">
+<liferay-portlet:renderURL var="regionEditURL">
+	<portlet:param name="mvcRenderCommandName" value="/jsp/regions/configuration" />
 	<portlet:param name="countryId" value="<%= String.valueOf(region.getCountryId()) %>"/>
 </liferay-portlet:renderURL>
 		

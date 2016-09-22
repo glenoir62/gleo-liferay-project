@@ -3,6 +3,9 @@
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@include file="/jsp/init.jsp" %>
 
+<liferay-ui:success key="country-added" message="annoucements.countries.success.added" />
+<liferay-ui:success key="country-updated" message="annoucements.countries.success.updated" />
+
 <%
 
 	String redirect = ParamUtil.getString(request, "redirect");
@@ -49,10 +52,8 @@
 			<aui:validator name="required"/>
 		</aui:input>
 		<aui:input name="zipRequired" >
-			<aui:validator name="required"/>
 		</aui:input>
 		<aui:input name="active" >
-			<aui:validator name="required"/>
 		</aui:input>
 	</aui:fieldset>
 	
