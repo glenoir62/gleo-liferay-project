@@ -1,2 +1,9 @@
 Bundle-SymbolicName: hexiagion.web
 Bundle-Version: 1.0.0
+Bundle-ClassPath:\
+	lib/joda-time.jar
+Import-Package:\
+!org.joda.time.*
+*
+-includeresource:\
+	lib/joda-time.jar=joda-time-[0-9]*.jar
