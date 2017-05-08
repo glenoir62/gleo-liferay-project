@@ -9,7 +9,7 @@
 <liferay-ui:error key="no-currency-deleted" message="annoucements.currencies.errors.deleted" />
 <liferay-ui:error key="use-currency" message="annoucements.currencies.errors.some.announcements.use.this.currency" />
 
-<c:if test='<%= HexiagonPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_CURRENCY") %>'>
+
 	<aui:nav-bar cssClass="label-info">
 		<aui:nav >
 			<portlet:renderURL var="addTypeURL">
@@ -21,12 +21,10 @@
 			
 		</aui:nav>
 	</aui:nav-bar>
-</c:if>
 
 <liferay-ui:search-container id="currencies" searchContainer="${searchCurrencyContainer}" var="searchCurrencyContainer">
 	<liferay-ui:search-container-results
 		results="${searchCurrencyContainer.results}"
-		total="${searchCurrencyContainer.total}" 
 	/>
 
 	<aui:input name="tabs1" type="hidden" value="currencies" />
@@ -60,7 +58,7 @@
 		<liferay-ui:search-container-column-jsp
 			align="right" 
 			name="actions" 
-			path="/jsp/currencies/actions.jsp" 
+			path="/jsp/currency/configuration/actions.jsp" 
 		/> 
 	</liferay-ui:search-container-row>
 

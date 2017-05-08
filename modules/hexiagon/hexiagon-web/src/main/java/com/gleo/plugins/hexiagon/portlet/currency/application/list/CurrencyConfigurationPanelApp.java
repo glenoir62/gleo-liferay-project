@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.country.application.list;
+package com.gleo.plugins.hexiagon.portlet.currency.application.list;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.liferay.application.list.BasePanelApp;
@@ -21,15 +21,15 @@ import org.osgi.service.component.annotations.Reference;
 		immediate = true,
 		property = {
 			"panel.app.order:Integer=500",
-			"panel.category.key=" + PanelCategoryKeys.SITE_ADMINISTRATION_CONTENT
+			"panel.category.key=" + PanelCategoryKeys.CONTROL_PANEL_CONFIGURATION
 		},
 		service = PanelApp.class
 	)
-public class CountryConfigurationPanelApp extends BasePanelApp {
+public class CurrencyConfigurationPanelApp extends BasePanelApp {
 
 	@Override
 	public String getPortletId() {
-		return PortletKeys.HEXIAGON_CURRENCY_CONFIGURATION;
+		return PortletKeys.HEXIAGON_COUNTRY_CONFIGURATION;
 	}
 	
 	@Override
@@ -39,11 +39,17 @@ public class CountryConfigurationPanelApp extends BasePanelApp {
 
 	@Override
 	@Reference(
-		target = "(javax.portlet.name=" + PortletKeys.HEXIAGON_CURRENCY_CONFIGURATION + ")",
+		target = "(javax.portlet.name=" + PortletKeys.HEXIAGON_COUNTRY_CONFIGURATION + ")",
 		unbind = "-"
 	)
 	public void setPortlet(Portlet portlet) {
 		super.setPortlet(portlet);
 	}
+
+	@Override
+	public String getLabel(Locale locale) {
+		return "coucou";
+	}
+	
 	
 }
