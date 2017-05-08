@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.application.list;
+package com.gleo.plugins.hexiagon.portlet.country.application.list;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.liferay.application.list.BasePanelApp;
@@ -7,6 +7,8 @@ import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
+
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,4 +45,11 @@ public class CountryConfigurationPanelApp extends BasePanelApp {
 	public void setPortlet(Portlet portlet) {
 		super.setPortlet(portlet);
 	}
+
+	@Override
+	public String getLabel(Locale locale) {
+		return "coucou";
+	}
+	
+	
 }

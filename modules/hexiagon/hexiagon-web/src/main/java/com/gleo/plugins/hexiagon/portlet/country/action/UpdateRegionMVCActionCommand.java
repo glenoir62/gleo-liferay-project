@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.action;
+package com.gleo.plugins.hexiagon.portlet.country.action;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtRegionServiceUtil;
@@ -19,42 +19,40 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 		property = {
 			"javax.portlet.name=" + PortletKeys.HEXIAGON_COUNTRY_CONFIGURATION,
-			"mvc.command.name=activateRegion"
+			"mvc.command.name=updateRegion"
 		},
 		service = MVCActionCommand.class
 	)
-public class ActivateRegionMVCActionCommand
+public class UpdateRegionMVCActionCommand
 	extends BaseMVCActionCommand {
 
 	/**
-	 * ActivateRegionMVCActionCommand Logger.
+	 * UpdateRegionMVCActionCommand Logger.
 	 */
-	protected static Log LOGGER = LogFactoryUtil.getLog(ActivateRegionMVCActionCommand.class);
+	protected static Log LOGGER = LogFactoryUtil.getLog(UpdateRegionMVCActionCommand.class);
 	
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		long regionId = ParamUtil.getLong(actionRequest, "regionId");
-		boolean isActive = ParamUtil.getBoolean(actionRequest, "isActive");
-		Region region = null;
+		boolean isActive = ParamUtil.getBoolean(actionRequest, "active");
+		
+		String name = ParamUtil.getString(actionRequest, "name");
+		String regionCode = ParamUtil.getString(actionRequest, "regionCode");
 		
 		try {
-			region = ExtRegionServiceUtil.setActive(regionId, !isActive);
+			Region region = ExtRegionServiceUtil.updateRegion(regionId, isActive, name, regionCode);
 			
-			SessionMessages.add(actionRequest, "region-updated-active");
+			SessionMessages.add(actionRequest, "region-updated");
 			LOGGER.debug(region);
 			actionResponse.setRenderParameter("countryId", String.valueOf(region.getCountryId()));
 		} catch (Exception e) {
 			LOGGER.error(e);
 			SessionErrors.add(actionRequest,"region-error");
 		}
-		
 		String redirect = ParamUtil.getString(actionRequest, "redirect");
 		
 		actionResponse.setRenderParameter("redirect", redirect);
-		if (region != null)
-			actionResponse.setRenderParameter("countryId", String.valueOf(region.getCountryId()));
-		
-		actionResponse.setRenderParameter("mvcRenderCommandName", "/jsp/regions/configuration");
+		actionResponse.setRenderParameter("regionId", String.valueOf(regionId));
+		actionResponse.setRenderParameter("mvcPath", "/jsp/region/configuration/edit.jsp");
 	}
-
 }

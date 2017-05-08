@@ -22,7 +22,7 @@
 	<c:if test="${themeDisplay.getPermissionChecker().isOmniadmin()}">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="regionId" value="<%= String.valueOf(region.getRegionId()) %>"/>
-			<portlet:param name="jspPage" value="/jsp/regions/configuration/edit.jsp"/>
+			<portlet:param name="jspPage" value="/jsp/region/configuration/edit.jsp"/>
 			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</portlet:renderURL>
 		

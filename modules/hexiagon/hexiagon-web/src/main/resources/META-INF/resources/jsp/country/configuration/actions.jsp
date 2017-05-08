@@ -23,14 +23,14 @@
 	<c:if test="${themeDisplay.getPermissionChecker().isOmniadmin()}">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="countryId" value="<%= String.valueOf(country.getCountryId()) %>"/>
-			<portlet:param name="jspPage" value="/jsp/countries/configuration/edit.jsp"/>
+			<portlet:param name="jspPage" value="/jsp/country/configuration/edit.jsp"/>
 			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</portlet:renderURL>
 		
 		<liferay-ui:icon image="edit" url="<%= editURL.toString() %>" markupView="lexicon" />
 		
 		<liferay-portlet:renderURL var="regionEditURL" windowState="<%=  WindowState.NORMAL.toString() %>">
-			<portlet:param name="mvcRenderCommandName" value="/jsp/regions/configuration" />
+			<portlet:param name="mvcRenderCommandName" value="/jsp/region/configuration" />
 			<portlet:param name="countryId" value="<%= String.valueOf(country.getCountryId()) %>"/>
 			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</liferay-portlet:renderURL>

@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.action;
+package com.gleo.plugins.hexiagon.portlet.country.action;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtRegionServiceUtil;
@@ -31,7 +31,7 @@ import org.osgi.service.component.annotations.Component;
 	    immediate = true,
 	    property = {
 	       "javax.portlet.name=" + PortletKeys.HEXIAGON_COUNTRY_CONFIGURATION,
-	       "mvc.command.name=/jsp/regions/configuration"
+	       "mvc.command.name=/jsp/region/configuration"
 	    },
 	    service = MVCRenderCommand.class
 	)
@@ -88,7 +88,7 @@ public class RegionsViewMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute("countryId", countryId);
 		renderRequest.setAttribute("searchRegionsContainer", searchRegionsContainer);
 		
-		return "/jsp/regions/configuration/view.jsp";
+		return "/jsp/region/configuration/view.jsp";
 	}
 
 }

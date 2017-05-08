@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.action;
+package com.gleo.plugins.hexiagon.portlet.country.action;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtCountryServiceUtil;
@@ -60,7 +60,7 @@ public class AddCountryMVCActionCommand
 		actionResponse.setRenderParameter("redirect", redirect);
 		if(country != null)
 			actionResponse.setRenderParameter("countryId", String.valueOf(country.getCountryId()));
-		actionResponse.setRenderParameter("mvcPath", "/jsp/countries/configuration/edit.jsp");
+		actionResponse.setRenderParameter("mvcPath", "/jsp/country/configuration/edit.jsp");
 	}
 
 }

@@ -9,7 +9,7 @@
 	<aui:nav cssClass="navbar-nav">
 		<portlet:renderURL var="addCountryURL">
 			<portlet:param name="redirect" value="${redirect}" />
-			<portlet:param name="jspPage" value="/jsp/countries/configuration/edit.jsp"/>
+			<portlet:param name="jspPage" value="/jsp/country/configuration/edit.jsp"/>
 	    </portlet:renderURL>
 		<aui:nav-item href="${addCountryURL}" iconCssClass="icon-plus" label="annoucements.countries.add.label" />
 	</aui:nav>
@@ -76,7 +76,7 @@
 		<liferay-ui:search-container-column-jsp
 				align="right"
  				name="actions"
-				path="/jsp/countries/configuration/actions.jsp"
+				path="/jsp/country/configuration/actions.jsp"
 		/>
 	</liferay-ui:search-container-row>
 

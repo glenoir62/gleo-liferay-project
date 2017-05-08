@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.action;
+package com.gleo.plugins.hexiagon.portlet.country.action;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtCountryServiceUtil;

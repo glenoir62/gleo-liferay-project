@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.action;
+package com.gleo.plugins.hexiagon.portlet.country.action;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.liferay.portal.kernel.log.Log;
@@ -55,7 +55,7 @@ public class AddRegionMVCActionCommand
 		actionResponse.setRenderParameter("redirect", redirect);
 		if(region != null)
 			actionResponse.setRenderParameter("regionId", String.valueOf(region.getRegionId()));
-		actionResponse.setRenderParameter("mvcPath", "/jsp/regions/configuration/edit.jsp");
+		actionResponse.setRenderParameter("mvcPath", "/jsp/region/configuration/edit.jsp");
 	}
 
 }

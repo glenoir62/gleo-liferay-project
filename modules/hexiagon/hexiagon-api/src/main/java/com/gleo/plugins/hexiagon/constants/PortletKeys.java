@@ -18,11 +18,11 @@ public class PortletKeys extends com.liferay.portal.kernel.util.PortletKeys {
 	
 	public static final String ANNOUNCEMENT_SEARCH_PORTLETID = "annoucementsearch_WAR_Hexiagonportlet";
 	
-	public static final String HEXIAGON_COUNTRY_CONFIGURATION =  "com_gleo_plugins_hexiagon_portlet_countries_web_CountryConfigurationPortlet";
+	public static final String HEXIAGON_COUNTRY_CONFIGURATION =  "com_gleo_plugins_hexiagon_portlet_country_web_CountryConfigurationPortlet";
 	
-	public static final String HEXIAGON_COUNTRY_DISPLAY =  "com_gleo_plugins_hexiagon_portlet_countries_web_CountryDisplayPortlet";
+	public static final String HEXIAGON_COUNTRY_DISPLAY =  "com_gleo_plugins_hexiagon_portlet_country_web_CountryDisplayPortlet";
 	
-	public static final String HEXIAGON_REGION_CONFIGURATION =  "com_gleo_plugins_hexiagon_portlet_regions_web_RegionConfigurationPortlet";
+	public static final String HEXIAGON_CURRENCY_CONFIGURATION =  "com_gleo_plugins_hexiagon_portlet_currency_web_CurrencyConfigurationPortlet";
 	
 	
 	

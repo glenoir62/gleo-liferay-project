@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.action;
+package com.gleo.plugins.hexiagon.portlet.country.action;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtCountryServiceUtil;
@@ -23,29 +23,29 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	property = {
 		"javax.portlet.name=" + PortletKeys.HEXIAGON_COUNTRY_CONFIGURATION,
-		"mvc.command.name=desactivateAllCountry"
+		"mvc.command.name=activateAllCountry"
 	},
 	service = MVCActionCommand.class
 )
-public class DesactivateAllCountryMVCActionCommand 
+public class ActivateAllCountryMVCActionCommand 
 	extends BaseMVCActionCommand {
 	
 	/**
-	 * DesactivateAllCountryMVCActionCommand Logger.
+	 * ActivateAllCountryMVCActionCommand Logger.
 	 */
-	protected static Log LOGGER = LogFactoryUtil.getLog(DesactivateAllCountryMVCActionCommand.class);
+	protected static Log LOGGER = LogFactoryUtil.getLog(ActivateAllCountryMVCActionCommand.class);
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		try {
 			List<Country> countries = CountryServiceUtil.getCountries();
 			for (Country country : countries) {
-				ExtCountryServiceUtil.setActive(country.getCountryId(), false);
+				ExtCountryServiceUtil.setActive(country.getCountryId(), true);
 			}
 		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		
 	}
-	
+
 }

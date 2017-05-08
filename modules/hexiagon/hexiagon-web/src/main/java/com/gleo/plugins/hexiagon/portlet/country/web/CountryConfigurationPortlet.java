@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.web;
+package com.gleo.plugins.hexiagon.portlet.country.web;
 
 import com.gleo.plugins.hexiagon.constants.PortletKeys;
 import com.gleo.plugins.hexiagon.service.ExtCountryServiceUtil;
@@ -32,7 +32,7 @@ import org.osgi.service.component.annotations.Component;
 			"javax.portlet.name=" + PortletKeys.HEXIAGON_COUNTRY_CONFIGURATION,
 			"javax.portlet.display-name=Country Configuration",
 			"javax.portlet.init-param.template-path=/",
-			"javax.portlet.init-param.view-template=/jsp/countries/configuration/view.jsp",
+			"javax.portlet.init-param.view-template=/jsp/country/configuration/view.jsp",
 			"javax.portlet.resource-bundle=content.Language",
 			"javax.portlet.security-role-ref=power-user,user",
 			"javax.portlet.init-param.copy-request-parameters=false",
@@ -40,12 +40,12 @@ import org.osgi.service.component.annotations.Component;
 		},
 		service = Portlet.class
 	)
-public class CountryConfigurationController extends MVCPortlet {
+public class CountryConfigurationPortlet extends MVCPortlet {
 
 	/**
-	 * DisplayCountryController Logger.
+	 * CountryConfigurationPortlet Logger.
 	 */
-	protected static Log LOGGER = LogFactoryUtil.getLog(CountryConfigurationController.class);
+	protected static Log LOGGER = LogFactoryUtil.getLog(CountryConfigurationPortlet.class);
 	
 	@Override
 	public void doView(RenderRequest renderRequest,

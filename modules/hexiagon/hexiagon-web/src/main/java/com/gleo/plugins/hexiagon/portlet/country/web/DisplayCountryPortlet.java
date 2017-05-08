@@ -1,4 +1,4 @@
-package com.gleo.plugins.hexiagon.portlet.countries.web;
+package com.gleo.plugins.hexiagon.portlet.country.web;
 
 import java.io.IOException;
 
@@ -23,23 +23,23 @@ import com.liferay.portal.kernel.util.WebKeys;
 		property = {
 			"com.liferay.portlet.display-category=category.hidden",
 			"com.liferay.portlet.instanceable=false",
-			"com.liferay.portlet.css-class-wrapper=regions-configuration-portlet",
+			"com.liferay.portlet.css-class-wrapper=display-country-portlet",
 			"javax.portlet.name=" + PortletKeys.HEXIAGON_COUNTRY_DISPLAY,
 			"javax.portlet.display-name=Display Country Portlet",
 			"javax.portlet.init-param.template-path=/",
-			"javax.portlet.init-param.view-template=/jsp/countries/view.jsp",
+			"javax.portlet.init-param.view-template=/jsp/country/view.jsp",
 			"javax.portlet.resource-bundle=content.Language",
 			"javax.portlet.security-role-ref=power-user,user",
 			"javax.portlet.init-param.copy-request-parameters=false"
 		},
 		service = Portlet.class
 	)
-public class DisplayCountryController extends MVCPortlet {
+public class DisplayCountryPortlet extends MVCPortlet {
  
 	/**
-	 * DisplayCountryController Logger.
+	 * DisplayCountryPortlet Logger.
 	 */
-	protected static Log LOGGER = LogFactoryUtil.getLog(DisplayCountryController.class);
+	protected static Log LOGGER = LogFactoryUtil.getLog(DisplayCountryPortlet.class);
 
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
