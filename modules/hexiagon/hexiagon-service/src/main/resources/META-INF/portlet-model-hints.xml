@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.gleo.plugins.hexiagon.model.Announcement">
+		<field name="uuid" type="String" />
+		<field name="announcementId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="typeId" type="long" />
+		<field name="folderId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="currencyId" type="long" />
+		<field localized="true" name="title" type="String" />
+		<field name="emailAddress" type="String" />
+		<field name="phoneNumber" type="String" />
+		<field name="price" type="long" />
+		<field localized="true" name="content" type="String" />
+		<field name="status" type="int" />
+		<field name="statusByUserId" type="long" />
+		<field name="statusByUserName" type="String" />
+		<field name="statusDate" type="Date" />
+		<field name="countryId" type="long" />
+		<field name="regionId" type="long" />
+		<field name="city" type="String" />
+		<field name="site" type="String" />
+		<field name="building" type="String" />
+	</model>
+	<model name="com.gleo.plugins.hexiagon.model.AnnouncementImage">
+		<field name="announcementImageId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="announcementId" type="long" />
+		<field name="fileEntryId" type="long" />
+		<field localized="true" name="description" type="String" />
+		<field name="order" type="int" />
+	</model>
+	<model name="com.gleo.plugins.hexiagon.model.Currency">
+		<field name="currencyId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="label" type="String" />
+		<field name="symbol" type="String" />
+		<field name="order" type="int" />
+		<field name="countryId" type="long" />
+		<field name="rate" type="long" />
+	</model>
+	<model name="com.gleo.plugins.hexiagon.model.Favorite">
+		<field name="favoriteId" type="long" />
+		<field name="announcementId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+	</model>
+	<model name="com.gleo.plugins.hexiagon.model.Type">
+		<field name="typeId" type="long" />
+		<field localized="true" name="name" type="String" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="order" type="int" />
+	</model>
+</model-hints>
