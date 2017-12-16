@@ -108,10 +108,12 @@ public abstract class CurrencyLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param currencyId the primary key of the currency
 	 * @return the currency that was removed
 	 * @throws PortalException if a currency with the primary key could not be found
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Currency deleteCurrency(long currencyId) throws PortalException {
+	public Currency deleteCurrency(long currencyId)
+		throws PortalException, SystemException {
 		return currencyPersistence.remove(currencyId);
 	}
 
@@ -307,10 +309,11 @@ public abstract class CurrencyLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param currency the currency
 	 * @return the currency that was updated
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public Currency updateCurrency(Currency currency) {
+	public Currency updateCurrency(Currency currency) throws SystemException {
 		return currencyPersistence.update(currency);
 	}
 

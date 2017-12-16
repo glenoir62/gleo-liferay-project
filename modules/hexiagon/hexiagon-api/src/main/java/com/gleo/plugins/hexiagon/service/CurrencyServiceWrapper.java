@@ -32,6 +32,35 @@ public class CurrencyServiceWrapper implements CurrencyService,
 		_currencyService = currencyService;
 	}
 
+	@Override
+	public com.gleo.plugins.hexiagon.model.Currency addCurrency(
+		com.gleo.plugins.hexiagon.model.Currency currency,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _currencyService.addCurrency(currency, serviceContext);
+	}
+
+	@Override
+	public com.gleo.plugins.hexiagon.model.Currency deleteCurrency(
+		long currencyId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _currencyService.deleteCurrency(currencyId, serviceContext);
+	}
+
+	@Override
+	public com.gleo.plugins.hexiagon.model.Currency updateCurrency(
+		com.gleo.plugins.hexiagon.model.Currency currency)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _currencyService.updateCurrency(currency);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*

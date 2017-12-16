@@ -16,11 +16,15 @@ package com.gleo.plugins.hexiagon.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.gleo.plugins.hexiagon.model.Currency;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -49,6 +53,15 @@ public interface CurrencyService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CurrencyServiceUtil} to access the currency remote service. Add custom service methods to {@link com.gleo.plugins.hexiagon.service.impl.CurrencyServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public Currency addCurrency(Currency currency, ServiceContext serviceContext)
+		throws PortalException, SystemException, PrincipalException;
+
+	public Currency deleteCurrency(long currencyId,
+		ServiceContext serviceContext)
+		throws PortalException, SystemException, PrincipalException;
+
+	public Currency updateCurrency(Currency currency)
+		throws PortalException, SystemException, PrincipalException;
 
 	/**
 	* Returns the OSGi service identifier.

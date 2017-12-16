@@ -41,6 +41,31 @@ public class CurrencyServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.gleo.plugins.hexiagon.service.impl.CurrencyServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.gleo.plugins.hexiagon.model.Currency addCurrency(
+		com.gleo.plugins.hexiagon.model.Currency currency,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().addCurrency(currency, serviceContext);
+	}
+
+	public static com.gleo.plugins.hexiagon.model.Currency deleteCurrency(
+		long currencyId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().deleteCurrency(currencyId, serviceContext);
+	}
+
+	public static com.gleo.plugins.hexiagon.model.Currency updateCurrency(
+		com.gleo.plugins.hexiagon.model.Currency currency)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return getService().updateCurrency(currency);
+	}
 
 	/**
 	* Returns the OSGi service identifier.

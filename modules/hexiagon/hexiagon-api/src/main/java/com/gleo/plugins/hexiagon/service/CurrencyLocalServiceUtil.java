@@ -54,6 +54,19 @@ public class CurrencyLocalServiceUtil {
 	}
 
 	/**
+	* Adds the currency to the database incrementing the primary key
+	*
+	* @throws PortalException
+	*/
+	public static com.gleo.plugins.hexiagon.model.Currency addCurrency(
+		com.gleo.plugins.hexiagon.model.Currency currency,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addCurrency(currency, serviceContext);
+	}
+
+	/**
 	* Creates a new currency with the primary key. Does not add the currency to the database.
 	*
 	* @param currencyId the primary key for the new currency
@@ -81,10 +94,12 @@ public class CurrencyLocalServiceUtil {
 	* @param currencyId the primary key of the currency
 	* @return the currency that was removed
 	* @throws PortalException if a currency with the primary key could not be found
+	* @throws SystemException
 	*/
 	public static com.gleo.plugins.hexiagon.model.Currency deleteCurrency(
 		long currencyId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return getService().deleteCurrency(currencyId);
 	}
 
@@ -106,14 +121,23 @@ public class CurrencyLocalServiceUtil {
 		return getService().getCurrency(currencyId);
 	}
 
+	public static com.gleo.plugins.hexiagon.model.Currency getCurrencyByCountryId(
+		long countryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCurrencyByCountryId(countryId);
+	}
+
 	/**
 	* Updates the currency in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param currency the currency
 	* @return the currency that was updated
+	* @throws SystemException
 	*/
 	public static com.gleo.plugins.hexiagon.model.Currency updateCurrency(
-		com.gleo.plugins.hexiagon.model.Currency currency) {
+		com.gleo.plugins.hexiagon.model.Currency currency)
+		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().updateCurrency(currency);
 	}
 

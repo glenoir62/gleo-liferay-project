@@ -16,9 +16,16 @@ package com.gleo.plugins.hexiagon.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.gleo.plugins.hexiagon.service.CurrencyServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link com.gleo.plugins.hexiagon.service.CurrencyServiceUtil} service utility. The
+ * {@link CurrencyServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,60 @@ import aQute.bnd.annotation.ProviderType;
  * @author guillaumelenoir
  * @see CurrencyServiceHttp
  * @see com.gleo.plugins.hexiagon.model.CurrencySoap
- * @see com.gleo.plugins.hexiagon.service.CurrencyServiceUtil
+ * @see CurrencyServiceUtil
  * @generated
  */
 @ProviderType
 public class CurrencyServiceSoap {
+	public static com.gleo.plugins.hexiagon.model.CurrencySoap addCurrency(
+		com.gleo.plugins.hexiagon.model.CurrencySoap currency,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.gleo.plugins.hexiagon.model.Currency returnValue = CurrencyServiceUtil.addCurrency(com.gleo.plugins.hexiagon.model.impl.CurrencyModelImpl.toModel(
+						currency), serviceContext);
+
+			return com.gleo.plugins.hexiagon.model.CurrencySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.plugins.hexiagon.model.CurrencySoap updateCurrency(
+		com.gleo.plugins.hexiagon.model.CurrencySoap currency)
+		throws RemoteException {
+		try {
+			com.gleo.plugins.hexiagon.model.Currency returnValue = CurrencyServiceUtil.updateCurrency(com.gleo.plugins.hexiagon.model.impl.CurrencyModelImpl.toModel(
+						currency));
+
+			return com.gleo.plugins.hexiagon.model.CurrencySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.plugins.hexiagon.model.CurrencySoap deleteCurrency(
+		long currencyId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.gleo.plugins.hexiagon.model.Currency returnValue = CurrencyServiceUtil.deleteCurrency(currencyId,
+					serviceContext);
+
+			return com.gleo.plugins.hexiagon.model.CurrencySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(CurrencyServiceSoap.class);
 }

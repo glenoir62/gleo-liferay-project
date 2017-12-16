@@ -1,5 +1,5 @@
-<%@page import="com.gleo.plugins.hexiagon.permission.HexiagonPermission"%>
 <%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
+<%@page import="com.gleo.plugins.hexiagon.permission.HexiagonPermission"%>
 <%@include file="/jsp/init.jsp" %>
 
 <liferay-ui:success key="currency-added" message="annoucements.currencies.success.added" />
@@ -9,19 +9,17 @@
 <liferay-ui:error key="no-currency-deleted" message="annoucements.currencies.errors.deleted" />
 <liferay-ui:error key="use-currency" message="annoucements.currencies.errors.some.announcements.use.this.currency" />
 
-
-	<aui:nav-bar cssClass="label-info">
-		<aui:nav >
-			<portlet:renderURL var="addTypeURL">
-				<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
-				<portlet:param name="jspPage" value="/jsp/currencies/edit.jsp"/>
-		    </portlet:renderURL>
-		    
-			<aui:nav-item href="${addTypeURL}" iconCssClass="icon-plus" label="annoucements.currencies.add.label" />
-			
-		</aui:nav>
-	</aui:nav-bar>
-
+<liferay-frontend:add-menu>
+	<c:if test='<%= HexiagonPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_CURRENCY") %>'>
+		
+		<portlet:renderURL var="addTypeURL">
+			<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
+			<portlet:param name="jspPage" value="/jsp/currency/configuration/edit.jsp"/>
+	    </portlet:renderURL>
+	    
+	    <liferay-frontend:add-menu-item title="annoucements.currencies.add.label" url="${addTypeURL}" />
+	</c:if>
+</liferay-frontend:add-menu>
 <liferay-ui:search-container id="currencies" searchContainer="${searchCurrencyContainer}" var="searchCurrencyContainer">
 	<liferay-ui:search-container-results
 		results="${searchCurrencyContainer.results}"
@@ -62,10 +60,10 @@
 		/> 
 	</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator paginate="true" searchContainer="${searchCurrencyContainer}"/>
+	<liferay-ui:search-iterator markupView="lexicon" paginate="true" searchContainer="${searchCurrencyContainer}"/>
 </liferay-ui:search-container>
 
-<portlet:resourceURL var="saveCurrenciesOrderURL" />
+<portlet:resourceURL id="saveCurrenciesOrder" var="saveCurrenciesOrderURL" />
 
 <c:if test ='<%= HexiagonPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "UPDATE_ORDER") %>'>
 	<aui:script>
