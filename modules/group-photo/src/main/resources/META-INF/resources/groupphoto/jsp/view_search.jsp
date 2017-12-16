@@ -1,32 +1,43 @@
 
 <%@include file="init.jsp"%>
+<%@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %>
 
 <liferay-ui:search-container id="users"
-	searchContainer="${searchUserContainer}" var="searchUserContainer">
+	searchContainer="${searchUserContainer}" var="searchUserContainer" total="${searchUserContainer.total}">
 
-	<c:if
-		test="${searchUserContainer.results.size()>0 && searchUserContainer.delta >= 20}">
-		<liferay-ui:search-paginator searchContainer="${searchUserContainer}" />
-	</c:if>
-	<aui:row cssClass="span10 offset1">
+
 		<liferay-ui:search-container-row
 			className="com.liferay.portal.kernel.model.User" keyProperty="userId"
-			modelVar="user2">
-			<liferay-ui:app-view-entry displayStyle="icon" locked="false"
-				cssClass="user-photo-group" showCheckbox='true'
-				rowCheckerId="${user2.userId}"
-				rowCheckerName="<%= DLFileShortcut.class.getSimpleName() %>"
-				status="0"
-				thumbnailDivStyle="<%= DLUtil.getThumbnailStyle(false, 4) %>"
-				thumbnailSrc="${user2.getPortraitURL(themeDisplay)}"
-				thumbnailStyle="<%= DLUtil.getThumbnailStyle() %>"
-				title="${user2.getFullName()}" url="#" />
-
+			modelVar="user2" cssClass="entry-card lfr-asset-item">
+			<liferay-ui:search-container-column-text>
+				<liferay-frontend:vertical-card
+					cssClass="entry-display-style"
+					imageUrl="${user2.getPortraitURL(themeDisplay)}"
+					title="${user2.getFullName()}"
+					url="#"
+				>
+<%-- 				<liferay-frontend:vertical-card-sticker-bottom> --%>
+<!-- 					<div class="sticker sticker-bottom file-icon-color-3"> -->
+<!-- 						PDF -->
+<!-- 					</div> -->
+<!-- 					<div class="file-icon-color-0 sticker sticker-right"> -->
+<%-- 						<aui:icon cssClass="icon-monospaced" image="lock" markupView="lexicon" message="locked" /> --%>
+<!-- 					</div> -->
+<%-- 				</liferay-frontend:vertical-card-sticker-bottom> --%>
+					
+<%-- 					<liferay-frontend:vertical-card-header> --%>
+<%-- 						${user2.birthday} --%>
+<%-- 					</liferay-frontend:vertical-card-header> --%>
+					
+					<liferay-frontend:vertical-card-footer>
+						<aui:workflow-status markupView="lexicon" showIcon="<%= false %>" showLabel="<%= false %>" status="${user2.status}" />
+					</liferay-frontend:vertical-card-footer>
+				</liferay-frontend:vertical-card>
+			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
-	</aui:row>
-	<div style="clear: both;">
-	<liferay-ui:search-paginator searchContainer="${searchUserContainer}" />
+	<liferay-ui:search-iterator displayStyle="icon" markupView="lexicon"/>
 </liferay-ui:search-container>
+
 
 <aui:script use="aui-base">
 
