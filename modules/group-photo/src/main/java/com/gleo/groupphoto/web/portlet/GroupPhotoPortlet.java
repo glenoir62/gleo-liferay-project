@@ -4,7 +4,12 @@ package com.gleo.groupphoto.web.portlet;
 import com.gleo.groupphoto.web.constants.GroupPhotoPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
+import java.io.IOException;
+
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -23,12 +28,19 @@ import org.osgi.service.component.annotations.Component;
 	"javax.portlet.expiration-cache=0",
 	"javax.portlet.init-param.always-display-default-configuration-icons=true",
 	"javax.portlet.init-param.template-path=/",
-	"javax.portlet.init-param.view-template=/groupphoto/view",
 	"javax.portlet.name=" + GroupPhotoPortletKeys.GROUP_PHOTO,
 	"javax.portlet.resource-bundle=content.Language",
 	"javax.portlet.security-role-ref=power-user,user",
 	"javax.portlet.supports.mime-type=text/html"
 }, service = Portlet.class)
 public class GroupPhotoPortlet extends MVCPortlet {
+
+    @Override
+    public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
+	    throws IOException, PortletException {
+
+	super.doView(renderRequest, renderResponse);
+    }
 	
+    
 }

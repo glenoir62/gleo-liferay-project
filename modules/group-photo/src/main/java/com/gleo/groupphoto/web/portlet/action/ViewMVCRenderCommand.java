@@ -47,7 +47,7 @@ import org.osgi.service.component.annotations.Component;
  *
  */
 @Component(property = { "javax.portlet.name=" + GroupPhotoPortletKeys.GROUP_PHOTO, "mvc.command.name=/",
-	"mvc.command.name=/alerts/view", "mvc.command.name=/groupphoto/view" })
+	"mvc.command.name=/groupphoto/view" })
 public class ViewMVCRenderCommand implements MVCRenderCommand {
 
     /**
@@ -59,6 +59,8 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
     public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
 
 	PortletURL iteratorURL = renderResponse.createRenderURL();
+
+	LOGGER.info("render");
 
 	// create search container
 	SearchContainer<User> searchContainer = new UserSearch(renderRequest, iteratorURL);
@@ -72,18 +74,22 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	PortletURL portletDirectoryURL = null;
 	try {
 	    // create portletUrl
-	    portletDirectoryURL = PortletURLFactoryUtil.create(renderRequest, PortletKeys.DIRECTORY,
-		    PortalUtil.getControlPanelPlid(renderRequest), PortletRequest.RENDER_PHASE);
+	    try {
+		portletDirectoryURL = PortletURLFactoryUtil.create(renderRequest, PortletKeys.DIRECTORY,
+			PortalUtil.getControlPanelPlid(renderRequest), PortletRequest.RENDER_PHASE);
+		portletDirectoryURL.setWindowState(LiferayWindowState.POP_UP);
+		portletDirectoryURL.setPortletMode(PortletMode.VIEW);
+		portletDirectoryURL.setParameter("struts_action", "/directory/view_user");
+		portletDirectoryURL.setParameter("tabs1Names", "Info");
+	    } catch (PortalException pe) {
+		LOGGER.error(pe);
+	    }
 
-	    portletDirectoryURL.setWindowState(LiferayWindowState.POP_UP);
-	    portletDirectoryURL.setPortletMode(PortletMode.VIEW);
-	    portletDirectoryURL.setParameter("struts_action", "/directory/view_user");
-	    portletDirectoryURL.setParameter("tabs1Names", "Info");
+	    // Get indexer
 	    Indexer<User> indexer = IndexerRegistryUtil.getIndexer(User.class);
 
 	    // create search context
-	    SearchContext searchContext = SearchContextFactory
-		    .getInstance(PortalUtil.getHttpServletRequest(renderRequest));
+	    SearchContext searchContext = SearchContextFactory.getInstance(PortalUtil.getHttpServletRequest(renderRequest));
 	    UserDisplayTerms displayTerms = (UserDisplayTerms) searchContainer.getDisplayTerms();
 	    searchContext.setStart(start);
 	    searchContext.setEnd(end);
@@ -102,32 +108,41 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 
 	    searchContext.setQueryConfig(queryConfig);
 
-	    Hits hits = indexer.search(searchContext);
+	    Hits hits = null;
+	    try {
+		hits = indexer.search(searchContext);
+	    } catch (SearchException se) {
+		if (LOGGER.isDebugEnabled()) {
+		    LOGGER.debug(se);
+		}
+		LOGGER.error("SearchException : impossible to search users");
+	    }
 
-	    List<SearchResult> searchResultsList = SearchResultUtil.getSearchResults(hits, themeDisplay.getLocale(),
-		    renderRequest, renderResponse);
-	    total = hits.getLength();
-	    if (total > 0) {
-		for (SearchResult searchResult : searchResultsList) {
-		    User user = UserLocalServiceUtil.getUser(searchResult.getClassPK());
-		    users.add(user);
+	    if (hits != null && hits.getLength() > 0) {
+		List<SearchResult> searchResultsList = SearchResultUtil.getSearchResults(hits, themeDisplay.getLocale(),
+			renderRequest, renderResponse);
+		total = hits.getLength();
+		if (total > 0) {
+		    for (SearchResult searchResult : searchResultsList) {
+			try {
+			    User user = UserLocalServiceUtil.getUser(searchResult.getClassPK());
+			    users.add(user);
+			} catch (PortalException e) {
+			    if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug(e);
+			    }
+			    LOGGER.error("PortalException : impossible to get user " + searchResult.getClassPK());
+			} catch (SystemException e) {
+			    if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug(e);
+			    }
+			    LOGGER.error("PortalException : impossible to get user " + searchResult.getClassPK());
+			}
+
+		    }
 		}
 	    }
-	} catch (SearchException e) {
-	    if (LOGGER.isDebugEnabled()) {
-		LOGGER.debug(e);
-	    }
-	    LOGGER.error("SearchException : impossible to searh searchUserContainer");
-	} catch (PortalException e) {
-	    if (LOGGER.isDebugEnabled()) {
-		LOGGER.debug(e);
-	    }
-	    LOGGER.error("PortalException : impossible to search users");
-	} catch (SystemException e) {
-	    if (LOGGER.isDebugEnabled()) {
-		LOGGER.debug(e);
-	    }
-	    LOGGER.error("PortalException : impossible to search users");
+
 	} catch (WindowStateException wse) {
 	    LOGGER.error(wse);
 	} catch (PortletModeException pme) {
