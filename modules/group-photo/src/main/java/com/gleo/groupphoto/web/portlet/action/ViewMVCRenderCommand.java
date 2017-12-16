@@ -96,10 +96,11 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 
 	    if (displayTerms.isAdvancedSearch()) {
 		searchContext.setAndSearch(displayTerms.isAndOperator());
-
 	    } else {
 		searchContext.setKeywords(displayTerms.getKeywords());
 	    }
+	    LOGGER.info("isAndOperator " + displayTerms.isAndOperator());
+	    LOGGER.info("setKeywords " + renderRequest.getParameter("_com_gleo_groupphoto_web_portlet_GroupPhotoPortlet_keywords"));
 	    searchContext.setSorts(new Sort(UserDisplayTerms.LAST_NAME, false));
 
 	    QueryConfig queryConfig = new QueryConfig();
