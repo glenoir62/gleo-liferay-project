@@ -2,6 +2,7 @@
 
 <liferay-portlet:renderURL varImpl="searchURL" >
 	<portlet:param name="mvcRenderCommandName" value="/groupphoto/view" />
+	<portlet:param name="resetCur" value="true" />
 </liferay-portlet:renderURL>
 
 <aui:form action="${searchURL.toString()}" method="post" name="fm">

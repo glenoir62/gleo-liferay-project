@@ -72,6 +72,8 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	int start = searchContainer.getStart();
 	int end = searchContainer.getEnd();
 	PortletURL portletDirectoryURL = null;
+	UserDisplayTerms displayTerms = null;
+	
 	try {
 	    // create portletUrl
 	    try {
@@ -90,17 +92,16 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 
 	    // create search context
 	    SearchContext searchContext = SearchContextFactory.getInstance(PortalUtil.getHttpServletRequest(renderRequest));
-	    UserDisplayTerms displayTerms = (UserDisplayTerms) searchContainer.getDisplayTerms();
+	    displayTerms = (UserDisplayTerms) searchContainer.getDisplayTerms();
 	    searchContext.setStart(start);
 	    searchContext.setEnd(end);
-
+	    
 	    if (displayTerms.isAdvancedSearch()) {
 		searchContext.setAndSearch(displayTerms.isAndOperator());
 	    } else {
 		searchContext.setKeywords(displayTerms.getKeywords());
 	    }
-	    LOGGER.info("isAndOperator " + displayTerms.isAndOperator());
-	    LOGGER.info("setKeywords " + renderRequest.getParameter("_com_gleo_groupphoto_web_portlet_GroupPhotoPortlet_keywords"));
+
 	    searchContext.setSorts(new Sort(UserDisplayTerms.LAST_NAME, false));
 
 	    QueryConfig queryConfig = new QueryConfig();
@@ -150,6 +151,9 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	    LOGGER.error(pme);
 	}
 
+	if (LOGGER.isDebugEnabled()) {
+	    LOGGER.debug("displayTerms " + displayTerms);
+	}
 	searchContainer.setTotal(total);
 	searchContainer.setResults(users);
 	renderRequest.setAttribute("searchUserContainer", searchContainer);

@@ -129,4 +129,12 @@ public class UserDisplayTerms extends DisplayTerms {
     protected int status;
     protected long userGroupId;
 
+    @Override
+    public String toString() {
+	return "UserDisplayTerms [emailAddress=" + emailAddress + ", firstName=" + firstName + ", lastName=" + lastName
+		+ ", middleName=" + middleName + ", organizationId=" + organizationId + ", screenName=" + screenName
+		+ ", status=" + status + ", userGroupId=" + userGroupId + ", advancedSearch=" + advancedSearch
+		+ ", andOperator=" + andOperator + ", keywords=" + keywords + "]";
+    }
+    
 }
