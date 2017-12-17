@@ -10,9 +10,11 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
@@ -25,9 +27,13 @@ import com.liferay.portal.kernel.search.SearchResultUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.CamelCaseUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +52,9 @@ import org.osgi.service.component.annotations.Component;
  * @author guillaumelenoir
  *
  */
-@Component(property = { "javax.portlet.name=" + GroupPhotoPortletKeys.GROUP_PHOTO, "mvc.command.name=/",
+@Component(property = {
+	"javax.portlet.name=" + GroupPhotoPortletKeys.GROUP_PHOTO,
+	"mvc.command.name=/",
 	"mvc.command.name=/groupphoto/view" })
 public class ViewMVCRenderCommand implements MVCRenderCommand {
 
@@ -88,7 +96,7 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	    }
 
 	    // Get indexer
-	    Indexer<User> indexer = IndexerRegistryUtil.getIndexer(User.class);
+	    Indexer<User> indexer = IndexerRegistryUtil.nullSafeGetIndexer(User.class);
 
 	    // create search context
 	    SearchContext searchContext = SearchContextFactory.getInstance(PortalUtil.getHttpServletRequest(renderRequest));
@@ -101,8 +109,24 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	    } else {
 		searchContext.setKeywords(displayTerms.getKeywords());
 	    }
+	    
+	    String navigation = ParamUtil.getString(renderRequest, "navigation", "active");
+	    
+	    if (!"active".equals(navigation)) {
+		searchContext.setAttribute(Field.STATUS, WorkflowConstants.STATUS_INACTIVE);
+	    }
+	    
+	    boolean orderByAsc = false;
 
-	    searchContext.setSorts(new Sort(UserDisplayTerms.LAST_NAME, false));
+	    if (searchContainer.getOrderByType().equals("asc")) {
+		orderByAsc = true;
+	    }
+	    
+	    String orderByType = GetterUtil.get(searchContainer.getOrderByCol(), "lastName");
+	    orderByType = CamelCaseUtil.toCamelCase(orderByType);
+	 
+
+	    searchContext.setSorts(new Sort(orderByType, orderByAsc));
 
 	    QueryConfig queryConfig = new QueryConfig();
 
@@ -154,9 +178,19 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	if (LOGGER.isDebugEnabled()) {
 	    LOGGER.debug("displayTerms " + displayTerms);
 	}
+	
+	String toolbarItem = ParamUtil.getString(renderRequest, "toolbarItem", "view-all-users");
+	String usersListView = ParamUtil.get(renderRequest, "usersListView", UserConstants.LIST_VIEW_FLAT_USERS);
+	
+	PortletURL portletURL = renderResponse.createRenderURL();
+
+	portletURL.setParameter("toolbarItem", toolbarItem);
+	portletURL.setParameter("usersListView", usersListView);
+	
 	searchContainer.setTotal(total);
 	searchContainer.setResults(users);
 	renderRequest.setAttribute("searchUserContainer", searchContainer);
+	renderRequest.setAttribute("portletURL", portletURL);
 	renderRequest.setAttribute("portletDirectoryURL", portletDirectoryURL);
 
 	return "/groupphoto/jsp/view.jsp";
