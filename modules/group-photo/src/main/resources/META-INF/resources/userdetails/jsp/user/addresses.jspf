@@ -1,5 +1,3 @@
-<%@ include file="/groupphoto/jsp/init.jsp" %>
-
 
 <c:if test="${!personalAddresses.isEmpty() || !organizationAddresses.isEmpty()}">
 	<h3 class="icon-home"><liferay-ui:message key="address" /></h3>
@@ -12,7 +10,7 @@
 				 <c:forEach var="address" items="${organizationAddresses}">
 				 	
 					<li class="${address.isPrimary() ? "icon-star" : StringPool.BLANK}">
- 						<%@ include file="/groupphoto/jsp/ajax/user/common/addresses_address.jsp" %>
+ 						<%@ include file="/userdetails/jsp/user/common/addresses_address.jspf" %>
 					</li>
 				</c:forEach>
 			</ul>
@@ -27,7 +25,7 @@
 				<c:forEach var="address" items="${personalAddresses}">
 
 					<li class='${(address.isPrimary() && !personalAddresses.isEmpty()) ? "icon-star" : "" }'>
-						<%@ include file="/groupphoto/jsp/ajax/user/common/addresses_address.jsp" %>
+						<%@ include file="/userdetails/jsp/user/common/addresses_address.jspf" %>
 					</li>
 				</c:forEach>
 			</ul>

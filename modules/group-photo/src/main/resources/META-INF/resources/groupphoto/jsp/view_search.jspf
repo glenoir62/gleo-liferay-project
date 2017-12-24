@@ -1,4 +1,7 @@
 
+<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
+<%@page import="javax.portlet.PortletMode"%>
+<%@page import="javax.portlet.PortletRequest"%>
 <liferay-ui:search-container id="users"
 	searchContainer="${searchUserContainer}">
 
@@ -45,12 +48,15 @@
 		var userId = event.currentTarget.getData('user-id');
 
 		if (userId) {
-		
-			var resourceURL = Liferay.PortletURL.createResourceURL();
-			resourceURL.setPortletId('${groupPhotoPortletId}');
-			resourceURL.setResourceId('/groupphoto/view_user');
-			resourceURL.setParameter('userId',userId);
-			console.log("sdsdfsdf" +resourceURL);
+			
+			var portletURL = new Liferay.PortletURL();
+			portletURL.setLifecycle('<%= PortletRequest.RENDER_PHASE %>');
+			portletURL.setPortletId('${userDetailsPortletId}');
+			portletURL.setParameter("p_auth", Liferay.authToken);
+			portletURL.setParameter("saveLastPath", false);
+			portletURL.setParameter("mvcRenderCommandName", "/");
+			portletURL.setPortletMode('<%= PortletMode.VIEW %>');
+			portletURL.setWindowState('<%= LiferayWindowState.POP_UP %>');
 			
 			Liferay.Util.openWindow (
 		        {
@@ -59,9 +65,12 @@
 						width: 650,
 						height: 450
 					},
+					data : {
+						p_auth : Liferay.authToken
+					},
 					title: Liferay.Language.get("User"),
 		            id: '<portlet:namespace/>window-directory-user',
-		            uri: resourceURL
+		            uri: portletURL.toString()
 		        }
 		    );
 		}

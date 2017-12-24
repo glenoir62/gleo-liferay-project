@@ -1,4 +1,3 @@
-<%@ include file="/groupphoto/jsp/init.jsp" %>
 
 <c:set var="jabberSn"  value="${contact.getJabberSn()}"/>
 <c:set var="skypeSn"  value="${contact.getSkypeSn()}"/>

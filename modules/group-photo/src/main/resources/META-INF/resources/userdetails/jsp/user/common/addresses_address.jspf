@@ -1,4 +1,3 @@
-<%@ include file="/groupphoto/jsp/init.jsp" %>
 
 <c:set var="addressListType"  value="${address.type}"/>
 <c:set var="mailingName">
@@ -8,16 +7,15 @@
 <c:set var="street1"  value="${address.street1}"/>
 <c:set var="street2"  value="${address.street2}"/>
 <c:set var="street3"  value="${address.street3}"/>
-
 <c:set var="zipCode"  value="${address.zip}"/>
 <c:set var="city"  value="${address.city}"/>
 
 <c:set var="region"  value="${address.region}"/>
 <c:set var="regionName"  value="${region.name}"/>
+coucou
 
 <c:set var="country"  value="${address.country}"/>
 <c:set var="countryName"  value="${country.name}"/>
-
 
 <em class="mailing-name">${mailingName}</em>
 

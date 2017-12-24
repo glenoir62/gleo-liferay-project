@@ -25,9 +25,12 @@ import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.EmailAddress;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.Phone;
+import com.liferay.portal.kernel.model.ThemeConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.Website;
+import com.liferay.portal.kernel.parsers.bbcode.BBCodeTranslatorUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.service.AddressServiceUtil;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
@@ -43,6 +46,8 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -53,6 +58,8 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -62,19 +69,24 @@ import org.osgi.service.component.annotations.Component;
  * @author guillaumelenoir
  *
  */
-@Component(immediate = true, property = { "javax.portlet.name=" + GroupPhotoPortletKeys.GROUP_PHOTO,
-	"mvc.command.name=/groupphoto/view_user" }, service = MVCResourceCommand.class)
-public class ViewUserActionMVCResourceCommand extends BaseMVCResourceCommand {
+@Component(property = { "auth.token.ignore.mvc.action=true",
+			"javax.portlet.name=" + GroupPhotoPortletKeys.USER_DETAILS,
+			"mvc.command.name=/",
+			"portlet.add.default.resource.check.whitelist.mvc.action=true" 
+			})
+public class ViewUserDetailsActionMVCRenderCommand implements MVCRenderCommand {
+ 
+    protected static Log LOGGER = LogFactoryUtil.getLog(ViewUserDetailsActionMVCRenderCommand.class);
 
-    protected static Log LOGGER = LogFactoryUtil.getLog(ViewUserActionMVCResourceCommand.class);
+    public static final String EMOTICONS = "/emoticons";
 
     @Override
-    protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
+    public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
 
-	long userId = ParamUtil.getLong(resourceRequest, "userId");
-	ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
+	long userId = ParamUtil.getLong(renderRequest, "userId");
+	ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-	StringBundler organizationsHTML = null;
+	String organizationsHTML = StringPool.BLANK;
 	Contact contact = null;
 	List<Organization> organizations = null;
 	User user = null;
@@ -84,6 +96,7 @@ public class ViewUserActionMVCResourceCommand extends BaseMVCResourceCommand {
 	String birthday = null;
 	String jobTitle = null;
 	String gender = null;
+	String comments = null;
 
 	// Get User
 	if (userId > 0) {
@@ -107,23 +120,24 @@ public class ViewUserActionMVCResourceCommand extends BaseMVCResourceCommand {
 
 		// Get Organizations
 		organizations = OrganizationLocalServiceUtil.getUserOrganizations(user.getUserId());
-		organizationsHTML = new StringBundler(organizations.size() * 2);
+		StringBundler organizationsHTMLBundler = new StringBundler(organizations.size() * 2);
 
 		if (!organizations.isEmpty()) {
-		    organizationsHTML.append(organizations.get(0).getName());
+		    organizationsHTMLBundler.append(organizations.get(0).getName());
 		}
 
 		for (int i = 1; i < organizations.size(); i++) {
-		    organizationsHTML.append(", ");
-		    organizationsHTML.append(organizations.get(i).getName());
+		    organizationsHTMLBundler.append(", ");
+		    organizationsHTMLBundler.append(organizations.get(i).getName());
 		}
+		organizationsHTML = organizationsHTMLBundler.toString();
 
 		// Fields
-		setFields(resourceRequest, contact, user, company, locale, birthday, gender, jobTitle);
-		
+		setFields(renderRequest, contact, user, company, locale, birthday, gender, jobTitle);
+
 		// Contact
 		String className = Contact.class.getName();
-		long classPK =  contact.getContactId();
+		long classPK = contact.getContactId();
 
 		List<Address> personalAddresses = Collections.emptyList();
 		List<Address> organizationAddresses = new ArrayList<Address>();
@@ -131,7 +145,7 @@ public class ViewUserActionMVCResourceCommand extends BaseMVCResourceCommand {
 		List<Website> websites = Collections.emptyList();
 		List<Phone> personalPhones = Collections.emptyList();
 		List<Phone> organizationPhones = new ArrayList<Phone>();
-		
+
 		if (classPK > 0) {
 		    try {
 			personalAddresses = AddressServiceUtil.getAddresses(className, classPK);
@@ -144,7 +158,7 @@ public class ViewUserActionMVCResourceCommand extends BaseMVCResourceCommand {
 		    } catch (PortalException pe) {
 			LOGGER.error(pe);
 		    }
-		    
+
 		    try {
 			websites = WebsiteServiceUtil.getWebsites(className, classPK);
 		    } catch (PortalException pe) {
@@ -159,31 +173,39 @@ public class ViewUserActionMVCResourceCommand extends BaseMVCResourceCommand {
 		}
 
 		for (int i = 0; i < organizations.size(); i++) {
-			try {
-				organizationAddresses.addAll(AddressServiceUtil.getAddresses(Organization.class.getName(), organizations.get(i).getOrganizationId()));
-			}
-			catch (Exception e) {
-			}
+		    try {
+			organizationAddresses.addAll(AddressServiceUtil.getAddresses(Organization.class.getName(),
+				organizations.get(i).getOrganizationId()));
+		    } catch (Exception e) {
+		    }
 		}
-		
 
 		for (int i = 0; i < organizations.size(); i++) {
-			try {
-				organizationPhones.addAll(PhoneServiceUtil.getPhones(Organization.class.getName(), organizations.get(i).getOrganizationId()));
-			}
-			catch (Exception e) {
-			}
+		    try {
+			organizationPhones.addAll(PhoneServiceUtil.getPhones(Organization.class.getName(),
+				organizations.get(i).getOrganizationId()));
+		    } catch (Exception e) {
+		    }
 		}
-		
-		resourceRequest.setAttribute("organizationAddresses", organizationAddresses);
-		resourceRequest.setAttribute("personalAddresses", personalAddresses);
-		resourceRequest.setAttribute("emailAddresses", emailAddresses);
-		resourceRequest.setAttribute("organizationAddresses", organizationAddresses);
-		resourceRequest.setAttribute("websites", websites);
-		resourceRequest.setAttribute("personalPhones", personalPhones);
-		resourceRequest.setAttribute("organizationPhones", organizationPhones);
-		
-		
+
+		// Comments
+		comments = user.getComments();
+
+		LOGGER.info("comments" + comments);
+		if (comments != null && !comments.trim().equals(StringPool.BLANK)) {
+		    comments = StringUtil.replace(BBCodeTranslatorUtil.getHTML(user.getComments()),
+			    ThemeConstants.TOKEN_THEME_IMAGES_PATH + EMOTICONS,
+			    themeDisplay.getPathThemeImages() + EMOTICONS);
+		}
+
+		renderRequest.setAttribute("organizationAddresses", organizationAddresses);
+		renderRequest.setAttribute("personalAddresses", personalAddresses);
+		renderRequest.setAttribute("emailAddresses", emailAddresses);
+		renderRequest.setAttribute("organizationAddresses", organizationAddresses);
+		renderRequest.setAttribute("websites", websites);
+		renderRequest.setAttribute("personalPhones", personalPhones);
+		renderRequest.setAttribute("organizationPhones", organizationPhones);
+
 	    }
 	}
 
@@ -192,44 +214,36 @@ public class ViewUserActionMVCResourceCommand extends BaseMVCResourceCommand {
 	    LOGGER.debug("birthday =" + birthday);
 	    LOGGER.debug("gender =" + gender);
 	    LOGGER.debug("jobTitle =" + jobTitle);
-	    
-	}
-	
-	resourceRequest.setAttribute("organizations", organizations);
-	resourceRequest.setAttribute("organizationsHTML", organizationsHTML.toString());
-	resourceRequest.setAttribute("user", user);
-	resourceRequest.setAttribute("contact", contact);
-	resourceRequest.setAttribute("languageUtil", LanguageUtil.getLanguage());
-	resourceRequest.setAttribute("locale", locale);
-	
-	resourceRequest.setAttribute("htmlUtil", HtmlUtil.getHtml());
-	
-
-	try {
-	    include(resourceRequest, resourceResponse, "/groupphoto/jsp/ajax/user_details.jsp");
-	} catch (IOException ioe) {
-	    LOGGER.error(ioe);
-	} catch (PortletException pe) {
-	    LOGGER.error(pe);
+	    LOGGER.debug("comments =" + comments);
 	}
 
+	renderRequest.setAttribute("organizations", organizations);
+	renderRequest.setAttribute("organizationsHTML", organizationsHTML);
+	renderRequest.setAttribute("user", user);
+	renderRequest.setAttribute("contact", contact);
+	renderRequest.setAttribute("languageUtil", LanguageUtil.getLanguage());
+	renderRequest.setAttribute("locale", locale);
+	renderRequest.setAttribute("comments", comments);
+	renderRequest.setAttribute("htmlUtil", HtmlUtil.getHtml());
+
+	return "/userdetails/jsp/user_details.jsp";
     }
 
     /**
      * Set fields
      * 
-     * @param resourceRequest
+     * @param renderRequest
      * @param contact
      * @param user
      * @param company
      * @param locale
      * @param birthday
      * @param gender
-     * @param jobTitle 
+     * @param jobTitle
      */
-    private void setFields(ResourceRequest resourceRequest, Contact contact, User user, Company company, Locale locale,
+    private void setFields(RenderRequest renderRequest, Contact contact, User user, Company company, Locale locale,
 	    String birthday, String gender, String jobTitle) {
-	
+
 	boolean isFieldEnableContactBirthday = PrefsPropsUtil.getBoolean(company.getCompanyId(),
 		PropsKeys.FIELD_ENABLE_COM_LIFERAY_PORTAL_MODEL_CONTACT_BIRTHDAY);
 
@@ -255,9 +269,9 @@ public class ViewUserActionMVCResourceCommand extends BaseMVCResourceCommand {
 	    }
 	}
 
-	resourceRequest.setAttribute("birthday", birthday);
-	resourceRequest.setAttribute("jobTitle", jobTitle);
-	resourceRequest.setAttribute("gender", gender);
+	renderRequest.setAttribute("birthday", birthday);
+	renderRequest.setAttribute("jobTitle", jobTitle);
+	renderRequest.setAttribute("gender", gender);
     }
 
 }

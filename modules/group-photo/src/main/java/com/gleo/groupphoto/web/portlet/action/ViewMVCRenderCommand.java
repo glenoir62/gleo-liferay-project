@@ -45,7 +45,8 @@ import org.osgi.service.component.annotations.Component;
  * @author guillaumelenoir
  *
  */
-@Component(property = { "javax.portlet.name=" + GroupPhotoPortletKeys.GROUP_PHOTO, "mvc.command.name=/",
+@Component(property = { "javax.portlet.name=" + GroupPhotoPortletKeys.GROUP_PHOTO,
+	"mvc.command.name=/",
 	"mvc.command.name=/groupphoto/view" })
 public class ViewMVCRenderCommand implements MVCRenderCommand {
 
@@ -100,7 +101,7 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	
 	renderRequest.setAttribute("searchUserContainer", searchContainer);
 	renderRequest.setAttribute("portletURL", portletURL);
-	renderRequest.setAttribute("groupPhotoPortletId", GroupPhotoPortletKeys.GROUP_PHOTO);
+	renderRequest.setAttribute("userDetailsPortletId", GroupPhotoPortletKeys.USER_DETAILS);
 
 	return "/groupphoto/jsp/view.jsp";
     }

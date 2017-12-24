@@ -1,4 +1,3 @@
-<%@ include file="/groupphoto/jsp/init.jsp" %>
 
 <c:if test="${ not empty contact.getSmsSn() }">
 	<h3 class="icon-mobile-phone"><liferay-ui:message key="sms" /></h3>
