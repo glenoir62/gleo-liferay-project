@@ -48,6 +48,11 @@ public class UserDisplayTerms extends DisplayTerms {
      * Status display term
      */
     public static final String STATUS = "status";
+    
+    /**
+     * UserGroupId display term
+     */
+    public static final String USER_GROUP_ID = "userGroupId";
 
     public UserDisplayTerms(PortletRequest portletRequest) {
 	super(portletRequest);

@@ -64,6 +64,7 @@ public class UserSearch extends SearchContainer<User> {
 	headerNames.add("screen-name");
 	// headerNames.add("email-address");
 	headerNames.add("job-title");
+	headerNames.add("organizations");
 
 	orderableHeaders.put("first-name", "first-name");
 	orderableHeaders.put("last-name", "last-name");
@@ -104,6 +105,7 @@ public class UserSearch extends SearchContainer<User> {
 	iteratorURL.setParameter(UserDisplayTerms.LAST_NAME, displayTerms.getLastName());
 	iteratorURL.setParameter(UserDisplayTerms.MIDDLE_NAME, displayTerms.getMiddleName());
 	iteratorURL.setParameter(UserDisplayTerms.SCREEN_NAME, displayTerms.getScreenName());
+	iteratorURL.setParameter(UserDisplayTerms.ORGANIZATION_ID, String.valueOf(displayTerms.getOrganizationId()));
 
 	try {
 	    PortalPreferences preferences = PortletPreferencesFactoryUtil.getPortalPreferences(portletRequest);
