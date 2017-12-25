@@ -53,6 +53,7 @@
 			portletURL.setLifecycle('<%= PortletRequest.RENDER_PHASE %>');
 			portletURL.setPortletId('${userDetailsPortletId}');
 			portletURL.setParameter("p_auth", Liferay.authToken);
+			portletURL.setParameter("userId", userId);
 			portletURL.setParameter("saveLastPath", false);
 			portletURL.setParameter("mvcRenderCommandName", "/");
 			portletURL.setPortletMode('<%= PortletMode.VIEW %>');

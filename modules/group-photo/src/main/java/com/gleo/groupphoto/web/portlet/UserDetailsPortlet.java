@@ -16,7 +16,6 @@ import org.osgi.service.component.annotations.Component;
 	"com.liferay.portlet.scopeable=true",
 	"com.liferay.portlet.use-default-template=true",
 	"com.liferay.portlet.system=true",
-	"com.liferay.portlet.active=true",
 	"com.liferay.portlet.add-default-resource=true",
 	"javax.portlet.display-name=user details",
 	"javax.portlet.expiration-cache=0",

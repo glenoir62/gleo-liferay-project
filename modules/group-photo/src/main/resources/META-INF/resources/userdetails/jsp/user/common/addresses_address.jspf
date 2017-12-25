@@ -12,7 +12,6 @@
 
 <c:set var="region"  value="${address.region}"/>
 <c:set var="regionName"  value="${region.name}"/>
-coucou
 
 <c:set var="country"  value="${address.country}"/>
 <c:set var="countryName"  value="${country.name}"/>

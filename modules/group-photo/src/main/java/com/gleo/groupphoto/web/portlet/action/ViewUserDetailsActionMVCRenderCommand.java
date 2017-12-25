@@ -29,9 +29,7 @@ import com.liferay.portal.kernel.model.ThemeConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.Website;
 import com.liferay.portal.kernel.parsers.bbcode.BBCodeTranslatorUtil;
-import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.service.AddressServiceUtil;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.service.EmailAddressServiceUtil;
@@ -50,18 +48,14 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.io.IOException;
 import java.text.Format;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -219,7 +213,7 @@ public class ViewUserDetailsActionMVCRenderCommand implements MVCRenderCommand {
 
 	renderRequest.setAttribute("organizations", organizations);
 	renderRequest.setAttribute("organizationsHTML", organizationsHTML);
-	renderRequest.setAttribute("user", user);
+	renderRequest.setAttribute("user2", user);
 	renderRequest.setAttribute("contact", contact);
 	renderRequest.setAttribute("languageUtil", LanguageUtil.getLanguage());
 	renderRequest.setAttribute("locale", locale);
