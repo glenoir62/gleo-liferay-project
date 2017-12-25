@@ -4,12 +4,7 @@ package com.gleo.groupphoto.web.portlet;
 import com.gleo.groupphoto.web.constants.GroupPhotoPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
-import java.io.IOException;
-
 import javax.portlet.Portlet;
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
