@@ -1,6 +1,6 @@
 
 <c:if test="${!emailAddresses.isEmpty()}">
-	<h3 class="icon-envelope"><liferay-ui:message key="additional-email-addresses" /></h3>
+	<h3 class="icon-envelope"> <liferay-ui:message key="additional-email-addresses" /></h3>
 
 	<ul class="property-list">
 

@@ -4,7 +4,7 @@
 
 
 <c:if test='${ not empty facebook || not empty twitter }'>
-	<h3 class="icon-group"><liferay-ui:message key="social-network" /></h3>
+	<h3 class="icon-group"> <liferay-ui:message key="social-network" /></h3>
 	
 	<dl class="property-list">
 		<c:if test='${ not empty facebook }'>

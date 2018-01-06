@@ -1,6 +1,6 @@
 
 <c:if test="${!personalAddresses.isEmpty() || !organizationAddresses.isEmpty()}">
-	<h3 class="icon-home"><liferay-ui:message key="address" /></h3>
+	<h3 class="icon-home"> <liferay-ui:message key="address" /></h3>
 
 	<c:if test="${!organizationAddresses.isEmpty()}">
 		<div>

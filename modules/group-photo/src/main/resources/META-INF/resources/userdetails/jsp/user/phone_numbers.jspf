@@ -1,6 +1,6 @@
 
 <c:if test="${!personalPhones.isEmpty() || !organizationPhones.isEmpty() }">
-	<h3 class="icon-phone-sign"><liferay-ui:message key="phones" /></h3>
+	<h3 class="icon-phone-sign"> <liferay-ui:message key="phones" /></h3>
 
 	<c:if test="${!organizationPhones.isEmpty() }">
 		<h4><liferay-ui:message key="organization-phones" /></h4>
