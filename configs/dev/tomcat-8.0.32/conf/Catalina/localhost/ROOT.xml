@@ -1,0 +1,38 @@
+<Context crossContext="true" path="">
+
+	<!-- JAAS -->
+
+	<!--<Realm
+		className="org.apache.catalina.realm.JAASRealm"
+		appName="PortalRealm"
+		userClassNames="com.liferay.portal.kernel.security.jaas.PortalPrincipal"
+		roleClassNames="com.liferay.portal.kernel.security.jaas.PortalRole"
+	/>-->
+
+	<!--
+	Uncomment the following to disable persistent sessions across reboots.
+	-->
+
+	<!--<Manager pathname="" />-->
+
+	<!--
+	Uncomment the following to not use sessions. See the property
+	"session.disabled" in portal.properties.
+	-->
+
+	<!--<Manager className="com.liferay.support.tomcat.session.SessionLessManagerBase" />-->
+	
+	<Resource
+	   name="jdbc/LiferayPool"
+	   auth="Container"
+	   type="javax.sql.DataSource"
+	   factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+	   driverClassName="com.mysql.jdbc.Driver"
+	   url="jdbc%3Amysql%3A%2F%2Flocalhost%2Fliferay7%3FuseUnicode%3Dtrue%26characterEncoding%3DUTF-8%26useFastDateParsing%3Dfalsee"
+	   username="root"
+	   password=""
+	   maxActive="20"
+	   maxIdle="5"
+	   maxWait="10000"
+	/>
+</Context>
