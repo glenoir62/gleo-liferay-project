@@ -28,7 +28,7 @@
 	   type="javax.sql.DataSource"
 	   factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
 	   driverClassName="com.mysql.jdbc.Driver"
-	   url="jdbc:mysql://localhost/liferay7"
+	   url="jdbc:mysql://localhost/liferay7_GA5"
 	   connectionProperties="useUnicode=yes;characterEncoding=utf8;useFastDateParsing=false"
 	   username="root"
 	   password=""
