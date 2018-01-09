@@ -11,10 +11,10 @@
 			modelVar="user2" cssClass="entry-card lfr-asset-item">
 			<liferay-ui:search-container-column-text>
 				<div class="user-photo-group" data-user-id="${user2.userId}">
-					<liferay-frontend:vertical-card
+					<liferay-frontend:user-vertical-card
 						cssClass="entry-display-style"
-						imageUrl="${user2.getPortraitURL(themeDisplay)}"
 						title="${user2.getFullName()}"
+						userId="${user2.userId}"
 						url="#"
 					>
 	<%-- 			<liferay-frontend:vertical-card-sticker-bottom>
@@ -34,7 +34,7 @@
 							<aui:workflow-status markupView="lexicon" showIcon="<%= false %>" showLabel="<%= false %>" status="${user2.status}" />
 						</liferay-frontend:vertical-card-footer>
 	
-					</liferay-frontend:vertical-card>
+					</liferay-frontend:user-vertical-card>
 				</div>
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
