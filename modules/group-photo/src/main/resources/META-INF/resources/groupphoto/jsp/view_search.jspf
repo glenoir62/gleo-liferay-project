@@ -5,12 +5,11 @@
 <liferay-ui:search-container id="users"
 	searchContainer="${searchUserContainer}">
 
-
 		<liferay-ui:search-container-row
 			className="com.liferay.portal.kernel.model.User" keyProperty="userId"
 			modelVar="user2" cssClass="entry-card lfr-asset-item">
 			<liferay-ui:search-container-column-text>
-				<div class="user-photo-group" data-user-id="${user2.userId}">
+				<div class="user-photo-group" data-user-name="${user2.getFullName()}" data-user-id="${user2.userId}">
 					<liferay-frontend:user-vertical-card
 						cssClass="entry-display-style"
 						title="${user2.getFullName()}"
@@ -56,7 +55,7 @@
 					data : {
 						p_auth : Liferay.authToken
 					},
-					title: Liferay.Language.get("User"),
+					title: event.currentTarget.getData('user-name'),
 		            id: '<portlet:namespace/>window-directory-user',
 		            uri: portletURL.toString()
 		        }
