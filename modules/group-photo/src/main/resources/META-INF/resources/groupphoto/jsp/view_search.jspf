@@ -17,19 +17,6 @@
 						userId="${user2.userId}"
 						url="#"
 					>
-	<%-- 			<liferay-frontend:vertical-card-sticker-bottom>
-						<div class="sticker sticker-bottom file-icon-color-3">
-							PDF
-						</div>
-						<div class="file-icon-color-0 sticker sticker-right">
-							<aui:icon cssClass="icon-monospaced" image="lock" markupView="lexicon" message="locked" />
-						</div>
-					</liferay-frontend:vertical-card-sticker-bottom>
-						
-						<liferay-frontend:vertical-card-header>
-							${user2.birthday}
-						</liferay-frontend:vertical-card-header>
-	--%>
 						<liferay-frontend:vertical-card-footer>
 							<aui:workflow-status markupView="lexicon" showIcon="<%= false %>" showLabel="<%= false %>" status="${user2.status}" />
 						</liferay-frontend:vertical-card-footer>

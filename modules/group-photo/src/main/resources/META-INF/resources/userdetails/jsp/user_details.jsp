@@ -1,9 +1,9 @@
 <%@ include file="/init.jsp" %>
 
 <div class="container">
-	<div class="row">
+	<div class="row column-1">
 		<div class="col-xs-offset-1 col-xs-4">
-			<div class="section">
+			<div class="section entry-card lfr-asset-item">
 			<%@ include file="/userdetails/jsp/user/details.jspf" %>
 			</div>
 			<div class="section">
