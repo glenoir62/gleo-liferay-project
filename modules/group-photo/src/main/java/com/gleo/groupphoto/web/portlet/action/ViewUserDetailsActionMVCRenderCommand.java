@@ -184,8 +184,7 @@ public class ViewUserDetailsActionMVCRenderCommand implements MVCRenderCommand {
 
 		// Comments
 		comments = user.getComments();
-
-		LOGGER.info("comments" + comments);
+		
 		if (comments != null && !comments.trim().equals(StringPool.BLANK)) {
 		    comments = StringUtil.replace(BBCodeTranslatorUtil.getHTML(user.getComments()),
 			    ThemeConstants.TOKEN_THEME_IMAGES_PATH + EMOTICONS,
