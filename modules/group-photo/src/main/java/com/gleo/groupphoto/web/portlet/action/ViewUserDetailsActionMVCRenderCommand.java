@@ -121,7 +121,7 @@ public class ViewUserDetailsActionMVCRenderCommand implements MVCRenderCommand {
 		}
 
 		for (int i = 1; i < organizations.size(); i++) {
-		    organizationsHTMLBundler.append(", ");
+		    organizationsHTMLBundler.append("<br/>");
 		    organizationsHTMLBundler.append(organizations.get(i).getName());
 		}
 		organizationsHTML = organizationsHTMLBundler.toString();
