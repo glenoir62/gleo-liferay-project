@@ -92,15 +92,8 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	searchContainer.setTotal(total);
 	searchContainer.setResults(users);
 	
-	String toolbarItem = ParamUtil.getString(renderRequest, "toolbarItem", "view-all-users");
-	String usersListView = ParamUtil.get(renderRequest, "usersListView", UserConstants.LIST_VIEW_FLAT_USERS);
-
-	PortletURL portletURL = renderResponse.createRenderURL();
-	portletURL.setParameter("toolbarItem", toolbarItem);
-	portletURL.setParameter("usersListView", usersListView);
-	
 	renderRequest.setAttribute("searchUserContainer", searchContainer);
-	renderRequest.setAttribute("portletURL", portletURL);
+	renderRequest.setAttribute("portletURL", searchContainer.getIteratorURL());
 	renderRequest.setAttribute("userDetailsPortletId", GroupPhotoPortletKeys.USER_DETAILS);
 
 	return "/groupphoto/jsp/view.jsp";
