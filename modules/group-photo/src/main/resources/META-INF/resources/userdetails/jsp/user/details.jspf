@@ -1,5 +1,5 @@
 
-<h3 class="icon-comments"> Info utilisateur</h3>
+<h3 class="icon-comments"> <liferay-ui:message key="user-info" /></h3>
 
 <div class="row-fluid">
 	<liferay-frontend:user-vertical-card
