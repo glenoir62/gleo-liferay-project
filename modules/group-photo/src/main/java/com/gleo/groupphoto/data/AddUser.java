@@ -26,18 +26,22 @@ import javax.portlet.ActionRequest;
 
 public class AddUser {
 
-    public static void main() {
+    public static void main() throws PortalException {
 
 	int userToCreate = 1;
 
 	String groupKey = GroupConstants.GUEST;
-//	ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-//	long companyId = themeDisplay.getCompanyId();
-//	Group group = GroupLocalServiceUtil.getGroup(companyId, groupKey);
-//
-//	for (int i = 0; i < userToCreate; i++) {
-//	    insertUserGroup(actionRequest, group, themeDisplay, companyId);
-//	}
+	
+	ActionRequest actionRequest = null;
+	
+	@SuppressWarnings("null")
+	ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+	long companyId = themeDisplay.getCompanyId();
+	Group group = GroupLocalServiceUtil.getGroup(companyId, groupKey);
+
+	for (int i = 0; i < userToCreate; i++) {
+	    insertUserGroup(actionRequest, group, themeDisplay, companyId);
+	}
 
     }
 
