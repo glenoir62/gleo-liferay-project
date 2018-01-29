@@ -2,12 +2,12 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false" default-lazy="false">
-	<import class="com.gleo.plugins.ravenbox.model.Announcement" />
-	<import class="com.gleo.plugins.ravenbox.model.AnnouncementImage" />
-	<import class="com.gleo.plugins.ravenbox.model.Currency" />
-	<import class="com.gleo.plugins.ravenbox.model.Favorite" />
-	<import class="com.gleo.plugins.ravenbox.model.Type" />
-	<class name="com.gleo.plugins.ravenbox.model.impl.AnnouncementImpl" table="ravenbox_Announcement">
+	<import class="com.gleo.modules.ravenbox.model.Announcement" />
+	<import class="com.gleo.modules.ravenbox.model.AnnouncementImage" />
+	<import class="com.gleo.modules.ravenbox.model.Currency" />
+	<import class="com.gleo.modules.ravenbox.model.Favorite" />
+	<import class="com.gleo.modules.ravenbox.model.Type" />
+	<class name="com.gleo.modules.ravenbox.model.impl.AnnouncementImpl" table="ravenbox_Announcement">
 		<id name="announcementId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -36,7 +36,7 @@
 		<property name="site" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="building" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.gleo.plugins.ravenbox.model.impl.AnnouncementImageImpl" table="ravenbox_AnnouncementImage">
+	<class name="com.gleo.modules.ravenbox.model.impl.AnnouncementImageImpl" table="ravenbox_AnnouncementImage">
 		<id name="announcementImageId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -48,7 +48,7 @@
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="com.gleo.plugins.ravenbox.model.impl.CurrencyImpl" table="ravenbox_Currency">
+	<class name="com.gleo.modules.ravenbox.model.impl.CurrencyImpl" table="ravenbox_Currency">
 		<id name="currencyId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -59,7 +59,7 @@
 		<property name="countryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="rate" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="com.gleo.plugins.ravenbox.model.impl.FavoriteImpl" table="ravenbox_Favorite">
+	<class name="com.gleo.modules.ravenbox.model.impl.FavoriteImpl" table="ravenbox_Favorite">
 		<id name="favoriteId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -68,7 +68,7 @@
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="com.gleo.plugins.ravenbox.model.impl.TypeImpl" table="ravenbox_Type">
+	<class name="com.gleo.modules.ravenbox.model.impl.TypeImpl" table="ravenbox_Type">
 		<id name="typeId" type="long">
 			<generator class="assigned" />
 		</id>

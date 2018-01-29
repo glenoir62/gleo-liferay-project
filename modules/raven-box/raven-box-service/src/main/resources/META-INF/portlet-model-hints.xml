@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<model name="com.gleo.plugins.ravenbox.model.Announcement">
+	<model name="com.gleo.modules.ravenbox.model.Announcement">
 		<field name="uuid" type="String" />
 		<field name="announcementId" type="long" />
 		<field name="companyId" type="long" />
@@ -28,7 +28,7 @@
 		<field name="site" type="String" />
 		<field name="building" type="String" />
 	</model>
-	<model name="com.gleo.plugins.ravenbox.model.AnnouncementImage">
+	<model name="com.gleo.modules.ravenbox.model.AnnouncementImage">
 		<field name="announcementImageId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="groupId" type="long" />
@@ -38,7 +38,7 @@
 		<field localized="true" name="description" type="String" />
 		<field name="order" type="int" />
 	</model>
-	<model name="com.gleo.plugins.ravenbox.model.Currency">
+	<model name="com.gleo.modules.ravenbox.model.Currency">
 		<field name="currencyId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="label" type="String" />
@@ -47,14 +47,14 @@
 		<field name="countryId" type="long" />
 		<field name="rate" type="long" />
 	</model>
-	<model name="com.gleo.plugins.ravenbox.model.Favorite">
+	<model name="com.gleo.modules.ravenbox.model.Favorite">
 		<field name="favoriteId" type="long" />
 		<field name="announcementId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="userId" type="long" />
 	</model>
-	<model name="com.gleo.plugins.ravenbox.model.Type">
+	<model name="com.gleo.modules.ravenbox.model.Type">
 		<field name="typeId" type="long" />
 		<field localized="true" name="name" type="String" />
 		<field name="groupId" type="long" />

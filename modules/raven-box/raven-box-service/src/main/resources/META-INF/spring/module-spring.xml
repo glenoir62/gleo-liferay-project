@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<bean class="com.gleo.plugins.ravenbox.service.impl.AnnouncementLocalServiceImpl" id="com.gleo.plugins.ravenbox.service.AnnouncementLocalService" />
-	<bean class="com.gleo.plugins.ravenbox.service.impl.AnnouncementServiceImpl" id="com.gleo.plugins.ravenbox.service.AnnouncementService" />
-	<bean class="com.gleo.plugins.ravenbox.service.persistence.impl.AnnouncementPersistenceImpl" id="com.gleo.plugins.ravenbox.service.persistence.AnnouncementPersistence" parent="basePersistence" />
-	<bean class="com.gleo.plugins.ravenbox.service.impl.AnnouncementImageLocalServiceImpl" id="com.gleo.plugins.ravenbox.service.AnnouncementImageLocalService" />
-	<bean class="com.gleo.plugins.ravenbox.service.persistence.impl.AnnouncementImagePersistenceImpl" id="com.gleo.plugins.ravenbox.service.persistence.AnnouncementImagePersistence" parent="basePersistence" />
-	<bean class="com.gleo.plugins.ravenbox.service.impl.CurrencyLocalServiceImpl" id="com.gleo.plugins.ravenbox.service.CurrencyLocalService" />
-	<bean class="com.gleo.plugins.ravenbox.service.impl.CurrencyServiceImpl" id="com.gleo.plugins.ravenbox.service.CurrencyService" />
-	<bean class="com.gleo.plugins.ravenbox.service.persistence.impl.CurrencyPersistenceImpl" id="com.gleo.plugins.ravenbox.service.persistence.CurrencyPersistence" parent="basePersistence" />
-	<bean class="com.gleo.plugins.ravenbox.service.impl.FavoriteLocalServiceImpl" id="com.gleo.plugins.ravenbox.service.FavoriteLocalService" />
-	<bean class="com.gleo.plugins.ravenbox.service.persistence.impl.FavoritePersistenceImpl" id="com.gleo.plugins.ravenbox.service.persistence.FavoritePersistence" parent="basePersistence" />
-	<bean class="com.gleo.plugins.ravenbox.service.impl.TypeLocalServiceImpl" id="com.gleo.plugins.ravenbox.service.TypeLocalService" />
-	<bean class="com.gleo.plugins.ravenbox.service.impl.TypeServiceImpl" id="com.gleo.plugins.ravenbox.service.TypeService" />
-	<bean class="com.gleo.plugins.ravenbox.service.persistence.impl.TypePersistenceImpl" id="com.gleo.plugins.ravenbox.service.persistence.TypePersistence" parent="basePersistence" />
+	<bean class="com.gleo.modules.ravenbox.service.impl.AnnouncementLocalServiceImpl" id="com.gleo.modules.ravenbox.service.AnnouncementLocalService" />
+	<bean class="com.gleo.modules.ravenbox.service.impl.AnnouncementServiceImpl" id="com.gleo.modules.ravenbox.service.AnnouncementService" />
+	<bean class="com.gleo.modules.ravenbox.service.persistence.impl.AnnouncementPersistenceImpl" id="com.gleo.modules.ravenbox.service.persistence.AnnouncementPersistence" parent="basePersistence" />
+	<bean class="com.gleo.modules.ravenbox.service.impl.AnnouncementImageLocalServiceImpl" id="com.gleo.modules.ravenbox.service.AnnouncementImageLocalService" />
+	<bean class="com.gleo.modules.ravenbox.service.persistence.impl.AnnouncementImagePersistenceImpl" id="com.gleo.modules.ravenbox.service.persistence.AnnouncementImagePersistence" parent="basePersistence" />
+	<bean class="com.gleo.modules.ravenbox.service.impl.CurrencyLocalServiceImpl" id="com.gleo.modules.ravenbox.service.CurrencyLocalService" />
+	<bean class="com.gleo.modules.ravenbox.service.impl.CurrencyServiceImpl" id="com.gleo.modules.ravenbox.service.CurrencyService" />
+	<bean class="com.gleo.modules.ravenbox.service.persistence.impl.CurrencyPersistenceImpl" id="com.gleo.modules.ravenbox.service.persistence.CurrencyPersistence" parent="basePersistence" />
+	<bean class="com.gleo.modules.ravenbox.service.impl.FavoriteLocalServiceImpl" id="com.gleo.modules.ravenbox.service.FavoriteLocalService" />
+	<bean class="com.gleo.modules.ravenbox.service.persistence.impl.FavoritePersistenceImpl" id="com.gleo.modules.ravenbox.service.persistence.FavoritePersistence" parent="basePersistence" />
+	<bean class="com.gleo.modules.ravenbox.service.impl.TypeLocalServiceImpl" id="com.gleo.modules.ravenbox.service.TypeLocalService" />
+	<bean class="com.gleo.modules.ravenbox.service.impl.TypeServiceImpl" id="com.gleo.modules.ravenbox.service.TypeService" />
+	<bean class="com.gleo.modules.ravenbox.service.persistence.impl.TypePersistenceImpl" id="com.gleo.modules.ravenbox.service.persistence.TypePersistence" parent="basePersistence" />
 </beans>
