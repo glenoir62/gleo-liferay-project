@@ -1,4 +1,4 @@
-package com.gleo.plugins.ravenbox.announcement.web.portlet;
+package com.gleo.modules.ravenbox.web.portlet.announcements;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
@@ -6,6 +6,10 @@ import javax.portlet.Portlet;
 
 import org.osgi.service.component.annotations.Component;
 
+/**
+ * @author guillaumelenoir
+ *
+ */
 @Component(
 	immediate = true,
 	property = {
@@ -19,5 +23,6 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = Portlet.class
 )
-public class AnnouncementPortlet extends MVCPortlet {
+public class AnnouncementsPortlet extends MVCPortlet {
+    
 }

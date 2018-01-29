@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -71,6 +72,12 @@ public interface TypeLocalService extends BaseLocalService,
 	public Type addType(Type type);
 
 	/**
+	* Adds the Type to the database incrementing the primary key
+	*/
+	public Type addType(Type type, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	/**
 	* Creates a new type with the primary key. Does not add the type to the database.
 	*
 	* @param typeId the primary key for the new type
@@ -93,9 +100,10 @@ public interface TypeLocalService extends BaseLocalService,
 	* @param typeId the primary key of the type
 	* @return the type that was removed
 	* @throws PortalException if a type with the primary key could not be found
+	* @throws SystemException
 	*/
 	@Indexable(type = IndexableType.DELETE)
-	public Type deleteType(long typeId) throws PortalException;
+	public Type deleteType(long typeId) throws PortalException, SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Type fetchType(long typeId);
@@ -115,9 +123,10 @@ public interface TypeLocalService extends BaseLocalService,
 	*
 	* @param type the type
 	* @return the type that was updated
+	* @throws SystemException
 	*/
 	@Indexable(type = IndexableType.REINDEX)
-	public Type updateType(Type type);
+	public Type updateType(Type type) throws SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -146,6 +155,9 @@ public interface TypeLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTypesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTypesCount(long groupId) throws SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -206,6 +218,10 @@ public interface TypeLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Type> getTypes(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Type> getTypes(long groupId, int start, int end)
+		throws SystemException;
 
 	/**
 	* Returns the number of rows matching the dynamic query.

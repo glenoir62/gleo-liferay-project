@@ -32,6 +32,34 @@ public class TypeServiceWrapper implements TypeService,
 		_typeService = typeService;
 	}
 
+	@Override
+	public com.gleo.modules.ravenbox.model.Type addType(
+		com.gleo.modules.ravenbox.model.Type type,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _typeService.addType(type, serviceContext);
+	}
+
+	@Override
+	public com.gleo.modules.ravenbox.model.Type deleteType(long typeId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _typeService.deleteType(typeId, serviceContext);
+	}
+
+	@Override
+	public com.gleo.modules.ravenbox.model.Type updateType(
+		com.gleo.modules.ravenbox.model.Type type)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _typeService.updateType(type);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -40,6 +68,13 @@ public class TypeServiceWrapper implements TypeService,
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
 		return _typeService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<com.gleo.modules.ravenbox.model.Type> getTypesByGroupId(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _typeService.getTypesByGroupId(groupId, start, end);
 	}
 
 	@Override

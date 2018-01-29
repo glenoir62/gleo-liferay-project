@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE resource-action-mapping PUBLIC "-//Liferay//DTD Resource Action Mapping 7.0.0//EN" "http://www.liferay.com/dtd/liferay-resource-action-mapping_7_0_0.dtd">
+<resource-action-mapping>
+
+	<portlet-resource>
+		<portlet-name>com_gleo_modules_ravenbox_web_portlet_RavenBoxPortlet</portlet-name>
+		<permissions>
+			<supports>
+				<action-key>CONFIGURATION</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported />
+		</permissions>
+	</portlet-resource>
+
+	<model-resource>
+		<model-name>com.gleo.modules.ravenbox.model.Type</model-name>
+		<portlet-ref>
+			<portlet-name>com_gleo_modules_ravenbox_web_portlet_types_TypesPortlet</portlet-name>
+		</portlet-ref>
+		<permissions>
+			<supports>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>DELETE</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+</resource-action-mapping>

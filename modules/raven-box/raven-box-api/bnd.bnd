@@ -1,7 +1,8 @@
 Bundle-SymbolicName: raven.box-api
 Bundle-Version: 1.0.0
 Export-Package:\
-	com.gleo.ravenbox.web.exception,\
-	com.gleo.ravenbox.web.model,\
-	com.gleo.ravenbox.web.service,\
-	com.gleo.ravenbox.web.service.persistence
+	com.gleo.modules.ravenbox.exception,\
+	com.gleo.modules.ravenbox.model,\
+	com.gleo.modules.ravenbox.constants,\
+	com.gleo.modules.ravenbox.service,\
+	com.gleo.modules.ravenbox.service.persistence
