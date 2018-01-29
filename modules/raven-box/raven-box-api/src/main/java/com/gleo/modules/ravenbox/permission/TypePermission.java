@@ -9,11 +9,15 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 
 /**
  * @author guillaumelenoir
  *
  */
+@OSGiBeanProperties(
+	property = {"model.class.name=com.gleo.modules.ravenbox.model.Type"}
+)
 public class TypePermission {
 
     public static void check(PermissionChecker permissionChecker, long typeId, String actionId)

@@ -22,7 +22,7 @@
 	<model-resource>
 		<model-name>com.gleo.modules.ravenbox.model.Type</model-name>
 		<portlet-ref>
-			<portlet-name>com_gleo_modules_ravenbox_web_portlet_types_TypesPortlet</portlet-name>
+			<portlet-name>com_gleo_modules_ravenbox_web_portlet_types_TypesConfigurationPortlet</portlet-name>
 		</portlet-ref>
 		<permissions>
 			<supports>

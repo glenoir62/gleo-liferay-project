@@ -5,7 +5,11 @@ import com.liferay.exportimport.kernel.staging.permission.StagingPermissionUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 
+@OSGiBeanProperties(
+	property = {"resource.name=" + RavenBoxPermission.RESOURCE_NAME}
+)
 public class RavenBoxPermission {
 
     public static final String RESOURCE_NAME = "com.gleo.plugins.ravenbox.model";

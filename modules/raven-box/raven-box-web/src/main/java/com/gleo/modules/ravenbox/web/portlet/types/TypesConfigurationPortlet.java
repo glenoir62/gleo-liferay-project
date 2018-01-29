@@ -10,8 +10,8 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"com.liferay.portlet.css-class-wrapper=raven-box-types-portlet",
-		"com.liferay.portlet.display-category=category.ravenbox",
+		"com.liferay.portlet.css-class-wrapper=types-configuration-portlet",
+		"com.liferay.portlet.display-category=category.hidden",
 		"com.liferay.portlet.icon=/ravenbox/icons/icon.png",
 		"com.liferay.portlet.render-weight=50",
 		"com.liferay.portlet.scopeable=true",
@@ -29,6 +29,6 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = Portlet.class
 )
-public class TypesPortlet extends MVCPortlet{
+public class TypesConfigurationPortlet extends MVCPortlet{
 
 }
