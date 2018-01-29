@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
+
+<service-builder package-path="com.gleo.plugins.ravenbox">
+	<author>Guillaume Lenoir</author>
+	<namespace>ravenbox</namespace>
+	<!--  
+	<entity name="ExtCountry" local-service="false" remote-service="true" json-enabled="false">
+		<reference package-path="com.liferay.portal" entity="Country"/>
+	</entity>
+	
+	<entity name="ExtRegion" local-service="false" remote-service="true" json-enabled="false">
+		<reference package-path="com.liferay.portal" entity="Region"/>
+		<reference package-path="com.liferay.portal" entity="Country"/>
+	</entity>
+	-->
+	
+	<entity name="Announcement" local-service="true" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="announcementId" type="long" primary="true" />
+		
+		<!-- Foreign key columns -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" />
+		<column name="typeId" type="long" />
+		<column name="folderId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="currencyId" type="long" />
+		
+		<!-- Other columns -->
+		<column name="title" type="String" localized="true" />
+		<column name="emailAddress" type="String" />
+		<column name="phoneNumber" type="String" />
+		<column name="price" type="long" />
+		<column name="content" type="String" localized="true" />
+		<column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
+		<column name="countryId" type="long" />
+		<column name="regionId" type="long" />
+
+		<!-- Custo -->
+		<column name="city" type="String" />
+		<column name="site" type="String" />
+		<column name="building" type="String" />
+		
+		<!-- Sort order -->
+		<order by="asc">
+			<order-column name="title" />
+		</order>
+
+		<!-- Finder Methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		
+		<finder name="G_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="status" />
+		</finder>
+		
+		<finder name="TypeId" return-type="Collection">
+			<finder-column name="typeId" />
+		</finder>
+		
+		<finder name="CurrencyId" return-type="Collection">
+			<finder-column name="currencyId" />
+		</finder>
+
+		<!-- References -->
+		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
+		<reference package-path="com.liferay.portlet.asset" entity="AssetLink" />
+		<reference package-path="com.liferay.portlet.messageboards" entity="MBMessage" />
+		<reference package-path="com.liferay.portlet.trash" entity="TrashVersion" />
+		<reference package-path="com.liferay.portlet.social" entity="SocialActivity" />
+	</entity>
+	
+	<entity name="Favorite" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="favoriteId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="announcementId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" />
+
+		<!-- Finder methods -->
+
+		<finder name="UserIdGroupId" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column name="groupId" />
+		</finder>
+		
+		<finder name="AnnouncementId" return-type="Collection">
+			<finder-column name="announcementId" />
+		</finder>
+		
+		<finder name="A_U" return-type="Favorite" unique="true">
+			<finder-column name="announcementId" />
+			<finder-column name="userId" />
+			<finder-column name="groupId" />
+		</finder>
+
+		<!-- References -->
+
+		<reference package-path="com.liferay.portal" entity="Company" />
+		<reference package-path="com.liferay.portal" entity="User" />
+	</entity>
+	
+	<entity name="AnnouncementImage" local-service="true" remote-service="false">
+		<!-- Primary Key -->
+		<column name="announcementImageId" type="long" primary="true" />
+		
+		 <!-- Foreign key columns -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" />
+		<column name="announcementId" type="long" />
+		<column name="fileEntryId" type="long" />
+		
+		<!-- Other columns -->
+		<column name="description" type="String" localized="true" />
+		<column name="order" type="int"/>
+		
+		<!-- Sort order -->
+		<order by="asc">
+			<order-column name="order" />
+		</order>
+		
+		<finder name="G_A" return-type="Collection">
+			<finder-column name="announcementId" />
+		</finder>
+		
+		<finder name="A_O" return-type="AnnouncementImage">
+			<finder-column name="announcementId" />
+			<finder-column name="order" />
+		</finder>
+			
+		<!-- References -->
+		<reference package-path="com.liferay.portal" entity="Image" />
+	</entity>
+	
+	<entity name="Currency" uuid="false" local-service="true" remote-service="true">
+		<column name="currencyId" type="long" primary="true" />
+		
+		<!-- Other columns -->
+		<column name="companyId" type="long" />
+		<column name="label" type="String"/>
+		<column name="symbol" type="String" />
+		<column name="order" type="int"/>
+		
+		<column name="countryId" type="long" />
+		
+		<!-- Todo -->
+		<column name="rate" type="long"/>
+
+        <order by="desc">
+        	<order-column name="order"/>
+        </order>
+        
+        <finder name="CountryId" return-type="Currency" unique="true">
+			<finder-column name="countryId" />
+		</finder>
+        <reference package-path="com.liferay.portal" entity="Country"/>
+	</entity>
+	
+	<entity name="Type" uuid="false" local-service="true" remote-service="true">
+		<column name="typeId" type="long" primary="true" />
+		
+		<!-- Other columns -->
+		<column name="name" type="String" localized="true" />
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="order" type="int"/>
+		 
+        <order by="desc">
+        	<order-column name="order"/>
+        </order>
+        
+        <!-- Finder Methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+	</entity>
+	
+	<exceptions>
+		<exception>ImageSize</exception>
+	</exceptions>
+</service-builder>
