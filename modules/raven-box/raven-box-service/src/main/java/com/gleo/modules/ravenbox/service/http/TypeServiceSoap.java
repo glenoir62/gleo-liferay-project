@@ -130,5 +130,18 @@ public class TypeServiceSoap {
 		}
 	}
 
+	public static int getTypesCount(long groupId) throws RemoteException {
+		try {
+			int returnValue = TypeServiceUtil.getTypesCount(groupId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(TypeServiceSoap.class);
 }

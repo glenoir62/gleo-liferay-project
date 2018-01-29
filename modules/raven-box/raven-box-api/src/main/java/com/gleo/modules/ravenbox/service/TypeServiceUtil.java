@@ -66,6 +66,11 @@ public class TypeServiceUtil {
 		return getService().updateType(type);
 	}
 
+	public static int getTypesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTypesCount(groupId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*

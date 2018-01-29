@@ -65,6 +65,9 @@ public interface TypeService extends BaseService {
 	public Type updateType(Type type)
 		throws PortalException, SystemException, PrincipalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTypesCount(long groupId) throws SystemException;
+
 	/**
 	* Returns the OSGi service identifier.
 	*

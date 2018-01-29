@@ -82,4 +82,9 @@ public class TypeServiceImpl extends TypeServiceBaseImpl {
 
 	return typePersistence.filterFindByGroupId(groupId, start, end);
     }
+    
+    public int getTypesCount(long groupId) throws SystemException {
+
+	return typePersistence.filterCountByGroupId(groupId);
+    }
 }

@@ -214,6 +214,36 @@ public class TypeServiceHttp {
 		}
 	}
 
+	public static int getTypesCount(HttpPrincipal httpPrincipal, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(TypeServiceUtil.class,
+					"getTypesCount", _getTypesCountParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(TypeServiceHttp.class);
 	private static final Class<?>[] _addTypeParameterTypes0 = new Class[] {
 			com.gleo.modules.ravenbox.model.Type.class,
@@ -227,5 +257,8 @@ public class TypeServiceHttp {
 		};
 	private static final Class<?>[] _getTypesByGroupIdParameterTypes3 = new Class[] {
 			long.class, int.class, int.class
+		};
+	private static final Class<?>[] _getTypesCountParameterTypes4 = new Class[] {
+			long.class
 		};
 }

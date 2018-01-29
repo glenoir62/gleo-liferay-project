@@ -60,6 +60,12 @@ public class TypeServiceWrapper implements TypeService,
 		return _typeService.updateType(type);
 	}
 
+	@Override
+	public int getTypesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _typeService.getTypesCount(groupId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
