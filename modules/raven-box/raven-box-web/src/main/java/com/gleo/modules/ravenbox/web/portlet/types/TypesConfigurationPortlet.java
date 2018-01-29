@@ -55,7 +55,7 @@ public class TypesConfigurationPortlet extends MVCPortlet{
 	/**
 	 * Empty Results Message
 	 */
-	private String emptyResultsMessage = "type-empty-results-message";
+	private String emptyResultsMessage = "no-entries-were-found";
 
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)

@@ -13,3 +13,6 @@
 
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
+
+<%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
+<%@page import="com.gleo.modules.ravenbox.permission.RavenBoxPermission"%>

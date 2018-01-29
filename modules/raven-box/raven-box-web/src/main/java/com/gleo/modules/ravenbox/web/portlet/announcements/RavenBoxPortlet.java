@@ -3,7 +3,12 @@ package com.gleo.modules.ravenbox.web.portlet.announcements;
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
+import java.io.IOException;
+
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -34,5 +39,14 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class RavenBoxPortlet extends MVCPortlet {
+
+	@Override
+	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		System.out.println("RavenBoxPortlet");
+		super.doView(renderRequest, renderResponse);
+	}
+	
     
 }
