@@ -15,33 +15,33 @@ import org.osgi.service.component.annotations.Reference;
  * @author guillaumelenoir
  *
  */
-//@Component(
-//		immediate = true,
-//		property = {
-//			"panel.app.order:Integer=401",
-//			"panel.category.key=" + PanelCategoryKeys.SITE_ADMINISTRATION_CONTENT
-//		},
-//		service = PanelApp.class
-//	)
-public class AnnouncementsConfigurationPanelApp {
+@Component(
+		immediate = true,
+		property = {
+			"panel.app.order:Integer=401",
+			"panel.category.key=" + PanelCategoryKeys.SITE_ADMINISTRATION_CONTENT
+		},
+		service = PanelApp.class
+	)
+public class AnnouncementsConfigurationPanelApp extends BasePanelApp {
 
-//	@Override
-//	public String getPortletId() {
-//		return RavenBoxPortletKeys.RAVEN_BOX;
-//	}
-//	
-//	@Override
-//	public boolean isShow(PermissionChecker permissionChecker, Group group) {
-//		return permissionChecker.isOmniadmin();
-//	}
-//
-//	@Override
-//	@Reference(
-//		target = "(javax.portlet.name=" + RavenBoxPortletKeys.RAVEN_BOX + ")",
-//		unbind = "-"
-//	)
-//	public void setPortlet(Portlet portlet) {
-//		super.setPortlet(portlet);
-//	}
+	@Override
+	public String getPortletId() {
+		return RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION;
+	}
+	
+	@Override
+	public boolean isShow(PermissionChecker permissionChecker, Group group) {
+		return permissionChecker.isOmniadmin();
+	}
+
+	@Override
+	@Reference(
+		target = "(javax.portlet.name=" + RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION + ")",
+		unbind = "-"
+	)
+	public void setPortlet(Portlet portlet) {
+		super.setPortlet(portlet);
+	}
 
 }

@@ -33,7 +33,7 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.scopeable=true",
 		"com.liferay.portlet.use-default-template=true",
 		"com.liferay.portlet.add-default-resource=true",
-		"javax.portlet.display-name=Types",
+		"javax.portlet.display-name=Types Configuration",
 		"javax.portlet.expiration-cache=0",
 		"javax.portlet.init-param.always-display-default-configuration-icons=true",
 		"javax.portlet.init-param.template-path=/",
