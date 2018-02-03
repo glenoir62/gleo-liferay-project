@@ -11,6 +11,7 @@
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
 <%@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %>
 
+<liferay-frontend:defineObjects />
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
 

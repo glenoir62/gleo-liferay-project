@@ -1,4 +1,4 @@
-
+<%@page import="com.liferay.portal.kernel.language.LanguageUtil"%>
 <%@ include file="/init.jsp" %>
 
 <liferay-ui:success key="type-added" message="annoucements.types.success.added" />
@@ -6,20 +6,6 @@
 <liferay-ui:success key="type-deleted" message="annoucements.types.success.deleted" />
 
 <liferay-ui:error key="no-type-deleted" message="annoucements.types.errors.type.deleted.unsuccessfully" />
-
-<c:if test='<%= RavenBoxPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_TYPE") %>'>
-	<aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
-		<aui:nav markupView="lexicon" >
-			<portlet:renderURL var="addTypeURL">
-				<portlet:param name="redirect" value="<%= PortalUtil.getCurrentURL(renderRequest) %>" />
-				<portlet:param name="jspPage" value="/jsp/types/edit.jsp"/>
-		    </portlet:renderURL>
-		    
-			<aui:nav-item markupView="lexicon" href="${addTypeURL}" iconCssClass="icon-plus" label="annoucements.types.add.type.label" />
-			
-		</aui:nav>
-	</aui:nav-bar>
-</c:if>
 
 <liferay-ui:search-container  searchContainer="${searchTypeContainer}" id="types">
 
@@ -53,6 +39,18 @@
 
 	<liferay-ui:search-iterator paginate="true" markupView="lexicon" searchContainer="${searchTypeContainer}"/>
 </liferay-ui:search-container>
+
+<c:if test='<%= RavenBoxPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_TYPE") %>'>
+	<portlet:renderURL var="addEntryURL">
+		<portlet:param name="mvcRenderCommandName" value="/types/edit" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+	</portlet:renderURL>
+
+	<liferay-frontend:add-menu>
+		<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "com.gleo.modules.ravenbox.type.add") %>' url="<%= addEntryURL %>" />
+	</liferay-frontend:add-menu>
+</c:if>
+
 
 <portlet:resourceURL var="saveTypesOrderURL" />
 
