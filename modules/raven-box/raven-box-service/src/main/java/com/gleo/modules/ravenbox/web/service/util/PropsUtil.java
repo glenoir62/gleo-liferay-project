@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.gleo.ravenbox.web.service.util;
+package com.gleo.modules.ravenbox.web.service.util;
 
 import aQute.bnd.annotation.ProviderType;
 

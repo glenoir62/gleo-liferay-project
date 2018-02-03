@@ -6,9 +6,10 @@
 	title='${title}'
 />
 
-<aui:model-context bean="${type}" model="<%= Type.class %>" />
+<portlet:actionURL name="/types/add_type" var="addTypeURL" />
+<portlet:actionURL name="/types/edit_type" var="editTypeURL" />
 
-<portlet:actionURL name='${typeTitle}' var="addTypeURL" />
+<aui:model-context bean="${type}" model="<%= Type.class %>" />
 
 <liferay-ui:error key="type-errors" message="type-errors" />
 

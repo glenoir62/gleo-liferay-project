@@ -144,13 +144,13 @@ public class AnnouncementModelImpl extends BaseModelImpl<Announcement>
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
-	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.ravenbox.web.service.util.PropsUtil.get(
+	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.modules.ravenbox.web.service.util.PropsUtil.get(
 				"value.object.entity.cache.enabled.com.gleo.modules.ravenbox.model.Announcement"),
 			true);
-	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.ravenbox.web.service.util.PropsUtil.get(
+	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.modules.ravenbox.web.service.util.PropsUtil.get(
 				"value.object.finder.cache.enabled.com.gleo.modules.ravenbox.model.Announcement"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.gleo.ravenbox.web.service.util.PropsUtil.get(
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.gleo.modules.ravenbox.web.service.util.PropsUtil.get(
 				"value.object.column.bitmask.enabled.com.gleo.modules.ravenbox.model.Announcement"),
 			true);
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
@@ -223,7 +223,7 @@ public class AnnouncementModelImpl extends BaseModelImpl<Announcement>
 		return models;
 	}
 
-	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.gleo.ravenbox.web.service.util.PropsUtil.get(
+	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.gleo.modules.ravenbox.web.service.util.PropsUtil.get(
 				"lock.expiration.time.com.gleo.modules.ravenbox.model.Announcement"));
 
 	public AnnouncementModelImpl() {

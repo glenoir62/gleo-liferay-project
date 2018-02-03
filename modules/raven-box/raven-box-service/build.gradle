@@ -9,5 +9,5 @@ dependencies {
 buildService {
 	apiDir = "../raven-box-api/src/main/java"
 	osgiModule = true
-	propsUtil = "com.gleo.ravenbox.web.service.util.PropsUtil"
+	propsUtil = "com.gleo.modules.ravenbox.web.service.util.PropsUtil"
 }

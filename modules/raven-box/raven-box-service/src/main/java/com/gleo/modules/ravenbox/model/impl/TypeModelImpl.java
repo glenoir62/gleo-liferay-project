@@ -95,13 +95,13 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
-	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.ravenbox.web.service.util.PropsUtil.get(
+	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.modules.ravenbox.web.service.util.PropsUtil.get(
 				"value.object.entity.cache.enabled.com.gleo.modules.ravenbox.model.Type"),
 			true);
-	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.ravenbox.web.service.util.PropsUtil.get(
+	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.gleo.modules.ravenbox.web.service.util.PropsUtil.get(
 				"value.object.finder.cache.enabled.com.gleo.modules.ravenbox.model.Type"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.gleo.ravenbox.web.service.util.PropsUtil.get(
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.gleo.modules.ravenbox.web.service.util.PropsUtil.get(
 				"value.object.column.bitmask.enabled.com.gleo.modules.ravenbox.model.Type"),
 			true);
 	public static final long GROUPID_COLUMN_BITMASK = 1L;
@@ -149,7 +149,7 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		return models;
 	}
 
-	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.gleo.ravenbox.web.service.util.PropsUtil.get(
+	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.gleo.modules.ravenbox.web.service.util.PropsUtil.get(
 				"lock.expiration.time.com.gleo.modules.ravenbox.model.Type"));
 
 	public TypeModelImpl() {

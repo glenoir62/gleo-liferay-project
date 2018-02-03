@@ -1,11 +1,11 @@
 <%@page import="com.liferay.portal.kernel.language.LanguageUtil"%>
 <%@ include file="/init.jsp" %>
 
-<liferay-ui:success key="type-added" message="annoucements.types.success.added" />
-<liferay-ui:success key="type-updated" message="annoucements.types.success.updated" />
-<liferay-ui:success key="type-deleted" message="annoucements.types.success.deleted" />
+<liferay-ui:success key="type-added" message="com.gleo.modules.ravenbox.type.success.added" />
+<liferay-ui:success key="type-updated" message="com.gleo.modules.ravenbox.type.success.updated" />
+<liferay-ui:success key="type-deleted" message="com.gleo.modules.ravenbox.type.success.deleted" />
 
-<liferay-ui:error key="no-type-deleted" message="annoucements.types.errors.type.deleted.unsuccessfully" />
+<liferay-ui:error key="no-type-deleted" message="com.gleo.modules.ravenbox.type.errors.type.deleted.unsuccessfully" />
 
 <liferay-ui:search-container  searchContainer="${searchTypeContainer}" id="types">
 
@@ -33,7 +33,7 @@
 		<liferay-ui:search-container-column-jsp
 			align="right"
 			name="actions"
-			path="/jsp/types/actions.jsp"
+			path="/ravenbox/types/actions.jsp"
 		/>
 	</liferay-ui:search-container-row>
 
