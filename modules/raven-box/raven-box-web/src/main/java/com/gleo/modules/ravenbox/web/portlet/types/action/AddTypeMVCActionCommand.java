@@ -1,12 +1,5 @@
 package com.gleo.modules.ravenbox.web.portlet.types.action;
 
-import java.util.ArrayList;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-
-import org.osgi.service.component.annotations.Component;
-
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
 import com.gleo.modules.ravenbox.service.TypeLocalServiceUtil;
@@ -25,9 +18,15 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.util.ArrayList;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Julien Luczak
