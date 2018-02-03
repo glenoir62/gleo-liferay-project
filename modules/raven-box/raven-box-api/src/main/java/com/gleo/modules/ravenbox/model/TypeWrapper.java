@@ -61,6 +61,7 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("order", getOrder());
+		attributes.put("description", getDescription());
 
 		return attributes;
 	}
@@ -95,6 +96,12 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 
 		if (order != null) {
 			setOrder(order);
+		}
+
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
 		}
 	}
 
@@ -166,6 +173,74 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 	@Override
 	public java.lang.String getDefaultLanguageId() {
 		return _type.getDefaultLanguageId();
+	}
+
+	/**
+	* Returns the description of this type.
+	*
+	* @return the description of this type
+	*/
+	@Override
+	public java.lang.String getDescription() {
+		return _type.getDescription();
+	}
+
+	/**
+	* Returns the localized description of this type in the language. Uses the default language if no localization exists for the requested language.
+	*
+	* @param languageId the ID of the language
+	* @return the localized description of this type
+	*/
+	@Override
+	public java.lang.String getDescription(java.lang.String languageId) {
+		return _type.getDescription(languageId);
+	}
+
+	/**
+	* Returns the localized description of this type in the language, optionally using the default language if no localization exists for the requested language.
+	*
+	* @param languageId the ID of the language
+	* @param useDefault whether to use the default language if no localization exists for the requested language
+	* @return the localized description of this type
+	*/
+	@Override
+	public java.lang.String getDescription(java.lang.String languageId,
+		boolean useDefault) {
+		return _type.getDescription(languageId, useDefault);
+	}
+
+	/**
+	* Returns the localized description of this type in the language. Uses the default language if no localization exists for the requested language.
+	*
+	* @param locale the locale of the language
+	* @return the localized description of this type
+	*/
+	@Override
+	public java.lang.String getDescription(java.util.Locale locale) {
+		return _type.getDescription(locale);
+	}
+
+	/**
+	* Returns the localized description of this type in the language, optionally using the default language if no localization exists for the requested language.
+	*
+	* @param locale the local of the language
+	* @param useDefault whether to use the default language if no localization exists for the requested language
+	* @return the localized description of this type. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	*/
+	@Override
+	public java.lang.String getDescription(java.util.Locale locale,
+		boolean useDefault) {
+		return _type.getDescription(locale, useDefault);
+	}
+
+	@Override
+	public java.lang.String getDescriptionCurrentLanguageId() {
+		return _type.getDescriptionCurrentLanguageId();
+	}
+
+	@Override
+	public java.lang.String getDescriptionCurrentValue() {
+		return _type.getDescriptionCurrentValue();
 	}
 
 	/**
@@ -251,6 +326,16 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 	}
 
 	/**
+	* Returns a map of the locales and localized descriptions of this type.
+	*
+	* @return the locales and localized descriptions of this type
+	*/
+	@Override
+	public Map<java.util.Locale, java.lang.String> getDescriptionMap() {
+		return _type.getDescriptionMap();
+	}
+
+	/**
 	* Returns a map of the locales and localized names of this type.
 	*
 	* @return the locales and localized names of this type
@@ -331,6 +416,70 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 	@Override
 	public void setCompanyId(long companyId) {
 		_type.setCompanyId(companyId);
+	}
+
+	/**
+	* Sets the description of this type.
+	*
+	* @param description the description of this type
+	*/
+	@Override
+	public void setDescription(java.lang.String description) {
+		_type.setDescription(description);
+	}
+
+	/**
+	* Sets the localized description of this type in the language.
+	*
+	* @param description the localized description of this type
+	* @param locale the locale of the language
+	*/
+	@Override
+	public void setDescription(java.lang.String description,
+		java.util.Locale locale) {
+		_type.setDescription(description, locale);
+	}
+
+	/**
+	* Sets the localized description of this type in the language, and sets the default locale.
+	*
+	* @param description the localized description of this type
+	* @param locale the locale of the language
+	* @param defaultLocale the default locale
+	*/
+	@Override
+	public void setDescription(java.lang.String description,
+		java.util.Locale locale, java.util.Locale defaultLocale) {
+		_type.setDescription(description, locale, defaultLocale);
+	}
+
+	@Override
+	public void setDescriptionCurrentLanguageId(java.lang.String languageId) {
+		_type.setDescriptionCurrentLanguageId(languageId);
+	}
+
+	/**
+	* Sets the localized descriptions of this type from the map of locales and localized descriptions.
+	*
+	* @param descriptionMap the locales and localized descriptions of this type
+	*/
+	@Override
+	public void setDescriptionMap(
+		Map<java.util.Locale, java.lang.String> descriptionMap) {
+		_type.setDescriptionMap(descriptionMap);
+	}
+
+	/**
+	* Sets the localized descriptions of this type from the map of locales and localized descriptions, and sets the default locale.
+	*
+	* @param descriptionMap the locales and localized descriptions of this type
+	* @param defaultLocale the default locale
+	*/
+	@Override
+	public void setDescriptionMap(
+		Map<java.util.Locale, java.lang.String> descriptionMap,
+		java.util.Locale defaultLocale) {
+		_type.setDescriptionMap(descriptionMap, defaultLocale);
 	}
 
 	@Override

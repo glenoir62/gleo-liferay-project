@@ -63,7 +63,7 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{typeId=");
 		sb.append(typeId);
@@ -75,6 +75,8 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 		sb.append(companyId);
 		sb.append(", order=");
 		sb.append(order);
+		sb.append(", description=");
+		sb.append(description);
 		sb.append("}");
 
 		return sb.toString();
@@ -97,6 +99,13 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 		typeImpl.setCompanyId(companyId);
 		typeImpl.setOrder(order);
 
+		if (description == null) {
+			typeImpl.setDescription(StringPool.BLANK);
+		}
+		else {
+			typeImpl.setDescription(description);
+		}
+
 		typeImpl.resetOriginalValues();
 
 		return typeImpl;
@@ -112,6 +121,7 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 		companyId = objectInput.readLong();
 
 		order = objectInput.readInt();
+		description = objectInput.readUTF();
 	}
 
 	@Override
@@ -131,6 +141,13 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 		objectOutput.writeLong(companyId);
 
 		objectOutput.writeInt(order);
+
+		if (description == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
 	}
 
 	public long typeId;
@@ -138,4 +155,5 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 	public long groupId;
 	public long companyId;
 	public int order;
+	public String description;
 }

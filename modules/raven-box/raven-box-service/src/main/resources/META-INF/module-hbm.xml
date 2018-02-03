@@ -68,7 +68,7 @@
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="com.gleo.modules.ravenbox.model.impl.TypeImpl" table="ravenbox_Type">
+	<class name="com.gleo.modules.ravenbox.model.impl.TypeImpl" table="ravenbox_type">
 		<id name="typeId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -76,5 +76,6 @@
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>

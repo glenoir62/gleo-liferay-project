@@ -176,7 +176,7 @@
         <reference package-path="com.liferay.portal" entity="Country"/>
 	</entity>
 	
-	<entity name="Type" uuid="false" local-service="true" remote-service="true">
+	<entity name="Type" uuid="false" local-service="true" remote-service="true" table="ravenbox_type">
 		<column name="typeId" type="long" primary="true" />
 		
 		<!-- Other columns -->
@@ -184,6 +184,7 @@
 		<column name="groupId" type="long" />
 		<column name="companyId" type="long" />
 		<column name="order" type="int"/>
+		<column name="description" type="String" localized="true" />
 		 
         <order by="desc">
         	<order-column name="order"/>

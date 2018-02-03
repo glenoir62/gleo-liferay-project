@@ -60,5 +60,6 @@
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="order" type="int" />
+		<field localized="true" name="description" type="String" />
 	</model>
 </model-hints>

@@ -100,7 +100,7 @@
 	</liferay-ui:search-container>
 </aui:form>
 
-<portlet:resourceURL var="saveTypesOrderURL" />
+<portlet:resourceURL id="/types/save_types_order" var="saveTypesOrderURL" />
 
 <c:if test ='<%= RavenBoxPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "UPDATE_ORDER") %>'>
 	<aui:script>

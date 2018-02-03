@@ -4,6 +4,7 @@ import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
 import com.gleo.modules.ravenbox.service.TypeLocalServiceUtil;
 import com.gleo.modules.ravenbox.service.TypeServiceUtil;
+import com.gleo.modules.ravenbox.web.portlet.types.TypeUtil;
 import com.gleo.modules.ravenbox.web.validator.TypeValidator;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -56,7 +57,7 @@ public class AddTypeMVCActionCommand extends BaseMVCActionCommand {
     @Override
     protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 	
-	Type type = typeFromRequest(actionRequest);
+	Type type = TypeUtil.typeFromRequest(actionRequest);
 	String successMessageKey = type.isNew() ? "type-added" : "type-updated";
 
 	LOGGER.info("successMessageKey " + successMessageKey);
@@ -81,44 +82,6 @@ public class AddTypeMVCActionCommand extends BaseMVCActionCommand {
 	    }
 	    LOGGER.error("SystemException : impossible to add type");
 	}
-    }
-
-    /**
-     * Convenience method to create a Type object out of the request. Used by
-     * the Add / Edit methods.
-     * 
-     * @param request
-     * @return type
-     */
-    private Type typeFromRequest(ActionRequest request) {
-
-	Type type = null;
-	long typeId = ParamUtil.getLong(request, "typeId");
-	ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
-
-	if (Validator.isNotNull(typeId)) {
-	    try {
-		type = TypeLocalServiceUtil.getType(typeId);
-	    } catch (PortalException pe) {
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug(pe);
-		}
-		LOGGER.error("PortalException : impossible to get type for id " + typeId);
-	    } catch (SystemException se) {
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug(se);
-		}
-		LOGGER.error("PortalException : impossible to get type for id " + typeId);
-	    }
-	} else {
-	    type = TypeLocalServiceUtil.createType(typeId);
-	}
-
-	type.setGroupId(themeDisplay.getScopeGroupId());
-	type.setOrder(ParamUtil.getInteger(request, "order"));
-	type.setNameMap(LocalizationUtil.getLocalizationMap(request, "name"));
-
-	return type;
     }
 
 }

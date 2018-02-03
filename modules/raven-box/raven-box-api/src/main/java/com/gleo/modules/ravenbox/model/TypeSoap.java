@@ -38,6 +38,7 @@ public class TypeSoap implements Serializable {
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setOrder(model.getOrder());
+		soapModel.setDescription(model.getDescription());
 
 		return soapModel;
 	}
@@ -130,9 +131,18 @@ public class TypeSoap implements Serializable {
 		_order = order;
 	}
 
+	public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String description) {
+		_description = description;
+	}
+
 	private long _typeId;
 	private String _name;
 	private long _groupId;
 	private long _companyId;
 	private int _order;
+	private String _description;
 }

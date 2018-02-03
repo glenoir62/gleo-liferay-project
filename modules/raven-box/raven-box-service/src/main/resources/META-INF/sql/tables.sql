@@ -62,3 +62,12 @@ create table ravenbox_Type (
 	companyId LONG,
 	order_ INTEGER
 );
+
+create table ravenbox_type (
+	typeId LONG not null primary key,
+	name STRING null,
+	groupId LONG,
+	companyId LONG,
+	order_ INTEGER,
+	description STRING null
+);

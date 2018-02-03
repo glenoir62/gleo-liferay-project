@@ -12,3 +12,5 @@ create unique index IX_3C5EC6F4 on ravenbox_Favorite (announcementId, userId, gr
 create index IX_6FBAD1EA on ravenbox_Favorite (userId, groupId);
 
 create index IX_62221C86 on ravenbox_Type (groupId);
+
+create index IX_9D8F64A6 on ravenbox_type (groupId);

@@ -25,6 +25,8 @@
 				<aui:input name="name" >
 					<aui:validator name="required"/>
 				</aui:input>
+				
+				<aui:input name="description" type="textarea" />
 		
 				<aui:input name="order" label="annoucements.types.order.label">
 					<aui:validator name="digits"/>

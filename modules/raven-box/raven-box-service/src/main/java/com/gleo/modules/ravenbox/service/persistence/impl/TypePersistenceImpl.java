@@ -1191,6 +1191,7 @@ public class TypePersistenceImpl extends BasePersistenceImpl<Type>
 		typeImpl.setGroupId(type.getGroupId());
 		typeImpl.setCompanyId(type.getCompanyId());
 		typeImpl.setOrder(type.getOrder());
+		typeImpl.setDescription(type.getDescription());
 
 		return typeImpl;
 	}
@@ -1608,16 +1609,16 @@ public class TypePersistenceImpl extends BasePersistenceImpl<Type>
 	private static final String _SQL_COUNT_TYPE = "SELECT COUNT(type) FROM Type type";
 	private static final String _SQL_COUNT_TYPE_WHERE = "SELECT COUNT(type) FROM Type type WHERE ";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "type.typeId";
-	private static final String _FILTER_SQL_SELECT_TYPE_WHERE = "SELECT DISTINCT {type.*} FROM ravenbox_Type type WHERE ";
+	private static final String _FILTER_SQL_SELECT_TYPE_WHERE = "SELECT DISTINCT {type.*} FROM ravenbox_type type WHERE ";
 	private static final String _FILTER_SQL_SELECT_TYPE_NO_INLINE_DISTINCT_WHERE_1 =
-		"SELECT {ravenbox_Type.*} FROM (SELECT DISTINCT type.typeId FROM ravenbox_Type type WHERE ";
+		"SELECT {ravenbox_type.*} FROM (SELECT DISTINCT type.typeId FROM ravenbox_type type WHERE ";
 	private static final String _FILTER_SQL_SELECT_TYPE_NO_INLINE_DISTINCT_WHERE_2 =
-		") TEMP_TABLE INNER JOIN ravenbox_Type ON TEMP_TABLE.typeId = ravenbox_Type.typeId";
-	private static final String _FILTER_SQL_COUNT_TYPE_WHERE = "SELECT COUNT(DISTINCT type.typeId) AS COUNT_VALUE FROM ravenbox_Type type WHERE ";
+		") TEMP_TABLE INNER JOIN ravenbox_type ON TEMP_TABLE.typeId = ravenbox_type.typeId";
+	private static final String _FILTER_SQL_COUNT_TYPE_WHERE = "SELECT COUNT(DISTINCT type.typeId) AS COUNT_VALUE FROM ravenbox_type type WHERE ";
 	private static final String _FILTER_ENTITY_ALIAS = "type";
-	private static final String _FILTER_ENTITY_TABLE = "ravenbox_Type";
+	private static final String _FILTER_ENTITY_TABLE = "ravenbox_type";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "type.";
-	private static final String _ORDER_BY_ENTITY_TABLE = "ravenbox_Type.";
+	private static final String _ORDER_BY_ENTITY_TABLE = "ravenbox_type.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No Type exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No Type exists with the key {";
 	private static final Log _log = LogFactoryUtil.getLog(TypePersistenceImpl.class);
