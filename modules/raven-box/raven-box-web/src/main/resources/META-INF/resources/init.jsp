@@ -17,6 +17,7 @@
 
 <%@page import="com.liferay.portal.kernel.util.PortalUtil"%>
 <%@page import="com.gleo.modules.ravenbox.permission.RavenBoxPermission"%>
+<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
 <%-- Init back office --%>
 <%@page import="com.liferay.portal.kernel.util.WebKeys"%>
