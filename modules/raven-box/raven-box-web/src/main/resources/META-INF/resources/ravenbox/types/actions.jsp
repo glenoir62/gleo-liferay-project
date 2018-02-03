@@ -13,11 +13,14 @@
 	<c:if test="<%= TypePermission.contains(permissionChecker, typeId, ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="typeId" value="<%= String.valueOf(typeId) %>"/>
-			<portlet:param name="jspPage" value="/jsp/types/edit.jsp"/>
+			<portlet:param name="mvcRenderCommandName" value="/types/edit" />
 			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</portlet:renderURL>
 		
-		<liferay-ui:icon image="edit" url="<%= editURL.toString() %>" />
+		<liferay-ui:icon
+			message="edit"
+			url="${editURL}"
+		/>
 	</c:if>
 
 	<c:if test="<%= TypePermission.contains(permissionChecker, typeId, ActionKeys.DELETE) %>">
@@ -26,7 +29,7 @@
 			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</portlet:actionURL>
 		
-		<liferay-ui:icon-delete url="<%= deleteURL.toString() %>" />
+		<liferay-ui:icon-delete url="${deleteURL}" />
 	</c:if>
 	
 	<c:if test="<%=  TypePermission.contains(permissionChecker, typeId, ActionKeys.PERMISSIONS) %>">
@@ -34,8 +37,14 @@
 			modelResource="<%= Type.class.getName() %>"
 			modelResourceDescription="<%= type.getName(locale) %>"
 			resourcePrimKey="<%= String.valueOf(typeId) %>"
+			windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 			var="permissionsURL" />
 
-		<liferay-ui:icon image="permissions" url="<%= permissionsURL %>" />
+		<liferay-ui:icon
+			message="permissions"
+			method="get"
+			url="<%= permissionsURL %>"
+			useDialog="<%= true %>"
+		/>
 	</c:if>
 </liferay-ui:icon-menu>
