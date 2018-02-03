@@ -22,12 +22,13 @@
 	</c:if>
 
 	<c:if test="<%= TypePermission.contains(permissionChecker, typeId, ActionKeys.DELETE) %>">
-		<portlet:actionURL var="deleteURL" name="deleteType">
+		<portlet:actionURL var="deleteURL" name="/types/delete_type">
 			<portlet:param name="typeId" value="<%= String.valueOf(typeId) %>" />
 			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</portlet:actionURL>
 		
 		<liferay-ui:icon-delete url="<%= deleteURL.toString() %>" />
+		
 	</c:if>
 	
 	<c:if test="<%=  TypePermission.contains(permissionChecker, typeId, ActionKeys.PERMISSIONS) %>">
