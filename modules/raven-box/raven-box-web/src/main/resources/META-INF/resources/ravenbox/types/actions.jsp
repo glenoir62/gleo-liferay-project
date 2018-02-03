@@ -9,15 +9,16 @@
 	String redirect = PortalUtil.getCurrentURL(renderRequest);
 %>
 
+
 <liferay-ui:icon-menu direction="left-side" markupView="lexicon">
 	<c:if test="<%= TypePermission.contains(permissionChecker, typeId, ActionKeys.UPDATE) %>">
-		<portlet:renderURL var="editURL">
+		<portlet:renderURL var="editTypeURL">
+			<portlet:param name="mvcRenderCommandName" value="/types/edit" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="typeId" value="<%= String.valueOf(typeId) %>"/>
-			<portlet:param name="jspPage" value="/jsp/types/edit.jsp"/>
-			<portlet:param name="redirect" value="<%= redirect %>"/>
 		</portlet:renderURL>
 		
-		<liferay-ui:icon image="edit" url="<%= editURL.toString() %>" />
+		<liferay-ui:icon image="edit" url="<%= editTypeURL.toString() %>" />
 	</c:if>
 
 	<c:if test="<%= TypePermission.contains(permissionChecker, typeId, ActionKeys.DELETE) %>">
