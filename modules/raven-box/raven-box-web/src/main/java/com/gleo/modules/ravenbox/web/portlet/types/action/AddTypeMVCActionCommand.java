@@ -55,8 +55,12 @@ public class AddTypeMVCActionCommand extends BaseMVCActionCommand {
      */
     @Override
     protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-	LOGGER.info("Add Type");
+	
 	Type type = typeFromRequest(actionRequest);
+	String successMessageKey = type.isNew() ? "type-added" : "type-updated";
+
+	LOGGER.info("successMessageKey " + successMessageKey);
+	
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(Type.class.getName(), actionRequest);
 	ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
@@ -65,7 +69,7 @@ public class AddTypeMVCActionCommand extends BaseMVCActionCommand {
 
 	    if (TypeValidator.validateType(type, errors, themeDisplay.getLocale())) {
 		TypeServiceUtil.addType(type, serviceContext);
-		SessionMessages.add(actionRequest, "type-added");
+		SessionMessages.add(actionRequest, successMessageKey);
 	    } else {
 		for (String error : errors) {
 		    SessionErrors.add(actionRequest, error);
@@ -76,9 +80,7 @@ public class AddTypeMVCActionCommand extends BaseMVCActionCommand {
 		LOGGER.debug(se);
 	    }
 	    LOGGER.error("SystemException : impossible to add type");
-
 	}
-
     }
 
     /**
