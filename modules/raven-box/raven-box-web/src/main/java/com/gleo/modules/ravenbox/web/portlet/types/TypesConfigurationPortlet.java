@@ -16,7 +16,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;

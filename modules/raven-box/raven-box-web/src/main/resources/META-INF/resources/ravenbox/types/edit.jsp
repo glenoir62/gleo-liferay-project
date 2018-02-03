@@ -13,7 +13,7 @@
 
 <liferay-ui:error key="type-errors" message="type-errors" />
 
-<aui:form action="${addTypeURL}" cssClass="container-fluid-1280" method="POST" name="fm">
+<aui:form action="${type != null ? editTypeURL :addTypeURL}" cssClass="container-fluid-1280" method="POST" name="fm">
 	<div class="lfr-form-content">
 		<aui:fieldset-group markupView="lexicon">
 			<aui:fieldset>
