@@ -1,19 +1,10 @@
 package com.gleo.modules.ravenbox.web.portlet.types.action;
 
-import java.util.ArrayList;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-
-import org.osgi.service.component.annotations.Component;
-
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
-import com.gleo.modules.ravenbox.service.TypeLocalServiceUtil;
 import com.gleo.modules.ravenbox.service.TypeServiceUtil;
 import com.gleo.modules.ravenbox.web.portlet.types.TypeUtil;
 import com.gleo.modules.ravenbox.web.validator.TypeValidator;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -22,11 +13,16 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.LocalizationUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.util.ArrayList;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Julien Luczak
@@ -64,7 +60,6 @@ public class EditTypeMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		PortalUtil.copyRequestParameters(actionRequest, actionResponse);
-		actionResponse.setRenderParameter("jspPage", "/jsp/types/edit.jsp");
 	    }
 
 	} catch (SystemException se) {

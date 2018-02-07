@@ -4,7 +4,6 @@ import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
 import com.gleo.modules.ravenbox.permission.RavenBoxPermission;
 import com.gleo.modules.ravenbox.service.TypeLocalServiceUtil;
-import com.gleo.modules.ravenbox.web.portlet.types.action.AddTypeMVCActionCommand;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;

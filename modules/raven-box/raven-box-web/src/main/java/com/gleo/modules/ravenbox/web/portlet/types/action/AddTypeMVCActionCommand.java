@@ -2,11 +2,9 @@ package com.gleo.modules.ravenbox.web.portlet.types.action;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
-import com.gleo.modules.ravenbox.service.TypeLocalServiceUtil;
 import com.gleo.modules.ravenbox.service.TypeServiceUtil;
 import com.gleo.modules.ravenbox.web.portlet.types.TypeUtil;
 import com.gleo.modules.ravenbox.web.validator.TypeValidator;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -17,9 +15,6 @@ import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.LocalizationUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
