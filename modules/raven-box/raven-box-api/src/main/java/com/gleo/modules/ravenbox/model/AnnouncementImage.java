@@ -54,4 +54,15 @@ public interface AnnouncementImage extends AnnouncementImageModel, PersistedMode
 				return AnnouncementImage.class;
 			}
 		};
+
+	public java.lang.Boolean isActive();
+
+	public void setActive(java.lang.Boolean isActive);
+
+	public java.io.InputStream getInputStream();
+
+	public void setInputStream(java.io.InputStream inputStream);
+
+	public java.lang.String getImageURL(
+		com.liferay.portal.kernel.theme.ThemeDisplay themeDisplay);
 }

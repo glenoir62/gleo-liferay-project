@@ -46,6 +46,21 @@ public class AnnouncementLocalServiceWrapper implements AnnouncementLocalService
 	}
 
 	/**
+	* Adds the Announcement to the database incrementing the primary key
+	*
+	* @throws PortalException
+	*/
+	@Override
+	public com.gleo.modules.ravenbox.model.Announcement addAnnouncement(
+		com.gleo.modules.ravenbox.model.Announcement announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.addAnnouncement(announcement,
+			serviceContext);
+	}
+
+	/**
 	* Creates a new announcement with the primary key. Does not add the announcement to the database.
 	*
 	* @param announcementId the primary key for the new announcement
@@ -75,11 +90,13 @@ public class AnnouncementLocalServiceWrapper implements AnnouncementLocalService
 	* @param announcementId the primary key of the announcement
 	* @return the announcement that was removed
 	* @throws PortalException if a announcement with the primary key could not be found
+	* @throws SystemException
 	*/
 	@Override
 	public com.gleo.modules.ravenbox.model.Announcement deleteAnnouncement(
 		long announcementId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _announcementLocalService.deleteAnnouncement(announcementId);
 	}
 
@@ -138,11 +155,53 @@ public class AnnouncementLocalServiceWrapper implements AnnouncementLocalService
 	*
 	* @param announcement the announcement
 	* @return the announcement that was updated
+	* @throws SystemException
 	*/
 	@Override
 	public com.gleo.modules.ravenbox.model.Announcement updateAnnouncement(
-		com.gleo.modules.ravenbox.model.Announcement announcement) {
+		com.gleo.modules.ravenbox.model.Announcement announcement)
+		throws com.liferay.portal.kernel.exception.SystemException {
 		return _announcementLocalService.updateAnnouncement(announcement);
+	}
+
+	/**
+	* Update announcement
+	*
+	* @param announcement
+	* @param serviceContext
+	* @return announcement
+	* @throws SystemException
+	* @throws PortalException
+	*/
+	@Override
+	public com.gleo.modules.ravenbox.model.Announcement updateAnnouncement(
+		com.gleo.modules.ravenbox.model.Announcement announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.updateAnnouncement(announcement,
+			serviceContext);
+	}
+
+	/**
+	* Update workflow status
+	*
+	* @param userId
+	* @param resourcePrimKey
+	* @param status
+	* @param serviceContext
+	* @return
+	* @throws PortalException
+	* @throws SystemException
+	*/
+	@Override
+	public com.gleo.modules.ravenbox.model.Announcement updateStatus(
+		long userId, long resourcePrimKey, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.updateStatus(userId, resourcePrimKey,
+			status, serviceContext);
 	}
 
 	@Override
@@ -191,6 +250,33 @@ public class AnnouncementLocalServiceWrapper implements AnnouncementLocalService
 	@Override
 	public int getAnnouncementsCount() {
 		return _announcementLocalService.getAnnouncementsCount();
+	}
+
+	/**
+	* Gets the number of Announcements by currency Id
+	*/
+	@Override
+	public int getAnnouncementsCountByCurrencyId(long currencyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.getAnnouncementsCountByCurrencyId(currencyId);
+	}
+
+	/**
+	* Gets the number of Announcements in a group
+	*/
+	@Override
+	public int getAnnouncementsCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.getAnnouncementsCountByGroupId(groupId);
+	}
+
+	/**
+	* Gets the number of Announcements by type Id
+	*/
+	@Override
+	public int getAnnouncementsCountByTypeId(long typeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.getAnnouncementsCountByTypeId(typeId);
 	}
 
 	/**
@@ -274,6 +360,46 @@ public class AnnouncementLocalServiceWrapper implements AnnouncementLocalService
 	}
 
 	/**
+	* Gets a list with all the Announcements by currency Id
+	*/
+	@Override
+	public java.util.List<com.gleo.modules.ravenbox.model.Announcement> getAnnouncementsByCurrencyId(
+		long currencyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.getAnnouncementsByCurrencyId(currencyId);
+	}
+
+	/**
+	* Gets a list with all the Announcements in a group
+	*/
+	@Override
+	public java.util.List<com.gleo.modules.ravenbox.model.Announcement> getAnnouncementsByGroupId(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.getAnnouncementsByGroupId(groupId);
+	}
+
+	/**
+	* Gets a list with a range of Announcements from a group
+	*/
+	@Override
+	public java.util.List<com.gleo.modules.ravenbox.model.Announcement> getAnnouncementsByGroupId(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.getAnnouncementsByGroupId(groupId,
+			start, end);
+	}
+
+	/**
+	* Gets a list with all the Announcements by type Id
+	*/
+	@Override
+	public java.util.List<com.gleo.modules.ravenbox.model.Announcement> getAnnouncementsByTypeId(
+		long typeId) throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.getAnnouncementsByTypeId(typeId);
+	}
+
+	/**
 	* Returns all the announcements matching the UUID and company.
 	*
 	* @param uuid the UUID of the announcements
@@ -306,6 +432,24 @@ public class AnnouncementLocalServiceWrapper implements AnnouncementLocalService
 	}
 
 	/**
+	* Get favorites
+	*
+	* @param groupId
+	* @param userId
+	* @param start
+	* @param end
+	* @return favorites list
+	* @throws SystemException
+	*/
+	@Override
+	public java.util.List<com.gleo.modules.ravenbox.model.Announcement> getFavoritesAnnouncementsByGroupIUserId(
+		long groupId, long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementLocalService.getFavoritesAnnouncementsByGroupIUserId(groupId,
+			userId, start, end);
+	}
+
+	/**
 	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
@@ -330,6 +474,28 @@ public class AnnouncementLocalServiceWrapper implements AnnouncementLocalService
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return _announcementLocalService.dynamicQueryCount(dynamicQuery,
 			projection);
+	}
+
+	/**
+	* Delete Announcements
+	*
+	* @param announcements
+	*/
+	@Override
+	public void deleteAnnouncements(
+		java.util.List<com.gleo.modules.ravenbox.model.Announcement> announcements) {
+		_announcementLocalService.deleteAnnouncements(announcements);
+	}
+
+	@Override
+	public void updateAsset(long userId,
+		com.gleo.modules.ravenbox.model.Announcement announcement,
+		long[] assetCategoryIds, java.lang.String[] assetTagNames,
+		long[] assetLinkEntryIds)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_announcementLocalService.updateAsset(userId, announcement,
+			assetCategoryIds, assetTagNames, assetLinkEntryIds);
 	}
 
 	@Override

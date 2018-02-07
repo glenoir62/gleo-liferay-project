@@ -36,6 +36,23 @@
 		</permissions>
 	</portlet-resource>
 	
+	<portlet-resource>
+		<portlet-name>com_gleo_modules_ravenbox_web_portlet_announcements_AnnouncementsConfigurationPortlet</portlet-name>
+		<permissions>
+			<supports>
+				<action-key>CONFIGURATION</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported />
+		</permissions>
+	</portlet-resource>
+	
 	<model-resource>
 		<model-name>com.gleo.modules.ravenbox.model</model-name>
 		<portlet-ref>
@@ -65,6 +82,39 @@
 		</permissions>
 	</model-resource>
 
+	<model-resource>
+		<model-name>com.gleo.modules.ravenbox.model.Announcement</model-name>
+		<portlet-ref>
+			<portlet-name>com_gleo_modules_ravenbox_web_portlet_announcements_AnnouncementsConfigurationPortlet</portlet-name>
+		</portlet-ref>
+		<permissions>
+			<supports>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+				<action-key>ADD_DISCUSSION</action-key>
+				<action-key>UPDATE_DISCUSSION</action-key>
+				<action-key>DELETE_DISCUSSION</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+				<action-key>ADD_DISCUSSION</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+				<action-key>ADD_DISCUSSION</action-key>
+			</guest-defaults>
+			<guest-unsupported>
+				<action-key>ADD_DISCUSSION</action-key>
+				<action-key>UPDATE_DISCUSSION</action-key>
+				<action-key>DELETE_DISCUSSION</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>DELETE</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+	
 	<model-resource>
 		<model-name>com.gleo.modules.ravenbox.model.Type</model-name>
 		<portlet-ref>

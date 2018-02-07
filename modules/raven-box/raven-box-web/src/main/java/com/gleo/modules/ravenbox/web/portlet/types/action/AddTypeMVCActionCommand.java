@@ -3,7 +3,7 @@ package com.gleo.modules.ravenbox.web.portlet.types.action;
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
 import com.gleo.modules.ravenbox.service.TypeServiceUtil;
-import com.gleo.modules.ravenbox.web.portlet.types.TypeUtil;
+import com.gleo.modules.ravenbox.web.util.TypeUtil;
 import com.gleo.modules.ravenbox.web.validator.TypeValidator;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;

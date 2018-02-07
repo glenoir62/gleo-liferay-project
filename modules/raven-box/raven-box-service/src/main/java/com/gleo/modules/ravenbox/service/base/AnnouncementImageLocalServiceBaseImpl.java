@@ -123,11 +123,14 @@ public abstract class AnnouncementImageLocalServiceBaseImpl
 	 *
 	 * @param announcementImage the announcement image
 	 * @return the announcement image that was removed
+	 * @throws PortalException
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public AnnouncementImage deleteAnnouncementImage(
-		AnnouncementImage announcementImage) {
+		AnnouncementImage announcementImage)
+		throws PortalException, SystemException {
 		return announcementImagePersistence.remove(announcementImage);
 	}
 

@@ -16,9 +16,16 @@ package com.gleo.modules.ravenbox.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.gleo.modules.ravenbox.service.AnnouncementServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link com.gleo.modules.ravenbox.service.AnnouncementServiceUtil} service utility. The
+ * {@link AnnouncementServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,102 @@ import aQute.bnd.annotation.ProviderType;
  * @author Guillaume Lenoir
  * @see AnnouncementServiceHttp
  * @see com.gleo.modules.ravenbox.model.AnnouncementSoap
- * @see com.gleo.modules.ravenbox.service.AnnouncementServiceUtil
+ * @see AnnouncementServiceUtil
  * @generated
  */
 @ProviderType
 public class AnnouncementServiceSoap {
+	public static com.gleo.modules.ravenbox.model.AnnouncementSoap addAnnouncement(
+		com.gleo.modules.ravenbox.model.AnnouncementSoap announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.gleo.modules.ravenbox.model.Announcement returnValue = AnnouncementServiceUtil.addAnnouncement(com.gleo.modules.ravenbox.model.impl.AnnouncementModelImpl.toModel(
+						announcement), serviceContext);
+
+			return com.gleo.modules.ravenbox.model.AnnouncementSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.modules.ravenbox.model.AnnouncementSoap updateAnnouncement(
+		com.gleo.modules.ravenbox.model.AnnouncementSoap announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.gleo.modules.ravenbox.model.Announcement returnValue = AnnouncementServiceUtil.updateAnnouncement(com.gleo.modules.ravenbox.model.impl.AnnouncementModelImpl.toModel(
+						announcement), serviceContext);
+
+			return com.gleo.modules.ravenbox.model.AnnouncementSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.modules.ravenbox.model.AnnouncementSoap deleteAnnouncement(
+		long announcementId) throws RemoteException {
+		try {
+			com.gleo.modules.ravenbox.model.Announcement returnValue = AnnouncementServiceUtil.deleteAnnouncement(announcementId);
+
+			return com.gleo.modules.ravenbox.model.AnnouncementSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.modules.ravenbox.model.AnnouncementSoap getAnnouncement(
+		long announcementId) throws RemoteException {
+		try {
+			com.gleo.modules.ravenbox.model.Announcement returnValue = AnnouncementServiceUtil.getAnnouncement(announcementId);
+
+			return com.gleo.modules.ravenbox.model.AnnouncementSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.gleo.modules.ravenbox.model.AnnouncementSoap[] getAnnouncementsByGroupId(
+		long groupId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<com.gleo.modules.ravenbox.model.Announcement> returnValue =
+				AnnouncementServiceUtil.getAnnouncementsByGroupId(groupId,
+					start, end);
+
+			return com.gleo.modules.ravenbox.model.AnnouncementSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getAnnouncementsCountByGroupId(long groupId)
+		throws RemoteException {
+		try {
+			int returnValue = AnnouncementServiceUtil.getAnnouncementsCountByGroupId(groupId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(AnnouncementServiceSoap.class);
 }

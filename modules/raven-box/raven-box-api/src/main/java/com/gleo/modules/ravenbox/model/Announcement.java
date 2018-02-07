@@ -53,4 +53,62 @@ public interface Announcement extends AnnouncementModel, PersistedModel {
 				return Announcement.class;
 			}
 		};
+
+	public void setAnnouncementImages(
+		java.util.List<AnnouncementImage> announcementImages);
+
+	public boolean isFavorite(long userId);
+
+	public boolean isValidAgreement();
+
+	public void setValidAgreement(boolean isValidAgreement);
+
+	public java.util.List<AnnouncementImage> getAnnouncementImages();
+
+	public java.util.List<AnnouncementImage> getImages();
+
+	public AnnouncementImage getImage();
+
+	public Type getType();
+
+	public java.lang.String getSummary(java.util.Locale locale);
+
+	public int getMessagesCount();
+
+	/**
+	* @return
+	*/
+	public int getRatingsCount();
+
+	/**
+	* @return
+	*/
+	public java.lang.String getCurrencySymbol();
+
+	/**
+	* @param locale
+	* @return
+	*/
+	public java.lang.String getStatus(java.util.Locale locale);
+
+	public com.liferay.portal.kernel.model.User getUser();
+
+	/**
+	* @param locale
+	* @return
+	*/
+	public java.lang.String getCountry(java.util.Locale locale);
+
+	/**
+	* @param liferayPortletRequest
+	* @param liferayPortletResponse
+	* @return
+	* @throws WindowStateException
+	*/
+	public java.lang.String getAnnouncementUrl(
+		com.liferay.portal.kernel.portlet.LiferayPortletRequest liferayPortletRequest,
+		com.liferay.portal.kernel.portlet.LiferayPortletResponse liferayPortletResponse)
+		throws java.lang.Exception;
+
+	public boolean hasCategories();
 }

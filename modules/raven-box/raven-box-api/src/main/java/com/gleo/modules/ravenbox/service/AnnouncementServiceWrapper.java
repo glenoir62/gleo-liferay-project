@@ -32,6 +32,50 @@ public class AnnouncementServiceWrapper implements AnnouncementService,
 		_announcementService = announcementService;
 	}
 
+	@Override
+	public com.gleo.modules.ravenbox.model.Announcement addAnnouncement(
+		com.gleo.modules.ravenbox.model.Announcement announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _announcementService.addAnnouncement(announcement, serviceContext);
+	}
+
+	@Override
+	public com.gleo.modules.ravenbox.model.Announcement deleteAnnouncement(
+		long announcementId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _announcementService.deleteAnnouncement(announcementId);
+	}
+
+	@Override
+	public com.gleo.modules.ravenbox.model.Announcement getAnnouncement(
+		long announcementId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _announcementService.getAnnouncement(announcementId);
+	}
+
+	@Override
+	public com.gleo.modules.ravenbox.model.Announcement updateAnnouncement(
+		com.gleo.modules.ravenbox.model.Announcement announcement,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.security.auth.PrincipalException {
+		return _announcementService.updateAnnouncement(announcement,
+			serviceContext);
+	}
+
+	@Override
+	public int getAnnouncementsCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementService.getAnnouncementsCountByGroupId(groupId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -40,6 +84,14 @@ public class AnnouncementServiceWrapper implements AnnouncementService,
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
 		return _announcementService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<com.gleo.modules.ravenbox.model.Announcement> getAnnouncementsByGroupId(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementService.getAnnouncementsByGroupId(groupId, start,
+			end);
 	}
 
 	@Override

@@ -33,6 +33,15 @@ public class FavoriteLocalServiceWrapper implements FavoriteLocalService,
 		_favoriteLocalService = favoriteLocalService;
 	}
 
+	@Override
+	public boolean isUserFavoriteAnnouncement(long userId, long announcementId,
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _favoriteLocalService.isUserFavoriteAnnouncement(userId,
+			announcementId, groupId);
+	}
+
 	/**
 	* Adds the favorite to the database. Also notifies the appropriate model listeners.
 	*
@@ -43,6 +52,15 @@ public class FavoriteLocalServiceWrapper implements FavoriteLocalService,
 	public com.gleo.modules.ravenbox.model.Favorite addFavorite(
 		com.gleo.modules.ravenbox.model.Favorite favorite) {
 		return _favoriteLocalService.addFavorite(favorite);
+	}
+
+	@Override
+	public com.gleo.modules.ravenbox.model.Favorite addUserFavoriteAnnouncement(
+		long announcementId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _favoriteLocalService.addUserFavoriteAnnouncement(announcementId,
+			serviceContext);
 	}
 
 	/**
@@ -144,6 +162,14 @@ public class FavoriteLocalServiceWrapper implements FavoriteLocalService,
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _favoriteLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public int countUserFavoriteAnnouncement(long userId, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _favoriteLocalService.countUserFavoriteAnnouncement(userId,
+			groupId);
 	}
 
 	/**
@@ -260,6 +286,14 @@ public class FavoriteLocalServiceWrapper implements FavoriteLocalService,
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return _favoriteLocalService.dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	@Override
+	public void removeUserFavoriteAnnouncement(long announcementId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_favoriteLocalService.removeUserFavoriteAnnouncement(announcementId,
+			serviceContext);
 	}
 
 	@Override

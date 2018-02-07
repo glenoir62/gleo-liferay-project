@@ -46,6 +46,17 @@ public class AnnouncementImageLocalServiceWrapper
 		return _announcementImageLocalService.addAnnouncementImage(announcementImage);
 	}
 
+	@Override
+	public com.gleo.modules.ravenbox.model.AnnouncementImage addAnnouncementImage(
+		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage,
+		long annoucementFolderId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _announcementImageLocalService.addAnnouncementImage(announcementImage,
+			annoucementFolderId, serviceContext);
+	}
+
 	/**
 	* Creates a new announcement image with the primary key. Does not add the announcement image to the database.
 	*
@@ -63,10 +74,14 @@ public class AnnouncementImageLocalServiceWrapper
 	*
 	* @param announcementImage the announcement image
 	* @return the announcement image that was removed
+	* @throws PortalException
+	* @throws SystemException
 	*/
 	@Override
 	public com.gleo.modules.ravenbox.model.AnnouncementImage deleteAnnouncementImage(
-		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage) {
+		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _announcementImageLocalService.deleteAnnouncementImage(announcementImage);
 	}
 
@@ -104,6 +119,14 @@ public class AnnouncementImageLocalServiceWrapper
 		return _announcementImageLocalService.getAnnouncementImage(announcementImageId);
 	}
 
+	@Override
+	public com.gleo.modules.ravenbox.model.AnnouncementImage getAnnouncementImageByAnnouncementIdOrder(
+		long announcementId, int order)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementImageLocalService.getAnnouncementImageByAnnouncementIdOrder(announcementId,
+			order);
+	}
+
 	/**
 	* Updates the announcement image in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
@@ -114,6 +137,17 @@ public class AnnouncementImageLocalServiceWrapper
 	public com.gleo.modules.ravenbox.model.AnnouncementImage updateAnnouncementImage(
 		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage) {
 		return _announcementImageLocalService.updateAnnouncementImage(announcementImage);
+	}
+
+	@Override
+	public com.gleo.modules.ravenbox.model.AnnouncementImage updateAnnouncementImage(
+		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage,
+		long annoucementFolderId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _announcementImageLocalService.updateAnnouncementImage(announcementImage,
+			annoucementFolderId, serviceContext);
 	}
 
 	@Override
@@ -220,6 +254,13 @@ public class AnnouncementImageLocalServiceWrapper
 		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _announcementImageLocalService.dynamicQuery(dynamicQuery, start,
 			end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<com.gleo.modules.ravenbox.model.AnnouncementImage> getAnnouncementImageByAnnouncementId(
+		long announcementId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _announcementImageLocalService.getAnnouncementImageByAnnouncementId(announcementId);
 	}
 
 	/**

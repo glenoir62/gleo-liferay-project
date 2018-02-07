@@ -53,6 +53,17 @@ public class AnnouncementImageLocalServiceUtil {
 		return getService().addAnnouncementImage(announcementImage);
 	}
 
+	public static com.gleo.modules.ravenbox.model.AnnouncementImage addAnnouncementImage(
+		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage,
+		long annoucementFolderId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addAnnouncementImage(announcementImage,
+			annoucementFolderId, serviceContext);
+	}
+
 	/**
 	* Creates a new announcement image with the primary key. Does not add the announcement image to the database.
 	*
@@ -69,9 +80,13 @@ public class AnnouncementImageLocalServiceUtil {
 	*
 	* @param announcementImage the announcement image
 	* @return the announcement image that was removed
+	* @throws PortalException
+	* @throws SystemException
 	*/
 	public static com.gleo.modules.ravenbox.model.AnnouncementImage deleteAnnouncementImage(
-		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage) {
+		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return getService().deleteAnnouncementImage(announcementImage);
 	}
 
@@ -106,6 +121,14 @@ public class AnnouncementImageLocalServiceUtil {
 		return getService().getAnnouncementImage(announcementImageId);
 	}
 
+	public static com.gleo.modules.ravenbox.model.AnnouncementImage getAnnouncementImageByAnnouncementIdOrder(
+		long announcementId, int order)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getAnnouncementImageByAnnouncementIdOrder(announcementId,
+			order);
+	}
+
 	/**
 	* Updates the announcement image in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
@@ -115,6 +138,17 @@ public class AnnouncementImageLocalServiceUtil {
 	public static com.gleo.modules.ravenbox.model.AnnouncementImage updateAnnouncementImage(
 		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage) {
 		return getService().updateAnnouncementImage(announcementImage);
+	}
+
+	public static com.gleo.modules.ravenbox.model.AnnouncementImage updateAnnouncementImage(
+		com.gleo.modules.ravenbox.model.AnnouncementImage announcementImage,
+		long annoucementFolderId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateAnnouncementImage(announcementImage,
+			annoucementFolderId, serviceContext);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
@@ -210,6 +244,12 @@ public class AnnouncementImageLocalServiceUtil {
 		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return getService()
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
+	}
+
+	public static java.util.List<com.gleo.modules.ravenbox.model.AnnouncementImage> getAnnouncementImageByAnnouncementId(
+		long announcementId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAnnouncementImageByAnnouncementId(announcementId);
 	}
 
 	/**

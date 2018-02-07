@@ -132,11 +132,12 @@ public abstract class AnnouncementLocalServiceBaseImpl
 	 * @param announcementId the primary key of the announcement
 	 * @return the announcement that was removed
 	 * @throws PortalException if a announcement with the primary key could not be found
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public Announcement deleteAnnouncement(long announcementId)
-		throws PortalException {
+		throws PortalException, SystemException {
 		return announcementPersistence.remove(announcementId);
 	}
 
@@ -470,10 +471,12 @@ public abstract class AnnouncementLocalServiceBaseImpl
 	 *
 	 * @param announcement the announcement
 	 * @return the announcement that was updated
+	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public Announcement updateAnnouncement(Announcement announcement) {
+	public Announcement updateAnnouncement(Announcement announcement)
+		throws SystemException {
 		return announcementPersistence.update(announcement);
 	}
 

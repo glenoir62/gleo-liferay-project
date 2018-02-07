@@ -176,8 +176,18 @@ public class AnnouncementImageWrapper implements AnnouncementImage,
 	}
 
 	@Override
+	public java.io.InputStream getInputStream() {
+		return _announcementImage.getInputStream();
+	}
+
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _announcementImage.getPrimaryKeyObj();
+	}
+
+	@Override
+	public java.lang.Boolean isActive() {
+		return _announcementImage.isActive();
 	}
 
 	@Override
@@ -256,6 +266,12 @@ public class AnnouncementImageWrapper implements AnnouncementImage,
 	@Override
 	public java.lang.String getDescriptionCurrentValue() {
 		return _announcementImage.getDescriptionCurrentValue();
+	}
+
+	@Override
+	public java.lang.String getImageURL(
+		com.liferay.portal.kernel.theme.ThemeDisplay themeDisplay) {
+		return _announcementImage.getImageURL(themeDisplay);
 	}
 
 	/**
@@ -379,6 +395,11 @@ public class AnnouncementImageWrapper implements AnnouncementImage,
 		java.util.Locale defaultImportLocale)
 		throws com.liferay.portal.kernel.exception.LocaleException {
 		_announcementImage.prepareLocalizedFieldsForImport(defaultImportLocale);
+	}
+
+	@Override
+	public void setActive(java.lang.Boolean isActive) {
+		_announcementImage.setActive(isActive);
 	}
 
 	/**
@@ -514,6 +535,11 @@ public class AnnouncementImageWrapper implements AnnouncementImage,
 	@Override
 	public void setGroupId(long groupId) {
 		_announcementImage.setGroupId(groupId);
+	}
+
+	@Override
+	public void setInputStream(java.io.InputStream inputStream) {
+		_announcementImage.setInputStream(inputStream);
 	}
 
 	@Override

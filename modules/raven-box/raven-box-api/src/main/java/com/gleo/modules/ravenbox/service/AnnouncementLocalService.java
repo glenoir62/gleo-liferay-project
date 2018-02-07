@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -74,6 +75,14 @@ public interface AnnouncementLocalService extends BaseLocalService,
 	public Announcement addAnnouncement(Announcement announcement);
 
 	/**
+	* Adds the Announcement to the database incrementing the primary key
+	*
+	* @throws PortalException
+	*/
+	public Announcement addAnnouncement(Announcement announcement,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	/**
 	* Creates a new announcement with the primary key. Does not add the announcement to the database.
 	*
 	* @param announcementId the primary key for the new announcement
@@ -96,10 +105,11 @@ public interface AnnouncementLocalService extends BaseLocalService,
 	* @param announcementId the primary key of the announcement
 	* @return the announcement that was removed
 	* @throws PortalException if a announcement with the primary key could not be found
+	* @throws SystemException
 	*/
 	@Indexable(type = IndexableType.DELETE)
 	public Announcement deleteAnnouncement(long announcementId)
-		throws PortalException;
+		throws PortalException, SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Announcement fetchAnnouncement(long announcementId);
@@ -143,9 +153,40 @@ public interface AnnouncementLocalService extends BaseLocalService,
 	*
 	* @param announcement the announcement
 	* @return the announcement that was updated
+	* @throws SystemException
 	*/
 	@Indexable(type = IndexableType.REINDEX)
-	public Announcement updateAnnouncement(Announcement announcement);
+	public Announcement updateAnnouncement(Announcement announcement)
+		throws SystemException;
+
+	/**
+	* Update announcement
+	*
+	* @param announcement
+	* @param serviceContext
+	* @return announcement
+	* @throws SystemException
+	* @throws PortalException
+	*/
+	@Indexable(type = IndexableType.REINDEX)
+	public Announcement updateAnnouncement(Announcement announcement,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	/**
+	* Update workflow status
+	*
+	* @param userId
+	* @param resourcePrimKey
+	* @param status
+	* @param serviceContext
+	* @return
+	* @throws PortalException
+	* @throws SystemException
+	*/
+	@Indexable(type = IndexableType.REINDEX)
+	public Announcement updateStatus(long userId, long resourcePrimKey,
+		int status, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -178,6 +219,27 @@ public interface AnnouncementLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getAnnouncementsCount();
+
+	/**
+	* Gets the number of Announcements by currency Id
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAnnouncementsCountByCurrencyId(long currencyId)
+		throws SystemException;
+
+	/**
+	* Gets the number of Announcements in a group
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAnnouncementsCountByGroupId(long groupId)
+		throws SystemException;
+
+	/**
+	* Gets the number of Announcements by type Id
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getAnnouncementsCountByTypeId(long typeId)
+		throws SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -240,6 +302,34 @@ public interface AnnouncementLocalService extends BaseLocalService,
 	public List<Announcement> getAnnouncements(int start, int end);
 
 	/**
+	* Gets a list with all the Announcements by currency Id
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Announcement> getAnnouncementsByCurrencyId(long currencyId)
+		throws SystemException;
+
+	/**
+	* Gets a list with all the Announcements in a group
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Announcement> getAnnouncementsByGroupId(long groupId)
+		throws SystemException;
+
+	/**
+	* Gets a list with a range of Announcements from a group
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Announcement> getAnnouncementsByGroupId(long groupId,
+		int start, int end) throws SystemException;
+
+	/**
+	* Gets a list with all the Announcements by type Id
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Announcement> getAnnouncementsByTypeId(long typeId)
+		throws SystemException;
+
+	/**
 	* Returns all the announcements matching the UUID and company.
 	*
 	* @param uuid the UUID of the announcements
@@ -266,6 +356,21 @@ public interface AnnouncementLocalService extends BaseLocalService,
 		OrderByComparator<Announcement> orderByComparator);
 
 	/**
+	* Get favorites
+	*
+	* @param groupId
+	* @param userId
+	* @param start
+	* @param end
+	* @return favorites list
+	* @throws SystemException
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Announcement> getFavoritesAnnouncementsByGroupIUserId(
+		long groupId, long userId, int start, int end)
+		throws SystemException;
+
+	/**
 	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
@@ -282,4 +387,15 @@ public interface AnnouncementLocalService extends BaseLocalService,
 	*/
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
 		Projection projection);
+
+	/**
+	* Delete Announcements
+	*
+	* @param announcements
+	*/
+	public void deleteAnnouncements(List<Announcement> announcements);
+
+	public void updateAsset(long userId, Announcement announcement,
+		long[] assetCategoryIds, java.lang.String[] assetTagNames,
+		long[] assetLinkEntryIds) throws PortalException, SystemException;
 }

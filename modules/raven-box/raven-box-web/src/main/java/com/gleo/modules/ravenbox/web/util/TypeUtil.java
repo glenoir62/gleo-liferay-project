@@ -1,4 +1,4 @@
-package com.gleo.modules.ravenbox.web.portlet.types;
+package com.gleo.modules.ravenbox.web.util;
 
 import com.gleo.modules.ravenbox.model.Type;
 import com.gleo.modules.ravenbox.service.TypeLocalServiceUtil;
