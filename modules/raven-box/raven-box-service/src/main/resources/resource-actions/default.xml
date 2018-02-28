@@ -58,6 +58,8 @@
 		<portlet-ref>
 			<portlet-name>com_gleo_modules_ravenbox_web_portlet_RavenBoxPortlet</portlet-name>
 		</portlet-ref>
+		<root>true</root>
+		<weight>1</weight>
 		<permissions>
 			<supports>
 				<action-key>ADD_ANNOUNCEMENT</action-key>
@@ -87,6 +89,7 @@
 		<portlet-ref>
 			<portlet-name>com_gleo_modules_ravenbox_web_portlet_announcements_AnnouncementsConfigurationPortlet</portlet-name>
 		</portlet-ref>
+		<weight>2</weight>
 		<permissions>
 			<supports>
 				<action-key>DELETE</action-key>
@@ -120,6 +123,7 @@
 		<portlet-ref>
 			<portlet-name>com_gleo_modules_ravenbox_web_portlet_types_TypesConfigurationPortlet</portlet-name>
 		</portlet-ref>
+		<weight>2</weight>
 		<permissions>
 			<supports>
 				<action-key>DELETE</action-key>

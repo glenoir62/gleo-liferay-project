@@ -1,6 +1,5 @@
 dependencies {
-	compile project(":modules:raven-box:raven-box-api")
-	compile project(":modules:raven-box:raven-box-service")
+	compileOnly project(":modules:raven-box:raven-box-api")
 	compileOnly group: "com.liferay", name: "com.liferay.application.list.api", version: "2.0.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "2.9.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "2.0.0"

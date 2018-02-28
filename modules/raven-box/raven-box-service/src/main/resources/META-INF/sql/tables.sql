@@ -55,14 +55,6 @@ create table ravenbox_Favorite (
 	userId LONG
 );
 
-create table ravenbox_Type (
-	typeId LONG not null primary key,
-	name STRING null,
-	groupId LONG,
-	companyId LONG,
-	order_ INTEGER
-);
-
 create table ravenbox_type (
 	typeId LONG not null primary key,
 	name STRING null,

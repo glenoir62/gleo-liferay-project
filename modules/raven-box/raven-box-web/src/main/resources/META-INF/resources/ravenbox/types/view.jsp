@@ -50,7 +50,7 @@
 		/>
 	</liferay-frontend:management-bar-filters>
 
-	<c:if test='<%= RavenBoxPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_TYPE") %>'>
+	<c:if test='<%= RavenBoxPermission.contains(permissionChecker, scopeGroupId, "ADD_TYPE") %>'>
 		<liferay-frontend:add-menu>
 			<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "com.gleo.modules.ravenbox.type.add") %>' url="<%= addEntryURL %>" />
 		</liferay-frontend:add-menu>

@@ -25,7 +25,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
  */
 @Component(
     property = {
-        "javax.portlet.name=" + RavenBoxPortletKeys.TYPES,
+        "javax.portlet.name=" + RavenBoxPortletKeys.TYPES_CONFIGURATION,
         "mvc.command.name=/types/delete_type"
     },
     service = MVCActionCommand.class

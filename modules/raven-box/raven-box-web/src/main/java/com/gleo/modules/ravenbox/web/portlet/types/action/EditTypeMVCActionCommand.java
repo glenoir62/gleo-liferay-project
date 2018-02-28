@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
     property = {
-        "javax.portlet.name=" + RavenBoxPortletKeys.TYPES,
+        "javax.portlet.name=" + RavenBoxPortletKeys.TYPES_CONFIGURATION,
         "mvc.command.name=/types/edit_type"
     },
     service = MVCActionCommand.class

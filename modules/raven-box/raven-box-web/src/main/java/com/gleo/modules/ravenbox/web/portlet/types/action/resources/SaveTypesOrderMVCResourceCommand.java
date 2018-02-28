@@ -28,7 +28,7 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	    immediate = true,
 	    property = {
-	        "javax.portlet.name="+RavenBoxPortletKeys.TYPES,
+	        "javax.portlet.name="+RavenBoxPortletKeys.TYPES_CONFIGURATION,
 	        "mvc.command.name=/types/save_types_order"
 	    },
 	    service = MVCResourceCommand.class

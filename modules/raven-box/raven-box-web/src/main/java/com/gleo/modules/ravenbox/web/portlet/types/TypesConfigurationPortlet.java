@@ -40,9 +40,9 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.init-param.always-display-default-configuration-icons=true",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/ravenbox/types/view.jsp",
-		"javax.portlet.name=" + RavenBoxPortletKeys.TYPES,
+		"javax.portlet.name=" + RavenBoxPortletKeys.TYPES_CONFIGURATION,
 		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=power-user,user",
+		"javax.portlet.security-role-ref=administrator",
 		"javax.portlet.supports.mime-type=text/html"
 	},
 	service = Portlet.class

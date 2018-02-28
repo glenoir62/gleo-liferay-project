@@ -16,14 +16,19 @@ package com.gleo.modules.ravenbox.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.gleo.modules.ravenbox.exception.NoSuchTypeException;
 import com.gleo.modules.ravenbox.model.Type;
 
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ORMException;
 import com.liferay.portal.kernel.dao.orm.Projection;
+import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.exception.NoSuchModelException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -38,6 +43,10 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.sql.DataSource;
 
 /**
  * Provides the local service interface for Type. Methods of this
@@ -77,6 +86,8 @@ public interface TypeLocalService extends BaseLocalService,
 	public Type addType(Type type, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 
+	public Type create(long typeId);
+
 	/**
 	* Creates a new type with the primary key. Does not add the type to the database.
 	*
@@ -106,7 +117,32 @@ public interface TypeLocalService extends BaseLocalService,
 	public Type deleteType(long typeId) throws PortalException, SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Type fetchByGroupId_First(long groupId,
+		OrderByComparator<Type> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Type fetchByGroupId_Last(long groupId,
+		OrderByComparator<Type> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Type fetchByPrimaryKey(Serializable primaryKey);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Type fetchByPrimaryKey(long typeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Type fetchType(long typeId);
+
+	public Type findByGroupId_First(long groupId,
+		OrderByComparator<Type> orderByComparator) throws NoSuchTypeException;
+
+	public Type findByGroupId_Last(long groupId,
+		OrderByComparator<Type> orderByComparator) throws NoSuchTypeException;
+
+	public Type findByPrimaryKey(Serializable primaryKey)
+		throws NoSuchModelException;
+
+	public Type findByPrimaryKey(long typeId) throws NoSuchTypeException;
 
 	/**
 	* Returns the type with the primary key.
@@ -118,6 +154,18 @@ public interface TypeLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Type getType(long typeId) throws PortalException;
 
+	public Type remove(Type model);
+
+	public Type remove(Serializable primaryKey) throws NoSuchModelException;
+
+	public Type remove(long typeId) throws NoSuchTypeException;
+
+	public Type update(Type model);
+
+	public Type update(Type model, ServiceContext serviceContext);
+
+	public Type updateImpl(Type type);
+
 	/**
 	* Updates the type in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
@@ -128,6 +176,12 @@ public interface TypeLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public Type updateType(Type type) throws SystemException;
 
+	public Type[] filterFindByGroupId_PrevAndNext(long typeId, long groupId,
+		OrderByComparator<Type> orderByComparator) throws NoSuchTypeException;
+
+	public Type[] findByGroupId_PrevAndNext(long typeId, long groupId,
+		OrderByComparator<Type> orderByComparator) throws NoSuchTypeException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
@@ -135,6 +189,16 @@ public interface TypeLocalService extends BaseLocalService,
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Session getCurrentSession() throws ORMException;
+
+	public Session openSession() throws ORMException;
+
+	public SystemException processException(java.lang.Exception e);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ModelListener<Type>[] getListeners();
 
 	/**
 	* @throws PortalException
@@ -148,6 +212,12 @@ public interface TypeLocalService extends BaseLocalService,
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public int countAll();
+
+	public int countByGroupId(long groupId);
+
+	public int filterCountByGroupId(long groupId);
+
 	/**
 	* Returns the number of types.
 	*
@@ -155,9 +225,6 @@ public interface TypeLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTypesCount();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getTypesCount(long groupId) throws SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -205,6 +272,33 @@ public interface TypeLocalService extends BaseLocalService,
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end, OrderByComparator<T> orderByComparator);
 
+	public List<Type> filterFindByGroupId(long groupId);
+
+	public List<Type> filterFindByGroupId(long groupId, int start, int end);
+
+	public List<Type> filterFindByGroupId(long groupId, int start, int end,
+		OrderByComparator<Type> orderByComparator);
+
+	public List<Type> findAll();
+
+	public List<Type> findAll(int start, int end);
+
+	public List<Type> findAll(int start, int end,
+		OrderByComparator<Type> orderByComparator);
+
+	public List<Type> findAll(int start, int end,
+		OrderByComparator<Type> orderByComparator, boolean retrieveFromCache);
+
+	public List<Type> findByGroupId(long groupId);
+
+	public List<Type> findByGroupId(long groupId, int start, int end);
+
+	public List<Type> findByGroupId(long groupId, int start, int end,
+		OrderByComparator<Type> orderByComparator);
+
+	public List<Type> findByGroupId(long groupId, int start, int end,
+		OrderByComparator<Type> orderByComparator, boolean retrieveFromCache);
+
 	/**
 	* Returns a range of all the types.
 	*
@@ -220,8 +314,19 @@ public interface TypeLocalService extends BaseLocalService,
 	public List<Type> getTypes(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Type> getTypes(long groupId, int start, int end)
-		throws SystemException;
+	public Map<Serializable, Type> fetchByPrimaryKeys(
+		Set<Serializable> primaryKeys);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Set<java.lang.String> getBadColumnNames();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public DataSource getDataSource();
+
+	public long countWithDynamicQuery(DynamicQuery dynamicQuery);
+
+	public long countWithDynamicQuery(DynamicQuery dynamicQuery,
+		Projection projection);
 
 	/**
 	* Returns the number of rows matching the dynamic query.
@@ -240,4 +345,28 @@ public interface TypeLocalService extends BaseLocalService,
 	*/
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
 		Projection projection);
+
+	public void cacheResult(Type type);
+
+	public void cacheResult(List<Type> types);
+
+	public void clearCache();
+
+	public void clearCache(Type model);
+
+	public void clearCache(List<Type> modelList);
+
+	public void closeSession(Session session);
+
+	public void flush();
+
+	public void registerListener(ModelListener<Type> listener);
+
+	public void removeAll();
+
+	public void removeByGroupId(long groupId);
+
+	public void setDataSource(DataSource dataSource);
+
+	public void unregisterListener(ModelListener<Type> listener);
 }

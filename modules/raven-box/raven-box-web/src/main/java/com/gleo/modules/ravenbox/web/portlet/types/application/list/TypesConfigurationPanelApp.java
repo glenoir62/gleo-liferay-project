@@ -27,7 +27,7 @@ public class TypesConfigurationPanelApp extends BasePanelApp {
 
 	@Override
 	public String getPortletId() {
-		return RavenBoxPortletKeys.TYPES;
+		return RavenBoxPortletKeys.TYPES_CONFIGURATION;
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public class TypesConfigurationPanelApp extends BasePanelApp {
 
 	@Override
 	@Reference(
-		target = "(javax.portlet.name=" + RavenBoxPortletKeys.TYPES + ")",
+		target = "(javax.portlet.name=" + RavenBoxPortletKeys.TYPES_CONFIGURATION + ")",
 		unbind = "-"
 	)
 	public void setPortlet(Portlet portlet) {
