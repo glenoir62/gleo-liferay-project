@@ -7,6 +7,10 @@ import javax.portlet.Portlet;
 
 import org.osgi.service.component.annotations.Component;
 
+/**
+ * @author guillaumelenoir
+ *
+ */
 @Component(immediate = true, property = {
 	"com.liferay.portlet.css-class-wrapper=user-details-portlet",
 	"com.liferay.portlet.display-category=category.hidden",
