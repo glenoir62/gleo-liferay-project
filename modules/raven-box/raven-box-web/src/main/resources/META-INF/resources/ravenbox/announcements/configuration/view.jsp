@@ -1,4 +1,3 @@
-<%@page import="com.liferay.portal.kernel.language.LanguageUtil"%>
 <%@ include file="/init.jsp" %>
 
 <liferay-ui:success key="announcement-added" message="com.gleo.modules.ravenbox.announcement.success.added" />
@@ -8,7 +7,7 @@
 <liferay-ui:error key="no-announcement-deleted" message="com.gleo.modules.ravenbox.announcement.errors.announcement.deleted.unsuccessfully" />
 
 <portlet:renderURL var="addEntryURL">
-		<portlet:param name="mvcRenderCommandName" value="/types/edit" />
+		<portlet:param name="mvcRenderCommandName" value="/announcements/edit" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 </portlet:renderURL>
 		
