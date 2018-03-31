@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -64,6 +65,9 @@ public class AnnouncementsConfigurationPortlet extends MVCPortlet {
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
 
+    	PortletSession portletSession = renderRequest.getPortletSession();
+    	portletSession.removeAttribute("announcement", PortletSession.PORTLET_SCOPE);
+    	
 		PortletURL iteratorURL = renderResponse.createRenderURL();
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 

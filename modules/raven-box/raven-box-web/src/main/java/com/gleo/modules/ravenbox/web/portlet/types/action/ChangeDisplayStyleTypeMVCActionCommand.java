@@ -6,8 +6,6 @@ import javax.portlet.ActionResponse;
 import org.osgi.service.component.annotations.Component;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -28,8 +26,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
     service = MVCActionCommand.class
 )
 public class ChangeDisplayStyleTypeMVCActionCommand extends BaseMVCActionCommand {
-	
-	private static Log LOGGER = LogFactoryUtil.getLog(ChangeDisplayStyleTypeMVCActionCommand.class);
 
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {

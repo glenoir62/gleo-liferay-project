@@ -14,6 +14,8 @@
 
 package com.gleo.modules.ravenbox.model.impl;
 
+import java.io.InputStream;
+
 import com.liferay.document.library.kernel.util.DLUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -22,8 +24,6 @@ import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-
-import java.io.InputStream;
 
 import aQute.bnd.annotation.ProviderType;
 
@@ -81,17 +81,17 @@ public class AnnouncementImageImpl extends AnnouncementImageBaseImpl {
 
 	String url = StringPool.BLANK;
 
-	FileEntry fileEntry = null;
-	if (Validator.isNotNull(this.getFileEntryId())) {
-	    try {
-		fileEntry = PortletFileRepositoryUtil.getPortletFileEntry(this.getFileEntryId());
-		url = DLUtil.getPreviewURL(fileEntry, fileEntry.getLatestFileVersion(), themeDisplay, StringPool.BLANK);
-	    } catch (PortalException e) {
-		e.printStackTrace();
-	    } catch (SystemException e) {
-		e.printStackTrace();
-	    }
-	}
+		FileEntry fileEntry = null;
+		if (Validator.isNotNull(this.getFileEntryId())) {
+			try {
+				fileEntry = PortletFileRepositoryUtil.getPortletFileEntry(this.getFileEntryId());
+				url = DLUtil.getPreviewURL(fileEntry, fileEntry.getLatestFileVersion(), themeDisplay, StringPool.BLANK);
+			} catch (PortalException e) {
+				e.printStackTrace();
+			} catch (SystemException e) {
+				e.printStackTrace();
+			}
+		}
 
 	return url;
     }

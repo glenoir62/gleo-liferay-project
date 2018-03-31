@@ -1,5 +1,8 @@
 <%@include file="/init.jsp" %>
 
+<portlet:actionURL name="/announcements/add_announcement" var="addAnnoucementURL" />
+<portlet:actionURL name="/announcements/edit_announcement" var="editAnnoucementURL" />
+
 <aui:model-context bean="${announcement}" model="${model}" />
 
 <portlet:actionURL var="editAnnouncementURL" windowState="normal" name="${actionName}">
@@ -13,7 +16,7 @@
 <liferay-ui:error key="announcement-errors" message="announcement-errors" />
 
 
-<aui:form action="${editAnnouncementURL}" enctype="multipart/form-data" cssClass="container-fluid-1280" method="POST" name="fm">	
+<aui:form action="${announcement.isNew() ? addAnnoucementURL: editAnnoucementURL}" enctype="multipart/form-data" cssClass="container-fluid-1280" method="POST" name="fm">	
 	
 	<div class="lfr-form-content">
 		<aui:fieldset-group markupView="lexicon">
@@ -40,16 +43,14 @@
 				<aui:row>
 					<liferay-ui:panel markupView="lexicon" iconCssClass="icon-info" defaultState="open" extended="true" id="announcementInfo" persistState="false" title="annoucements.add.panel.informations.title">	 
 						<aui:col span="4" >
-							<aui:row fluid="true">
-								<liferay-ui:error key="announcementprice-required" message="annoucements.add.panel.informations.errors.price.required" />
-								<aui:input name="price" label="annoucements.add.panel.informations.price.label">
-									<aui:validator name="required" />
-									<aui:validator name="number" />
-									<aui:validator name="range" >
-										[0,${maxPrice}]
-									</aui:validator>
-								</aui:input>
-							</aui:row>
+							<liferay-ui:error key="announcementprice-required" message="annoucements.add.panel.informations.errors.price.required" />
+							<aui:input name="price" label="annoucements.add.panel.informations.price.label">
+								<aui:validator name="required" />
+								<aui:validator name="number" />
+								<aui:validator name="range" >
+									[0,${maxPrice}]
+								</aui:validator>
+							</aui:input>
 							
 							<aui:input name="city" label="annoucements.add.panel.informations.city.label"/>
 						</aui:col>
@@ -82,7 +83,7 @@
 							<aui:select label="annoucements.add.panel.informations.country.label" name="countryId" showEmptyOption="true" required="true"/>
 				
 							<liferay-ui:error key="announcementregion-required" message="annoucements.add.errors.region.required" />
-							<aui:select label="annoucements.add.panel.informations.region.label" name="regionId" showEmptyOption="true" required="true"/>
+							<aui:select label="annoucements.add.panel.informations.region.label" name="regionId" showEmptyOption="true"/>
 							
 							<aui:input name="building" label="annoucements.add.panel.informations.building.label"/>
 						</aui:col>
@@ -103,107 +104,107 @@
 				</aui:field-wrapper>
 				
 				<aui:row>
-				<c:forEach begin="1" end="${imageLimit}" var="index">
-				
-					<c:set value="${announcementImages[index]}" var="announcementImage" />
+					<c:forEach begin="1" end="${imageLimit}" var="index">
 					
-					<liferay-ui:error key="image-size-error${index}" message="annoucements.add.images.errors.image.size.error" />
-					<liferay-ui:error key="image-extension-error${index}" message="annoucements.add.images.errors.image.extension.error" />
-					
-			     	<liferay-ui:panel markupView="lexicon" iconCssClass="icon-picture" defaultState="open" extended="true" id="announcementAbstractPanel${index}" persistState="false" title="annoucements.add.images.image.${index}">
-							<aui:input type="hidden" name="announcementImageId${index}" value='${announcementImage.announcementImageId}' />
-							<aui:input type="hidden" name="imageDisabled${index}" value="false"/>
-							<aui:input type="hidden" name="order" value="false"/>
-							<div class="col-md-6">
-								
-								<div id="<portlet:namespace/>placeholderImage${index}" class="text-center well row-fluid">
-									<c:set value="${announcementImages[index]}" var="announcementImage" />
-									
-									<c:set value="<%= themeDisplay.getScopeGroupName() %>" var="announcementImageDescription" />
-									<c:set value="<%= themeDisplay.getCompanyLogo() %>" var="announcementImageUrl" />
-									
-									<c:if test="${announcementImage ne null}">
-										<c:set value="${announcementImage.getImageURL(themeDisplay)}" var="announcementImageUrl" />
-										<c:set value="${announcementImage.getDescription(locale)}" var="announcementImageDescription" />
-									</c:if>
-									<img id="<portlet:namespace/>${index}Image" style="min-width:50%;max-width: 100%;" class="rounded mx-auto d-block" alt="${announcementImageDescription}" src="${announcementImageUrl}" />
-								</div>
-								
-								<aui:input type="hidden" name="announcementImageUrlSrc${index}" value="${announcementImageUrl}"></aui:input>
-								
+						<c:set value="${announcementImages[index]}" var="announcementImage" />
+						
+						<liferay-ui:error key="image-size-error${index}" message="annoucements.add.images.errors.image.size.error" />
+						<liferay-ui:error key="image-extension-error${index}" message="annoucements.add.images.errors.image.extension.error" />
+						
+				     	<liferay-ui:panel markupView="lexicon" iconCssClass="icon-picture" defaultState="open" extended="true" id="announcementAbstractPanel${index}" persistState="false" title="annoucements.add.images.image.${index}">
+								<aui:input type="hidden" name="announcementImageId${index}" value='${announcementImage.announcementImageId}' />
+								<aui:input type="hidden" name="imageDisabled${index}" value="false"/>
 								<aui:input type="hidden" name="order" value="false"/>
-								<aui:script use="aui-base">
+								<aui:col span="6" >
 									
-									Liferay.provide(
-											window,
-											'<portlet:namespace/>${index}DeleteImage',
-											function() {
-												var A = AUI();
+									<div id="<portlet:namespace/>placeholderImage${index}" class="text-center well row-fluid">
+										<c:set value="${announcementImages[index]}" var="announcementImage" />
+										
+										<c:set value="<%= themeDisplay.getScopeGroupName() %>" var="announcementImageDescription" />
+										<c:set value="<%= themeDisplay.getCompanyLogo() %>" var="announcementImageUrl" />
+										
+										<c:if test="${announcementImage ne null}">
+											<c:set value="${announcementImage.getImageURL(themeDisplay)}" var="announcementImageUrl" />
+											<c:set value="${announcementImage.getDescription(locale)}" var="announcementImageDescription" />
+										</c:if>
+										<img id="<portlet:namespace/>${index}Image" style="min-width:50%;max-width: 100%;" class="rounded mx-auto d-block" alt="${announcementImageDescription}" src="${announcementImageUrl}" />
+									</div>
 									
-												var buttonText = 'cancel';
-												var disabled = true;
+									<aui:input type="hidden" name="announcementImageUrlSrc${index}" value="${announcementImageUrl}"></aui:input>
 									
-												var imageInputNode = A.one('#<portlet:namespace/>image${index}');
-									
-												if (imageInputNode.get('disabled')) {
-													buttonText = 'delete';
-													disabled = false;
-													
-												}
-												
-												A.one('#<portlet:namespace/>${index}DeleteImage').setContent(buttonText);
-												A.one('#<portlet:namespace/>imageDisabled${index}').attr('value', disabled);
-									
-												imageInputNode.attr('disabled', disabled);
-									
-												A.one('#<portlet:namespace/>${index}Image').toggle();
-											},
-											['aui-base']
-										);
-								</aui:script>
-							</div>
-							<div class="col-md-6">
-								<aui:fieldset>
-									<aui:input inlineField="true" name="image${index}" type="file" label="annoucements.add.images.image.label"/>
+									<aui:input type="hidden" name="order" value="false"/>
 									<aui:script use="aui-base">
-										A.one('#<portlet:namespace/>image${index}').on('change',function(event){
-											var id = this.attr('id');
-							            	var input = document.getElementById(id);
-							            	
-											if (input.files && input.files[0]) {
-										       var reader = new FileReader();
-										       
-										       reader.onload = function (e) {
-										       		
-										       		A.one('#<portlet:namespace/>announcementImageUrlSrc${index}').val(e.target.result);
-										       		
-										       		if (A.one('#<portlet:namespace/>${index}Image')) {
-										       			A.one('#<portlet:namespace/>${index}Image').attr('src', e.target.result);
-										       		} else {
-										       			A.one('#<portlet:namespace/>placeholderImage${index}').append(A.Node.create('<img id="<portlet:namespace/>${index}Image" class="img-rounded" alt="${announcementImage.getDescription(locale)}" src="'+ e.target.result +'" />'));
-										       		}
-										       		
-										       }
-										       reader.readAsDataURL(input.files[0]);
-										   }
-										});
+										
+										Liferay.provide(
+												window,
+												'<portlet:namespace/>${index}DeleteImage',
+												function() {
+													var A = AUI();
+										
+													var buttonText = 'cancel';
+													var disabled = true;
+										
+													var imageInputNode = A.one('#<portlet:namespace/>image${index}');
+										
+													if (imageInputNode.get('disabled')) {
+														buttonText = 'delete';
+														disabled = false;
+														
+													}
+													
+													A.one('#<portlet:namespace/>${index}DeleteImage').setContent(buttonText);
+													A.one('#<portlet:namespace/>imageDisabled${index}').attr('value', disabled);
+										
+													imageInputNode.attr('disabled', disabled);
+										
+													A.one('#<portlet:namespace/>${index}Image').toggle();
+												},
+												['aui-base']
+											);
 									</aui:script>
-								</aui:fieldset>
-								<aui:fieldset>
-									<c:set value="${announcementImage}" var="bean" />
+								</aui:col>
+								<aui:col span="6" >
+									<aui:fieldset>
+										<aui:input inlineField="true" name="image${index}" type="file" label="annoucements.add.images.image.label"/>
+										<aui:script use="aui-base">
+											A.one('#<portlet:namespace/>image${index}').on('change',function(event){
+												var id = this.attr('id');
+								            	var input = document.getElementById(id);
+								            	
+												if (input.files && input.files[0]) {
+											       var reader = new FileReader();
+											       
+											       reader.onload = function (e) {
+											       		
+											       		A.one('#<portlet:namespace/>announcementImageUrlSrc${index}').val(e.target.result);
+											       		
+											       		if (A.one('#<portlet:namespace/>${index}Image')) {
+											       			A.one('#<portlet:namespace/>${index}Image').attr('src', e.target.result);
+											       		} else {
+											       			A.one('#<portlet:namespace/>placeholderImage${index}').append(A.Node.create('<img id="<portlet:namespace/>${index}Image" class="img-rounded" alt="${announcementImage.getDescription(locale)}" src="'+ e.target.result +'" />'));
+											       		}
+											       		
+											       }
+											       reader.readAsDataURL(input.files[0]);
+											   }
+											});
+										</aui:script>
+									</aui:fieldset>
+									<aui:fieldset>
+										<c:set value="${announcementImage}" var="bean" />
+										
+										<c:if test="${bean eq null}">
+											<c:set value="${imageBean}" var="bean" />
+										</c:if>
+										<aui:input helpMessage="describe-your-announcement-for-visually-impaired" inlineField="true" label="annoucements.add.images.description.label" field="description" name="description${index}" id="description${index}" fieldParam="description${index}" model="${imageModel}" bean="${bean}" />
+									</aui:fieldset>
 									
-									<c:if test="${bean eq null}">
-										<c:set value="${imageBean}" var="bean" />
-									</c:if>
-									<aui:input helpMessage="describe-your-announcement-for-visually-impaired" inlineField="true" label="annoucements.add.images.description.label" field="description" name="description${index}" id="description${index}" fieldParam="description${index}" model="${imageModel}" bean="${bean}" />
-								</aui:fieldset>
-								
-								<a class="btn btn-warning" href="javascript:;" style="color: white;" id="<portlet:namespace/>${index}DeleteImage" onclick="<portlet:namespace/>${index}DeleteImage();">
-										<liferay-ui:message key="delete"/>
-								</a>
-							</div>
-					</liferay-ui:panel>
-				</c:forEach>
+									<a class="btn btn-warning" href="javascript:;" style="color: white;" id="<portlet:namespace/>${index}DeleteImage" onclick="<portlet:namespace/>${index}DeleteImage();">
+											<liferay-ui:message key="delete"/>
+									</a>
+								</aui:col>
+						</liferay-ui:panel>
+					</c:forEach>
 				</aui:row>
 				
 				<div style="clear: both;" />
@@ -289,17 +290,11 @@
 			},
 			<portlet:namespace/>countryId: {
 				min: 1
-			},
-			<portlet:namespace/>regionId: {
-				min: 1
 			}
 		};
 		
 		var fieldStrings = {
 			<portlet:namespace/>countryId: {
-				min: '<liferay-ui:message key="this-field-is-required" />'
-			},
-			<portlet:namespace/>regionId: {
 				min: '<liferay-ui:message key="this-field-is-required" />'
 			}
 		};

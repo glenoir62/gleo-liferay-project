@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.PortletPreferences;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -148,12 +149,16 @@ public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 			}
 
 		} else {
-			announcement = AnnouncementLocalServiceUtil.createAnnouncement(0l);
+			PortletSession portletSession = renderRequest.getPortletSession();
+			
+			announcement = (Announcement) portletSession.getAttribute("announcement");
+			
+			if (announcement == null)
+				announcement = AnnouncementLocalServiceUtil.createAnnouncement(0l);
 		}
 
 		// get types
 		try {
-			// types = TypeServiceUtil.getTypesByGroupId(themeDisplay.getScopeGroupId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 			types = TypeLocalServiceUtil.findByGroupId(themeDisplay.getScopeGroupId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 			
 			for (Type type : types) {
@@ -203,7 +208,7 @@ public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 		}
 		
 		portletDisplay.setShowBackIcon(true);
-		portletDisplay.setURLBack(redirect);
+		portletDisplay.setURLBack(renderResponse.createRenderURL().toString());
 		renderResponse.setTitle(title);
 		
 		

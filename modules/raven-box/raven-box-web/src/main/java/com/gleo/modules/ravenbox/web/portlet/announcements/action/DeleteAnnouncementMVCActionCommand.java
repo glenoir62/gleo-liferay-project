@@ -38,9 +38,7 @@ public class DeleteAnnouncementMVCActionCommand extends BaseMVCActionCommand {
 	@Override
 	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
 		
-		LOGGER.info("Delete Type");
 		long typeId = ParamUtil.getLong(actionRequest, "typeId");
-		LOGGER.info("Type ID : "+typeId);
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Type.class.getName(), actionRequest);
 		
 		try {

@@ -72,16 +72,41 @@
 			keyProperty="announcementId"
 			modelVar="announcement" escapedModel="true"
 		>	
-		
-			<liferay-ui:search-container-column-text>
-				<aui:input name="announcementIds" announcement="hidden" value="${announcement.announcementId}"> 
-				</aui:input>
-			</liferay-ui:search-container-column-text>
 			
-			<liferay-ui:search-container-column-text
-				name="name"
-				value="${announcement.getName(locale)}"
-			/>
+		<liferay-ui:search-container-column-text
+			name="name"
+			value="${announcement.getTitle(locale)}" 
+		/>
+
+		<liferay-ui:search-container-column-text
+			name="price"
+			property="price"
+		/>
+		
+		<liferay-ui:search-container-column-text
+			name="email-address"
+			property="emailAddress"
+		/>
+
+		<liferay-ui:search-container-column-text
+			name="phone-number"
+			property="phoneNumber"
+		/>
+		
+		<liferay-ui:search-container-column-text
+			name="type"
+			value="${announcement.getType().getName(locale)}"
+		/>
+		
+		<liferay-ui:search-container-column-text
+			name="status"
+			value="${announcement.getStatus(locale)}"
+		/>
+		
+		<liferay-ui:search-container-column-text
+			name="country"
+			value="${announcement.getCountry(locale)}"
+		/>
 			
 			<liferay-ui:search-container-column-jsp
 				align="right"

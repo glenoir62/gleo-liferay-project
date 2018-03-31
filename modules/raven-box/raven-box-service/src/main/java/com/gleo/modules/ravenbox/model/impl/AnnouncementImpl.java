@@ -14,6 +14,11 @@
 
 package com.gleo.modules.ravenbox.model.impl;
 
+import java.util.List;
+import java.util.Locale;
+
+import javax.portlet.WindowStateException;
+
 import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.model.AnnouncementImage;
 import com.gleo.modules.ravenbox.model.Type;
@@ -29,33 +34,18 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Country;
-import com.liferay.portal.kernel.model.LayoutConstants;
-import com.liferay.portal.kernel.model.PortletPreferences;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.service.CountryServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.ratings.kernel.model.RatingsStats;
 import com.liferay.ratings.kernel.service.RatingsStatsLocalServiceUtil;
-
-import java.util.List;
-import java.util.Locale;
-
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-import javax.portlet.WindowStateException;
 
 import aQute.bnd.annotation.ProviderType;
 
@@ -257,25 +247,6 @@ public class AnnouncementImpl extends AnnouncementBaseImpl {
     public String getCurrencySymbol() {
 
 	String symbol = StringPool.BLANK;
-
-//	if (Validator.isNotNull(getCurrencyId())) {
-//	    try {
-//		Currency currency = CurrencyLocalServiceUtil.getCurrency(getCurrencyId());
-//		if (Validator.isNotNull(currency)) {
-//		    symbol = currency.getSymbol();
-//		}
-//	    } catch (PortalException pe) {
-//		if (LOGGER.isDebugEnabled()) {
-//		    LOGGER.debug(pe);
-//		}
-//		LOGGER.error("PortalException : impossible to get currency " + this.getCurrencyId());
-//	    } catch (SystemException se) {
-//		if (LOGGER.isDebugEnabled()) {
-//		    LOGGER.debug(se);
-//		}
-//		LOGGER.error("SystemException : impossible to get currency " + this.getCurrencyId());
-//	    }
-//	}
 
 	return symbol;
     }

@@ -8,7 +8,7 @@ import com.gleo.modules.ravenbox.model.Type;
 import com.liferay.portal.kernel.util.Validator;
 
 /**
- * @author Julien Luczak
+ * @author guillaumelenoir
  *
  */
 public class TypeValidator {

@@ -14,19 +14,23 @@
 
 package com.gleo.modules.ravenbox.service.impl;
 
+import java.io.InputStream;
+import java.util.List;
+
+import com.gleo.modules.ravenbox.constants.AnnouncementConstants;
 import com.gleo.modules.ravenbox.model.AnnouncementImage;
 import com.gleo.modules.ravenbox.service.base.AnnouncementImageLocalServiceBaseImpl;
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.document.library.kernel.util.DLProcessorRegistryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portletfilerepository.PortletFileRepositoryUtil;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-
-import java.io.InputStream;
-import java.util.List;
 
 import aQute.bnd.annotation.ProviderType;
 
@@ -61,47 +65,47 @@ public class AnnouncementImageLocalServiceImpl extends AnnouncementImageLocalSer
 
     private static Log LOGGER = LogFactoryUtil.getLog(AnnouncementImageLocalServiceImpl.class);
 
-    public AnnouncementImage addAnnouncementImage(AnnouncementImage announcementImage, long annoucementFolderId,
-	    ServiceContext serviceContext) throws SystemException, PortalException {
+	public AnnouncementImage addAnnouncementImage(AnnouncementImage announcementImage, long annoucementFolderId,
+			ServiceContext serviceContext) throws SystemException, PortalException {
 
-	InputStream imageInputStream = announcementImage.getInputStream();
-	long groupId = announcementImage.getGroupId();
-	long userId = announcementImage.getUserId();
+		InputStream imageInputStream = announcementImage.getInputStream();
+		long groupId = announcementImage.getGroupId();
+		long userId = announcementImage.getUserId();
 
-	if (announcementImage.isNew() && Validator.isNotNull(imageInputStream)) {
-	    announcementImage
-		    .setAnnouncementImageId(CounterLocalServiceUtil.increment(AnnouncementImage.class.getName()));
+		if (announcementImage.isNew() && Validator.isNotNull(imageInputStream)) {
+			announcementImage
+					.setAnnouncementImageId(CounterLocalServiceUtil.increment(AnnouncementImage.class.getName()));
 
-	    try {
+			try {
 
-//		// Add image in the announcement repository portlet
-//		FileEntry imageFileEntry = PortletFileRepositoryUtil.addPortletFileEntry(groupId, userId,
-//			AnnouncementImage.class.getName(), announcementImage.getAnnouncementImageId(),
-//			AnnouncementConstants.ANNOUNCEMENT_PORTLET_REPOSITORY, annoucementFolderId, imageInputStream,
-//			String.valueOf(announcementImage.getAnnouncementImageId()), StringPool.BLANK, true);
-//		DLProcessorRegistryUtil.trigger(imageFileEntry, null, true);
-//
-//		// Set new file entryId
-//		announcementImage.setFileEntryId(imageFileEntry.getFileEntryId());
-//
-//		// Add announcement image
-//		announcementImage = super.addAnnouncementImage(announcementImage);
-	    } catch (SystemException e) {
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug(e);
+				// Add image in the announcement repository portlet
+				FileEntry imageFileEntry = PortletFileRepositoryUtil.addPortletFileEntry(groupId, userId,
+						AnnouncementImage.class.getName(), announcementImage.getAnnouncementImageId(),
+						AnnouncementConstants.ANNOUNCEMENT_PORTLET_REPOSITORY, annoucementFolderId, imageInputStream,
+						String.valueOf(announcementImage.getAnnouncementImageId()), StringPool.BLANK, true);
+				DLProcessorRegistryUtil.trigger(imageFileEntry, null, true);
+
+				// Set new file entryId
+				announcementImage.setFileEntryId(imageFileEntry.getFileEntryId());
+
+				// Add announcement image
+				announcementImage = super.addAnnouncementImage(announcementImage);
+			} catch (SystemException e) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(e);
+				}
+				LOGGER.error("SystemException : impossible to add announcement image with file entry "
+						+ announcementImage.getFileEntryId());
+				LOGGER.error(e.getMessage());
+			} catch (PortalException e) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(e);
+				}
+				LOGGER.error("PortalException : impossible to add announcement image with file entry "
+						+ announcementImage.getFileEntryId());
+				LOGGER.error(e.getMessage());
+			}
 		}
-		LOGGER.error("SystemException : impossible to add announcement image with file entry "
-			+ announcementImage.getFileEntryId());
-		LOGGER.error(e.getMessage());
-//	    } catch (PortalException e) {
-//		if (LOGGER.isDebugEnabled()) {
-//		    LOGGER.debug(e);
-//		}
-//		LOGGER.error("PortalException : impossible to add announcement image with file entry "
-//			+ announcementImage.getFileEntryId());
-//		LOGGER.error(e.getMessage());
-	    }
-	}
 
 	return announcementImage;
     }
@@ -117,76 +121,76 @@ public class AnnouncementImageLocalServiceImpl extends AnnouncementImageLocalSer
 	return announcementImagePersistence.fetchByA_O(announcementId, order);
     }
 
-    public AnnouncementImage deleteAnnouncementImage(AnnouncementImage announcementImage)
-	    throws SystemException, PortalException {
+	public AnnouncementImage deleteAnnouncementImage(AnnouncementImage announcementImage)
+			throws SystemException, PortalException {
 
-	long fileEntryId = announcementImage.getFileEntryId();
+		long fileEntryId = announcementImage.getFileEntryId();
 
-	if (Validator.isNotNull(fileEntryId)) {
-	    try {
-		PortletFileRepositoryUtil.deletePortletFileEntry(fileEntryId);
-	    } catch (SystemException e) {
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug(e);
+		if (Validator.isNotNull(fileEntryId)) {
+			try {
+				PortletFileRepositoryUtil.deletePortletFileEntry(fileEntryId);
+			} catch (SystemException e) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(e);
+				}
+				LOGGER.error("SystemException : impossible to delete announcement image with file entry "
+						+ announcementImage.getFileEntryId());
+				LOGGER.error(e.getMessage());
+			} catch (PortalException e) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(e);
+				}
+				LOGGER.error("PortalException : impossible to delete announcement image with file entry "
+						+ announcementImage.getFileEntryId());
+				LOGGER.error(e.getMessage());
+			}
 		}
-		LOGGER.error("SystemException : impossible to delete announcement image with file entry "
-			+ announcementImage.getFileEntryId());
-		LOGGER.error(e.getMessage());
-	    } catch (PortalException e) {
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug(e);
-		}
-		LOGGER.error("PortalException : impossible to delete announcement image with file entry "
-			+ announcementImage.getFileEntryId());
-		LOGGER.error(e.getMessage());
-	    }
+
+		return super.deleteAnnouncementImage(announcementImage);
 	}
 
-	return super.deleteAnnouncementImage(announcementImage);
-    }
+	public AnnouncementImage updateAnnouncementImage(AnnouncementImage announcementImage, long annoucementFolderId,
+			ServiceContext serviceContext) throws SystemException, PortalException {
 
-    public AnnouncementImage updateAnnouncementImage(AnnouncementImage announcementImage, long annoucementFolderId,
-	    ServiceContext serviceContext) throws SystemException, PortalException {
+		InputStream imageInputStream = announcementImage.getInputStream();
+		long groupId = announcementImage.getGroupId();
+		long userId = announcementImage.getUserId();
+		long announcementImageId = announcementImage.getAnnouncementImageId();
+		long fileEntryId = announcementImage.getFileEntryId();
 
-	InputStream imageInputStream = announcementImage.getInputStream();
-	long groupId = announcementImage.getGroupId();
-	long userId = announcementImage.getUserId();
-	long announcementImageId = announcementImage.getAnnouncementImageId();
-	long fileEntryId = announcementImage.getFileEntryId();
+		if (Validator.isNotNull(imageInputStream)) {
+			try {
+				// Delete old file Entry
+				PortletFileRepositoryUtil.deletePortletFileEntry(fileEntryId);
 
-	if (Validator.isNotNull(imageInputStream)) {
-//	    try {
-//		// Delete old file Entry
-//		PortletFileRepositoryUtil.deletePortletFileEntry(fileEntryId);
-//
-//		// Add image in the announcement repository portlet
-//		FileEntry imageFileEntry = PortletFileRepositoryUtil.addPortletFileEntry(groupId, userId,
-//			AnnouncementImage.class.getName(), announcementImageId,
-//			AnnouncementConstants.ANNOUNCEMENT_PORTLET_REPOSITORY, annoucementFolderId, imageInputStream,
-//			String.valueOf(announcementImageId), StringPool.BLANK, true);
-//		DLProcessorRegistryUtil.trigger(imageFileEntry, null, true);
-//
-//		// Set new file entryId
-//		announcementImage.setFileEntryId(imageFileEntry.getFileEntryId());
-//	    } catch (SystemException e) {
-//		if (LOGGER.isDebugEnabled()) {
-//		    LOGGER.debug(e);
-//		}
-//		LOGGER.error("SystemException : impossible to update announcement image with file entry "
-//			+ announcementImage.getFileEntryId());
-//		LOGGER.error(e.getMessage());
-//	    } catch (PortalException e) {
-//		if (LOGGER.isDebugEnabled()) {
-//		    LOGGER.debug(e);
-//		}
-//		LOGGER.error("PortalException : impossible to update announcement image with file entry "
-//			+ announcementImage.getFileEntryId());
-//		LOGGER.error(e.getMessage());
-//	    }
+				// Add image in the announcement repository portlet
+				FileEntry imageFileEntry = PortletFileRepositoryUtil.addPortletFileEntry(groupId, userId,
+						AnnouncementImage.class.getName(), announcementImageId,
+						AnnouncementConstants.ANNOUNCEMENT_PORTLET_REPOSITORY, annoucementFolderId, imageInputStream,
+						String.valueOf(announcementImageId), StringPool.BLANK, true);
+				DLProcessorRegistryUtil.trigger(imageFileEntry, null, true);
+
+				// Set new file entryId
+				announcementImage.setFileEntryId(imageFileEntry.getFileEntryId());
+			} catch (SystemException e) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(e);
+				}
+				LOGGER.error("SystemException : impossible to update announcement image with file entry "
+						+ announcementImage.getFileEntryId());
+				LOGGER.error(e.getMessage());
+			} catch (PortalException e) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(e);
+				}
+				LOGGER.error("PortalException : impossible to update announcement image with file entry "
+						+ announcementImage.getFileEntryId());
+				LOGGER.error(e.getMessage());
+			}
+		}
+
+		// Update announcement image
+
+		return super.updateAnnouncementImage(announcementImage);
 	}
-
-	// Update announcement image
-
-	return super.updateAnnouncementImage(announcementImage);
-    }
 }
