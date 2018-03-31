@@ -1,19 +1,5 @@
 package com.gleo.modules.ravenbox.web.portlet.types;
 
-import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
-import com.gleo.modules.ravenbox.model.Type;
-import com.gleo.modules.ravenbox.service.TypeServiceUtil;
-import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.WebKeys;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -24,6 +10,22 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
+
+import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
+import com.gleo.modules.ravenbox.model.Type;
+import com.gleo.modules.ravenbox.service.TypeServiceUtil;
+import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortalPreferences;
+import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 
 @Component(
 	immediate = true,
@@ -63,9 +65,12 @@ public class TypesConfigurationPortlet extends MVCPortlet{
     public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 	    throws IOException, PortletException {
 
+    PortalPreferences portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(renderRequest);
+
 	ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 	PortalUtil.addPortletBreadcrumbEntry(themeDisplay.getRequest(), LanguageUtil.get(themeDisplay.getRequest(), "com.gleo.modules.ravenbox.type.title"), null);
 	
+	String displayStyle = portalPreferences.getValue(RavenBoxPortletKeys.TYPES_CONFIGURATION, "display-style", "icon");
 	PortletURL iteratorURL = renderResponse.createRenderURL();
 
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
@@ -94,7 +99,8 @@ public class TypesConfigurationPortlet extends MVCPortlet{
 	}
 
 	renderRequest.setAttribute("searchTypeContainer", searchTypeContainer);
-
+	renderRequest.setAttribute("displayStyle", displayStyle);
+	
 	super.doView(renderRequest, renderResponse);
     }
 }

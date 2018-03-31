@@ -28,11 +28,17 @@
 	includeCheckBox="<%= true %>"
 	searchContainerId="userGroups"
 >
+		
 	<liferay-frontend:management-bar-buttons>
+
+		<liferay-portlet:actionURL name="/types/change_display_style" varImpl="changeDisplayStyleURL">
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+		</liferay-portlet:actionURL>
+
 		<liferay-frontend:management-bar-display-buttons
-			displayViews='<%= new String[] {"descriptive", "icon", "list"} %>'
-			portletURL="<%= renderResponse.createRenderURL() %>"
-			selectedDisplayStyle=""
+			displayViews='<%= new String[] {"icon", "descriptive", "list"} %>'
+			portletURL="${changeDisplayStyleURL}"
+			selectedDisplayStyle="${displayStyle}"
 		/>
 	</liferay-frontend:management-bar-buttons>
 
@@ -57,11 +63,15 @@
 	</c:if>
 </liferay-frontend:management-bar>
 
-<div id="breadcrumb">
-	<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
-</div>
-
 <aui:form action="#" cssClass="container-fluid-1280" method="get" name="fm">
+	
+	<liferay-ui:breadcrumb
+		showCurrentGroup="<%= false %>"
+		showGuestGroup="<%= false %>"
+		showLayout="<%= false %>"
+		showParentGroups="<%= false %>"
+	/>
+	
 	<liferay-portlet:renderURLParams varImpl="portletURL" />
 	<aui:input name="redirect" type="hidden" value="<%= renderResponse.createRenderURL() %>" />
 	<aui:input name="deleteUserGroupIds" type="hidden" />
@@ -72,31 +82,12 @@
 			className="com.gleo.modules.ravenbox.model.Type"
 			keyProperty="typeId"
 			modelVar="type" escapedModel="true"
-		>	
+		>
+			<%@ include file="/ravenbox/types/columns/columns.jspf" %>
 		
-			<liferay-ui:search-container-column-text>
-				<aui:input name="typeIds" type="hidden" value="${type.typeId}"> 
-				</aui:input>
-			</liferay-ui:search-container-column-text>
-			
-			<liferay-ui:search-container-column-text
-				name="name"
-				value="${type.getName(locale)}"
-			/>
-			
-			<liferay-ui:search-container-column-text
-				name="order"
-				property="order"
-			/>
-			
-			<liferay-ui:search-container-column-jsp
-				align="right"
-				name="actions"
-				path="/ravenbox/types/actions.jsp"
-			/>
 		</liferay-ui:search-container-row>
 	
-		<liferay-ui:search-iterator paginate="true" markupView="lexicon" searchContainer="${searchTypeContainer}"/>
+		<liferay-ui:search-iterator displayStyle="${displayStyle}" markupView="lexicon" />
 	</liferay-ui:search-container>
 </aui:form>
 
