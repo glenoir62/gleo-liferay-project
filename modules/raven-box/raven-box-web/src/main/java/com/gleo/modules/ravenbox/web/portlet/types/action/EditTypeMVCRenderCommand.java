@@ -8,6 +8,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -38,6 +39,8 @@ public class EditTypeMVCRenderCommand implements MVCRenderCommand {
     public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
 
 	ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+	PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
+	
 	String redirect = ParamUtil.getString(renderRequest, "redirect");
 
 	long typeId = ParamUtil.getLong(renderRequest, "typeId");
@@ -53,6 +56,10 @@ public class EditTypeMVCRenderCommand implements MVCRenderCommand {
 	}
 	String title = type != null ? type.getName(themeDisplay.getLocale()) : "new-type";
 	String typeTitle = type != null ? "updateType" : "addType";
+	
+	portletDisplay.setShowBackIcon(true);
+	portletDisplay.setURLBack(redirect);
+	renderResponse.setTitle(title);
 	
 	renderRequest.setAttribute("redirect", redirect);
 	renderRequest.setAttribute("type", type);

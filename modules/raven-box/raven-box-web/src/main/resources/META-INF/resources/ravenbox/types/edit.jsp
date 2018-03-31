@@ -1,11 +1,6 @@
 <%@page import="com.gleo.modules.ravenbox.model.Type"%>
 <%@ include file="/init.jsp" %>
 
-<liferay-ui:header
-	backURL='${redirect}'
-	title='${title}'
-/>
-
 <portlet:actionURL name="/types/add_type" var="addTypeURL" />
 <portlet:actionURL name="/types/edit_type" var="editTypeURL" />
 
