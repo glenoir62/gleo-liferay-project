@@ -12,7 +12,7 @@ public class AnnouncementConstants {
 	/**
 	 * Image limit for an announcement
 	 */
-	public static final int IMAGE_LIMIT = 6;
+	public static final int IMAGE_LIMIT = 3;
 	
 	/**
 	 * Max price for an announcement
