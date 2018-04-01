@@ -8,7 +8,7 @@
 
 <portlet:renderURL var="addEntryURL">
 		<portlet:param name="mvcRenderCommandName" value="/announcements/edit" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="redirect" value="<%= renderResponse.createRenderURL().toString() %>" />
 </portlet:renderURL>
 		
 <aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
@@ -49,7 +49,7 @@
 		/>
 	</liferay-frontend:management-bar-filters>
 
-	<c:if test='<%= RavenBoxPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_TYPE") %>'>
+	<c:if test='<%= RavenBoxPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_ANNOUNCEMENT") %>'>
 		<liferay-frontend:add-menu>
 			<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "com.gleo.modules.ravenbox.announcement.add") %>' url="<%= addEntryURL %>" />
 		</liferay-frontend:add-menu>

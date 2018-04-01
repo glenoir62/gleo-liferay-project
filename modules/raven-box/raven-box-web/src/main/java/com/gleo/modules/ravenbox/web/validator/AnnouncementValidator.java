@@ -39,7 +39,7 @@ public class AnnouncementValidator {
 			}
 		}
 
-		if (Validator.isBlank(announcement.getTitle(locale))) {
+		if (Validator.isNull(announcement.getTitleMap()) || (Validator.isNotNull(announcement.getTitleMap()) && announcement.getTitleMap().size() == 0)) {
 			errors.add("announcementtitle-required");
 			valid = false;
 		}

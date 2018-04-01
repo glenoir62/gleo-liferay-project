@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -64,7 +65,7 @@ public class EditAnnouncementMVCActionCommand extends BaseMVCActionCommand {
 
 		if (AnnouncementValidator.validateAnnouncement(announcement, errors, themeDisplay.getLocale())) {
 			announcementService.updateAnnouncement(announcement, serviceContext);
-			
+			SessionMessages.add(actionRequest, "announcement-updated");
 		} else {
 			for (String error : errors) {
 				SessionErrors.add(actionRequest, error);

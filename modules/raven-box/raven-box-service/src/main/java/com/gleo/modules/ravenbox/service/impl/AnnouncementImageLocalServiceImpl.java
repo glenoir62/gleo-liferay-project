@@ -159,6 +159,7 @@ public class AnnouncementImageLocalServiceImpl extends AnnouncementImageLocalSer
 		long fileEntryId = announcementImage.getFileEntryId();
 
 		if (Validator.isNotNull(imageInputStream)) {
+			
 			try {
 				// Delete old file Entry
 				PortletFileRepositoryUtil.deletePortletFileEntry(fileEntryId);

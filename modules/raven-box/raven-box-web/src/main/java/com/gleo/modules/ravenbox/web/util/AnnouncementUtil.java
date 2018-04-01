@@ -97,7 +97,7 @@ public class AnnouncementUtil {
 		announcement.setAnnouncementId(announcementId);
 	
 		announcement.setTitleMap(LocalizationUtil.getLocalizationMap(uploadPortletRequest, "title"));
-		announcement.setTitle(HtmlUtil.escape(ParamUtil.getString(uploadPortletRequest, "title")));
+//		announcement.setTitle(HtmlUtil.escape(ParamUtil.getString(uploadPortletRequest, "title")));
 		String content = ParamUtil.getString(uploadPortletRequest, "editor");
 		announcement.setContent(content, themeDisplay.getLocale());
 		announcement.setTypeId(ParamUtil.getLong(uploadPortletRequest, "typeId"));

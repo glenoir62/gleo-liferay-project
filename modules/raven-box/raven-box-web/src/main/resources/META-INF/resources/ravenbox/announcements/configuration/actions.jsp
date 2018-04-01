@@ -12,10 +12,10 @@
 
 
 <liferay-ui:icon-menu direction="left-side" markupView="lexicon">
-<%-- 	<c:if test="<%= AnnouncementPermission.contains(permissionChecker, typeId, ActionKeys.UPDATE) %>"> --%>
+ 	<c:if test="<%= AnnouncementPermission.contains(permissionChecker, annoucementId, ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editAnnouncementURL">
 			<portlet:param name="mvcRenderCommandName" value="/announcements/edit" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="redirect" value="<%= renderResponse.createRenderURL().toString() %>" />
 			<portlet:param name="announcementId" value="<%= String.valueOf(annoucementId) %>"/>
 		</portlet:renderURL>
 		
@@ -23,19 +23,19 @@
 			message="edit"
 			url="<%= editAnnouncementURL %>"
 		/>
-	<%-- </c:if> --%>
+	</c:if>
 
-<%--	<c:if test="<%= AnnouncementPermission.contains(permissionChecker, typeId, ActionKeys.DELETE) %>">--%>
+	<c:if test="<%= AnnouncementPermission.contains(permissionChecker, typeId, ActionKeys.DELETE) %>">
 		<portlet:actionURL var="deleteURL" name="/announcements/delete_announcement">
 			<portlet:param name="announcementId" value="<%= String.valueOf(annoucementId) %>" />
-			<portlet:param name="redirect" value="<%= redirect %>"/>
+			<portlet:param name="redirect" value="<%= renderResponse.createRenderURL().toString() %>"/>
 		</portlet:actionURL>
 		
 		<liferay-ui:icon-delete url="<%= deleteURL.toString() %>" />
 		
-<%--	</c:if>--%>
+	</c:if>
 	
-<%--	<c:if test="<%=  AnnouncementPermission.contains(permissionChecker, typeId, ActionKeys.PERMISSIONS) %>">--%>
+	<c:if test="<%=  AnnouncementPermission.contains(permissionChecker, typeId, ActionKeys.PERMISSIONS) %>">
 		<liferay-security:permissionsURL
 			modelResource="<%= Announcement.class.getName() %>"
 			modelResourceDescription="<%= announcement.getTitle(locale) %>"
@@ -49,5 +49,5 @@
 			url="<%= permissionsURL %>"
 			useDialog="<%= true %>"
 		/>
-<%--	</c:if>--%>
+	</c:if>
 </liferay-ui:icon-menu>

@@ -14,15 +14,17 @@
 
 package com.gleo.modules.ravenbox.service.impl;
 
+import java.util.List;
+
 import com.gleo.modules.ravenbox.model.Announcement;
+import com.gleo.modules.ravenbox.permission.AnnouncementPermission;
+import com.gleo.modules.ravenbox.permission.RavenBoxPermission;
 import com.gleo.modules.ravenbox.service.base.AnnouncementServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.ServiceContext;
-
-import java.util.List;
 
 import aQute.bnd.annotation.ProviderType;
 
@@ -57,7 +59,7 @@ public class AnnouncementServiceImpl extends AnnouncementServiceBaseImpl {
     public Announcement addAnnouncement(Announcement announcement, ServiceContext serviceContext)
 	    throws SystemException, PrincipalException, PortalException {
 
-//	HexiagonPermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), "ADD_ANNOUNCEMENT");
+    RavenBoxPermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), "ADD_ANNOUNCEMENT");
 
 	return announcementLocalService.addAnnouncement(announcement, serviceContext);
     }
@@ -65,7 +67,7 @@ public class AnnouncementServiceImpl extends AnnouncementServiceBaseImpl {
     public Announcement updateAnnouncement(Announcement announcement, ServiceContext serviceContext)
 	    throws SystemException, PrincipalException, PortalException {
 
-//	AnnouncementPermission.check(getPermissionChecker(), announcement.getAnnouncementId(), ActionKeys.UPDATE);
+    AnnouncementPermission.check(getPermissionChecker(), announcement.getAnnouncementId(), ActionKeys.UPDATE);
 
 	return announcementLocalService.updateAnnouncement(announcement, serviceContext);
     }
@@ -73,14 +75,14 @@ public class AnnouncementServiceImpl extends AnnouncementServiceBaseImpl {
     public Announcement deleteAnnouncement(long announcementId)
 	    throws SystemException, PrincipalException, PortalException {
 
-//	AnnouncementPermission.check(getPermissionChecker(), announcementId, ActionKeys.DELETE);
+	AnnouncementPermission.check(getPermissionChecker(), announcementId, ActionKeys.DELETE);
 
 	return announcementLocalService.deleteAnnouncement(announcementId);
     }
 
     public Announcement getAnnouncement(long announcementId) throws SystemException, PortalException {
 
-//	AnnouncementPermission.check(getPermissionChecker(), announcementId, ActionKeys.VIEW);
+	AnnouncementPermission.check(getPermissionChecker(), announcementId, ActionKeys.VIEW);
 	return announcementLocalService.getAnnouncement(announcementId);
     }
 
