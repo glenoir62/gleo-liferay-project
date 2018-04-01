@@ -1,4 +1,4 @@
-package com.gleo.modules.ravenbox.web.portlet.types.action;
+package com.gleo.modules.ravenbox.web.portlet.types.action.actioncommand;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;

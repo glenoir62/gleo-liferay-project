@@ -50,57 +50,5 @@ import com.liferay.portal.kernel.util.WebKeys;
 	service = Portlet.class
 )
 public class TypesConfigurationPortlet extends MVCPortlet{
-
-    /**
-     * TypesConfigurationPortlet Logger.
-     */
-    protected static Log LOGGER = LogFactoryUtil.getLog(TypesConfigurationPortlet.class);
-
-    /**
-     * Empty Results Message
-     */
-    private String emptyResultsMessage = "type-empty-results-message";
-
-    @Override
-    public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
-	    throws IOException, PortletException {
-
-    PortalPreferences portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(renderRequest);
-
-	ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-	PortalUtil.addPortletBreadcrumbEntry(themeDisplay.getRequest(), LanguageUtil.get(themeDisplay.getRequest(), "com.gleo.modules.ravenbox.type.title"), null);
 	
-	String displayStyle = portalPreferences.getValue(RavenBoxPortletKeys.TYPES_CONFIGURATION, "display-style", "icon");
-	PortletURL iteratorURL = renderResponse.createRenderURL();
-
-	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
-		SearchContainer.DEFAULT_DELTA);
-	int cur = ParamUtil.getInteger(renderRequest, "curTypes", SearchContainer.DEFAULT_CUR);
-
-	long groupId = themeDisplay.getScopeGroupId();
-
-	// create search container
-	SearchContainer<Type> searchTypeContainer = new SearchContainer<Type>(renderRequest, null, null, "curTypes",
-		cur, delta, iteratorURL, null, emptyResultsMessage);
-
-	int start = searchTypeContainer.getStart();
-	int end = searchTypeContainer.getEnd();
-
-	try {
-	    List<Type> types = TypeServiceUtil.getTypesByGroupId(groupId, start, end);
-	    int total = TypeServiceUtil.getTypesCount(groupId);
-	    searchTypeContainer.setTotal(total);
-	    searchTypeContainer.setResults(types);
-	} catch (SystemException e) {
-	    if (LOGGER.isDebugEnabled()) {
-		LOGGER.debug(e);
-	    }
-	    LOGGER.error("SystemException : impossible to get searchTypeContainer");
-	}
-
-	renderRequest.setAttribute("searchTypeContainer", searchTypeContainer);
-	renderRequest.setAttribute("displayStyle", displayStyle);
-	
-	super.doView(renderRequest, renderResponse);
-    }
 }

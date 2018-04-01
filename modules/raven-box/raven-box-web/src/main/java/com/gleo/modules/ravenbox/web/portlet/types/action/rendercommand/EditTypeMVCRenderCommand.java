@@ -1,5 +1,5 @@
 
-package com.gleo.modules.ravenbox.web.portlet.types.action;
+package com.gleo.modules.ravenbox.web.portlet.types.action.rendercommand;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
