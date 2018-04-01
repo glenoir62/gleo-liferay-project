@@ -1,5 +1,4 @@
 package com.gleo.modules.ravenbox.web.portlet.types.indexer;
-import java.util.Date;
 import java.util.Locale;
 
 import javax.portlet.PortletRequest;
@@ -14,8 +13,6 @@ import com.gleo.modules.ravenbox.service.TypeLocalService;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
-import com.liferay.portal.kernel.dao.orm.Property;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -28,7 +25,6 @@ import com.liferay.portal.kernel.search.Summary;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 @Component(immediate = true, service = Indexer.class)
 	public class TypeIndexer extends BaseIndexer<Type> {
@@ -124,20 +120,8 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 					@Override
 					public void addCriteria(DynamicQuery dynamicQuery) {
-						Property displayDateProperty = PropertyFactoryUtil.forName(
-							"displayDate");
 
-						dynamicQuery.add(displayDateProperty.lt(new Date()));
 
-						Property statusProperty = PropertyFactoryUtil.forName(
-							"status");
-
-						Integer[] statuses = {
-							WorkflowConstants.STATUS_APPROVED,
-							WorkflowConstants.STATUS_IN_TRASH
-						};
-
-						dynamicQuery.add(statusProperty.in(statuses));
 					}
 
 				});

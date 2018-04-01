@@ -1,7 +1,6 @@
 package com.gleo.modules.ravenbox.web.portlet.announcements.indexer;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -193,9 +192,9 @@ public class AnnouncementIndexer extends BaseIndexer<Announcement> {
 
 			@Override
 			public void addCriteria(DynamicQuery dynamicQuery) {
-				Property displayDateProperty = PropertyFactoryUtil.forName("displayDate");
-
-				dynamicQuery.add(displayDateProperty.lt(new Date()));
+//				Property displayDateProperty = PropertyFactoryUtil.forName("displayDate");
+//
+//				dynamicQuery.add(displayDateProperty.lt(new Date()));
 
 				Property statusProperty = PropertyFactoryUtil.forName("status");
 
