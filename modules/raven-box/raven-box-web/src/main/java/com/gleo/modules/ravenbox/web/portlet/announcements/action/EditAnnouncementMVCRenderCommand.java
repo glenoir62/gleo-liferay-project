@@ -13,13 +13,15 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.AnnouncementConstants;
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.model.AnnouncementImage;
 import com.gleo.modules.ravenbox.model.Type;
-import com.gleo.modules.ravenbox.service.AnnouncementLocalServiceUtil;
+import com.gleo.modules.ravenbox.service.AnnouncementLocalService;
+import com.gleo.modules.ravenbox.service.AnnouncementService;
 import com.gleo.modules.ravenbox.service.TypeLocalServiceUtil;
 import com.liferay.asset.kernel.model.AssetVocabulary;
 import com.liferay.asset.kernel.service.AssetCategoryServiceUtil;
@@ -121,7 +123,7 @@ public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 		// get announcement and images
 		if (announcementId > 0) {
 			try {
-				announcement = AnnouncementLocalServiceUtil.getAnnouncement(announcementId);
+				announcement = announcementService.getAnnouncement(announcementId);
 				title = announcement.getTitle(locale);
 				content = UnicodeFormatter.toString(announcement.getContent(locale));
 				announcementImagesList = announcement.getImages();
@@ -154,7 +156,7 @@ public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 			announcement = (Announcement) portletSession.getAttribute("announcement");
 			
 			if (announcement == null)
-				announcement = AnnouncementLocalServiceUtil.createAnnouncement(0l);
+				announcement = announcementLocalService.createAnnouncement(0l);
 		}
 
 		// get types
@@ -244,5 +246,20 @@ public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 
 	return "/ravenbox/announcements/configuration/edit.jsp";
     }
+    
+	@Reference
+	protected void setAnnouncementService(
+			AnnouncementService announcementService) {
+		this.announcementService = announcementService;
+	}
+
+	@Reference
+	protected void setAnnouncementLocalService(
+			AnnouncementLocalService announcementLocalService) {
+		this.announcementLocalService = announcementLocalService;
+	}
+
+	private AnnouncementLocalService announcementLocalService;
+	private AnnouncementService announcementService;
 
 }

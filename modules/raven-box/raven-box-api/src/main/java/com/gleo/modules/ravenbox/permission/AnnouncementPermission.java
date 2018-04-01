@@ -26,6 +26,13 @@ import aQute.bnd.annotation.component.Reference;
 	)
 public class AnnouncementPermission implements BaseModelPermissionChecker {
 
+	@Reference
+	protected void setTypeLocalService(AnnouncementLocalService announcementLocalService) {
+		AnnouncementPermission.announcementLocalService = announcementLocalService;
+	}
+
+	private static AnnouncementLocalService announcementLocalService;
+	
 	/**
 	 * @param permissionChecker
 	 * @param announcement
@@ -100,13 +107,6 @@ public class AnnouncementPermission implements BaseModelPermissionChecker {
 
 		return contains(permissionChecker, announcement, actionId);
 	}
-
-	@Reference
-	protected void setTypeLocalService(AnnouncementLocalService announcementLocalService) {
-		AnnouncementPermission.announcementLocalService = announcementLocalService;
-	}
-
-	private static AnnouncementLocalService announcementLocalService;
 
 	@Override
 	public void checkBaseModel(PermissionChecker permissionChecker, long groupId, long primaryKey, String actionId)

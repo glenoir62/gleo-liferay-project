@@ -223,15 +223,14 @@
 		</aui:fieldset-group>
 	</div>
 	
-	<%--
-		<c:if test="${announcement eq null}">
-			<aui:field-wrapper label="annoucements.add.permissions.label">
-				<liferay-ui:input-permissions
-					modelName="${model.getName()}"
-					/>
-			</aui:field-wrapper>
-		</c:if>
-	--%>
+
+	<c:if test="${announcement eq null}">
+		<aui:field-wrapper label="annoucements.add.permissions.label">
+			<liferay-ui:input-permissions
+				modelName="${model.getName()}"
+				/>
+		</aui:field-wrapper>
+	</c:if>
 	
 	<c:if test="${isRelatedAssetActivated}">
 		<liferay-ui:panel markupView="lexicon" defaultState="closed" extended="<%= false %>" id="artistAssetLinksPanel" persistState="<%= true %>" title="annoucements.add.permissions.related.assets.title">
