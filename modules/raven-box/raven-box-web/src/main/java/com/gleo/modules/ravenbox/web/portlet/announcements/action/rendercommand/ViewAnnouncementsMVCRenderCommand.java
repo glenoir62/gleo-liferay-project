@@ -162,8 +162,8 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 //		}
 		
 		// Sort
-		Sort sort = SortFactoryUtil.getSort(Announcement.class, searchContainer.getOrderByCol(), searchContainer.getOrderByType());
-		searchContext.setSorts(sort);
+//		Sort sort = SortFactoryUtil.getSort(Announcement.class, searchContainer.getOrderByCol(), searchContainer.getOrderByType());
+//		searchContext.setSorts(sort);
 	
 		QueryConfig queryConfig = new QueryConfig();
 	
@@ -175,7 +175,7 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 //		    LOGGER.debug("navigation " + navigation);
 		    LOGGER.debug("start " + start);
 		    LOGGER.debug("end " + end);
-		    LOGGER.debug("sort " + sort);
+//		    LOGGER.debug("sort " + sort);
 	
 		}
 		return searchContext;
