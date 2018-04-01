@@ -2,6 +2,7 @@
 package com.gleo.modules.ravenbox.permission;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Announcement;
@@ -13,8 +14,6 @@ import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.BaseModelPermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 
-import aQute.bnd.annotation.component.Reference;
-
 /**
  * @author guillaumelenoir
  *
@@ -25,12 +24,8 @@ import aQute.bnd.annotation.component.Reference;
 		service = BaseModelPermissionChecker.class
 	)
 public class AnnouncementPermission implements BaseModelPermissionChecker {
-
+	
 	@Reference
-	protected void setTypeLocalService(AnnouncementLocalService announcementLocalService) {
-		AnnouncementPermission.announcementLocalService = announcementLocalService;
-	}
-
 	private static AnnouncementLocalService announcementLocalService;
 	
 	/**

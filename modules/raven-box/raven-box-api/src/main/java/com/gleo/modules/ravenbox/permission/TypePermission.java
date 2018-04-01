@@ -3,6 +3,7 @@ package com.gleo.modules.ravenbox.permission;
 
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
@@ -13,8 +14,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.BaseModelPermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
-
-import aQute.bnd.annotation.component.Reference;
 
 /**
  * @author guillaumelenoir
@@ -101,11 +100,7 @@ public class TypePermission implements BaseModelPermissionChecker {
 			throws PortalException {
 		check(permissionChecker, primaryKey, actionId);
 	}
-	
-	@Reference
-	protected void setTypeLocalService(TypeLocalService typeLocalService) {
-		TypePermission.typeLocalService = typeLocalService;
-	}
 
+	@Reference
 	private static TypeLocalService typeLocalService;
 }
