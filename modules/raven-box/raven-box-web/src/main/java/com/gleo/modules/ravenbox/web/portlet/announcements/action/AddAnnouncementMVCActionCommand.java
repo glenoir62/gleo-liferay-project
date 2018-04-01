@@ -1,6 +1,5 @@
 package com.gleo.modules.ravenbox.web.portlet.announcements.action;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.portlet.ActionRequest;
@@ -13,13 +12,9 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Announcement;
-import com.gleo.modules.ravenbox.service.AnnouncementLocalService;
 import com.gleo.modules.ravenbox.service.AnnouncementService;
 import com.gleo.modules.ravenbox.web.util.AnnouncementUtil;
 import com.gleo.modules.ravenbox.web.validator.AnnouncementValidator;
-import com.liferay.asset.kernel.exception.AssetCategoryException;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
