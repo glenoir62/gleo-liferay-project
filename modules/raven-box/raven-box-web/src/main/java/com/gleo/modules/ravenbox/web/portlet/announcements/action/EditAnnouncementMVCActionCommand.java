@@ -13,7 +13,6 @@ import org.osgi.service.component.annotations.Reference;
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.service.AnnouncementService;
-import com.gleo.modules.ravenbox.service.AnnouncementServiceUtil;
 import com.gleo.modules.ravenbox.web.util.AnnouncementUtil;
 import com.gleo.modules.ravenbox.web.validator.AnnouncementValidator;
 import com.liferay.portal.kernel.log.Log;
@@ -51,11 +50,11 @@ public class EditAnnouncementMVCActionCommand extends BaseMVCActionCommand {
      */
     private static Log LOGGER = LogFactoryUtil.getLog(EditAnnouncementMVCActionCommand.class);
 
-    @Override
-    protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-    	PortletSession portletSession = actionRequest.getPortletSession();
-    	
-    	UploadPortletRequest uploadPortletRequest = PortalUtil.getUploadPortletRequest(actionRequest);
+	@Override
+	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
+		PortletSession portletSession = actionRequest.getPortletSession();
+
+		UploadPortletRequest uploadPortletRequest = PortalUtil.getUploadPortletRequest(actionRequest);
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
 		Announcement announcement = AnnouncementUtil.announcementFromRequest(uploadPortletRequest, themeDisplay);
@@ -63,21 +62,27 @@ public class EditAnnouncementMVCActionCommand extends BaseMVCActionCommand {
 				uploadPortletRequest);
 		ArrayList<String> errors = new ArrayList<String>();
 
-		if (AnnouncementValidator.validateAnnouncement(announcement, errors, themeDisplay.getLocale())) {
-			announcementService.updateAnnouncement(announcement, serviceContext);
-			SessionMessages.add(actionRequest, "announcement-updated");
-		} else {
-			for (String error : errors) {
-				SessionErrors.add(actionRequest, error);
+		try {
+
+			if (AnnouncementValidator.validateAnnouncement(announcement, errors, themeDisplay.getLocale())) {
+				announcementService.updateAnnouncement(announcement, serviceContext);
+				SessionMessages.add(actionRequest, "announcement-updated");
+			} else {
+				for (String error : errors) {
+					SessionErrors.add(actionRequest, error);
+				}
+
+				LiferayPortletURL portletURL = PortletURLFactoryUtil.create(actionRequest,
+						RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION, PortletRequest.RENDER_PHASE);
+				portletURL.setWindowState(actionRequest.getWindowState());
+				portletURL.setParameter("mvcRenderCommandName", "/announcements/edit");
+				portletSession.setAttribute("announcement", announcement, PortletSession.PORTLET_SCOPE);
+
 			}
-			
-			LiferayPortletURL portletURL = PortletURLFactoryUtil.create(actionRequest, RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION, PortletRequest.RENDER_PHASE);
-			portletURL.setWindowState(actionRequest.getWindowState());
-			portletURL.setParameter("mvcRenderCommandName", "/announcements/edit");
-			portletSession.setAttribute("announcement", announcement, PortletSession.PORTLET_SCOPE);
-			
+		} catch (Exception e) {
+			LOGGER.error(e);
 		}
-    }
+	}
     
 	@Reference
 	protected void setAnnouncementService(

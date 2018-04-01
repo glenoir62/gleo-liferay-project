@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -81,15 +80,15 @@ public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 		
 		String content = UnicodeFormatter.toString(ParamUtil.getString(renderRequest, "editor"));
 		
-		PortletPreferences portletPreferences;
-		long agreementFileEntryId = 0;
+//		PortletPreferences portletPreferences;
+//		long agreementFileEntryId = 0;
 		long defaultCurrencyId = 0;
 		boolean isRelatedAssetActivated =  false;
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
 		try {
 
-			portletPreferences = renderRequest.getPreferences();
+//			portletPreferences = renderRequest.getPreferences();
 			
 //			// preferences = renderRequest.getPreferences();
 //			// From preferences
@@ -191,7 +190,7 @@ public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 					continue;
 				}
 
-				if (vocabulary.isRequired(classNameId)){
+				if (vocabulary.isRequired(classNameId, PortalUtil.getClassNameId(Announcement.class))){
 					vocabularyIds.add(vocabulary.getVocabularyId());
 				}
 			}
