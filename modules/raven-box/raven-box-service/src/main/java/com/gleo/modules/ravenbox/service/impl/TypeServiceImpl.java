@@ -56,36 +56,36 @@ public class TypeServiceImpl extends TypeServiceBaseImpl {
      * remote service.
      */
 
-    public Type addType(Type type, ServiceContext serviceContext)
-	    throws SystemException, PrincipalException, PortalException {
+	public Type addType(Type type, ServiceContext serviceContext)
+			throws SystemException, PrincipalException, PortalException {
 
-	RavenBoxPermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), "ADD_TYPE");
+		RavenBoxPermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), "ADD_TYPE");
 
-	return typeLocalService.addType(type, serviceContext);
-    }
+		return typeLocalService.addType(type, serviceContext);
+	}
 
-    public Type updateType(Type type) throws SystemException, PrincipalException, PortalException {
+	public Type updateType(Type type) throws SystemException, PrincipalException, PortalException {
 
-	TypePermission.check(getPermissionChecker(), type.getTypeId(), ActionKeys.UPDATE);
+		TypePermission.check(getPermissionChecker(), type.getTypeId(), ActionKeys.UPDATE);
 
-	return typeLocalService.updateType(type);
-    }
+		return typeLocalService.updateType(type);
+	}
 
-    public Type deleteType(long typeId, ServiceContext serviceContext)
-	    throws SystemException, PrincipalException, PortalException {
+	public Type deleteType(long typeId, ServiceContext serviceContext)
+			throws SystemException, PrincipalException, PortalException {
 
-	TypePermission.check(getPermissionChecker(), typeId, ActionKeys.DELETE);
+		TypePermission.check(getPermissionChecker(), typeId, ActionKeys.DELETE);
 
-	return typeLocalService.deleteType(typeId);
-    }
+		return typeLocalService.deleteType(typeId);
+	}
 
-    public List<Type> getTypesByGroupId(long groupId, int start, int end) throws SystemException {
+	public List<Type> getTypesByGroupId(long groupId, int start, int end) throws SystemException {
 
-	return typePersistence.filterFindByGroupId(groupId, start, end);
-    }
+		return typePersistence.filterFindByGroupId(groupId, start, end);
+	}
 
-    public int getTypesCount(long groupId) throws SystemException {
+	public int getTypesCount(long groupId) throws SystemException {
 
-	return typePersistence.filterCountByGroupId(groupId);
-    }
+		return typePersistence.filterCountByGroupId(groupId);
+	}
 }

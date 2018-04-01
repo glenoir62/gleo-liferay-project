@@ -7,8 +7,8 @@ import javax.portlet.PortletResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
-import com.gleo.modules.ravenbox.permission.TypePermission;
 import com.gleo.modules.ravenbox.service.TypeLocalService;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -17,149 +17,188 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BaseIndexer;
+import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.IndexWriterHelperUtil;
+import com.liferay.portal.kernel.search.IndexWriterHelper;
 import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Summary;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.GetterUtil;
 
 @Component(immediate = true, service = Indexer.class)
-	public class TypeIndexer extends BaseIndexer<Type> {
+public class TypeIndexer extends BaseIndexer<Type> {
 
-	    public static final String CLASS_NAME = Type.class.getName();
+	public static final String CLASS_NAME = Type.class.getName();
 
-	    public TypeIndexer() {
-	    	setDefaultSelectedFieldNames(
-    			Field.ENTRY_CLASS_NAME, Field.ENTRY_CLASS_PK, Field.GROUP_ID,
-    			Field.PRIORITY, Field.SCOPE_GROUP_ID, Field.NAME, Field.UID);
-    		setFilterSearch(true);
-    		setPermissionAware(true);
-    	}
-	    
-		@Override
-		public String getClassName() {
-			// TODO Auto-generated method stub
-			return CLASS_NAME;
-		}
-	    
-	    @Override
-		public boolean hasPermission(
-				PermissionChecker permissionChecker, String entryClassName,
-				long entryClassPK, String actionId)
-			throws Exception {
+	public TypeIndexer() {
+		setPermissionAware(true);
+	}
 
-			return TypePermission.contains(
-				permissionChecker, entryClassPK, ActionKeys.VIEW);
-		}
-	    
-	    /*
-	    @Override
-		public boolean isVisible(long classPK, int status) throws Exception {
-			Type entry = typeLocalService.getEntry(classPK);
+	@Override
+	public String getClassName() {
+		return CLASS_NAME;
+	}
 
-			return isVisible(entry., status);
-		}*/
+	@Override
+	public String[] getClassNames() {
+		return new String[] {
+				CLASS_NAME
+		};
+	}
+	
+	@Override
+	public boolean hasPermission(
+			PermissionChecker permissionChecker, String entryClassName,
+			long entryClassPK, String actionId)
+		throws Exception {
 
-		@Override
-		protected void doDelete(Type object) throws Exception {
-			deleteDocument(object.getCompanyId(), object.getTypeId());
-			
-		}
-
-		@Override
-		protected Document doGetDocument(Type object) throws Exception {
-			Document document = getBaseModelDocument(CLASS_NAME, object);
-			document.addText(Field.DESCRIPTION, object.getDescription());
-			document.addNumber(Field.PRIORITY, object.getOrder());
-			document.addText(Field.NAME, object.getName());
-
-			return document;
-		}
-
-		@Override
-		protected Summary doGetSummary(Document document, Locale locale, String snippet, PortletRequest portletRequest,
-				PortletResponse portletResponse) throws Exception {
-			Summary summary = createSummary(document);
-
-			summary.setMaxContentLength(200);
-
-			return summary;
-		}
+//		return TypePermission.contains(
+//			permissionChecker, entryClassPK, ActionKeys.VIEW);
 		
-		@Override
-		protected void doReindex(Type object) throws Exception {
-			Document document = getDocument(object);
-			IndexWriterHelperUtil.updateDocument(
-				getSearchEngineId(), object.getCompanyId(), document,
-				isCommitImmediately());
-			
+		return true;
+	}
+	
+	@Override
+	public void postProcessContextBooleanFilter(
+			BooleanFilter contextBooleanFilter, SearchContext searchContext)
+		throws Exception {
+
+
+	}
+	
+	@Override
+	public void postProcessSearchQuery(
+			BooleanQuery searchQuery, SearchContext searchContext)
+		throws Exception {
+
+		if (searchContext.getAttributes() == null) {
+			return;
 		}
 
-		@Override
-		protected void doReindex(String className, long classPK) throws Exception {
-			Type entry = typeLocalService.getType(classPK);
-			
-			doReindex(entry);
-		}
+	}
+	
+	@Override
+	public boolean isVisible(long classPK, int status) throws Exception {
+		return true;
+	}
 
-		@Override
-		protected void doReindex(String[] ids) throws Exception {
-			long companyId = GetterUtil.getLong(ids[0]);
-			reindexEntries(companyId);
-		}
+	@Override
+	protected void doDelete(Type type) throws Exception {
+		deleteDocument(type.getCompanyId(), type.getTypeId());
+	}
 
-		protected void reindexEntries(long companyId) throws PortalException {
-			final IndexableActionableDynamicQuery indexableActionableDynamicQuery =
-				typeLocalService.getIndexableActionableDynamicQuery();
+	@Override
+	protected Document doGetDocument(Type type) throws Exception {
+		Document document = getBaseModelDocument(RavenBoxPortletKeys.TYPES_CONFIGURATION , type);
 
-			indexableActionableDynamicQuery.setAddCriteriaMethod(
-				new ActionableDynamicQuery.AddCriteriaMethod() {
+		document.addKeyword(Field.COMPANY_ID, type.getCompanyId());
+		document.addKeyword(Field.GROUP_ID, getSiteGroupId(type.getGroupId()));
+		document.addKeyword(Field.SCOPE_GROUP_ID, type.getGroupId());
+		document.addKeyword(Field.PRIORITY, type.getOrder());
+		document.addKeyword("typeId", type.getTypeId());
+		document.addLocalizedKeyword(Field.TITLE, type.getNameMap());
 
-					@Override
-					public void addCriteria(DynamicQuery dynamicQuery) {
+		LOGGER.debug(document);
 
+		return document;
+	}
 
-					}
+	@Override
+	protected Summary doGetSummary(
+		Document document, Locale locale, String snippet,
+		PortletRequest portletRequest, PortletResponse portletResponse) {
 
-				});
-			indexableActionableDynamicQuery.setCompanyId(companyId);
-			indexableActionableDynamicQuery.setPerformActionMethod(
-				new ActionableDynamicQuery.PerformActionMethod<Type>() {
+		Summary summary = createSummary(document);
 
-					@Override
-					public void performAction(Type entry) {
-						try {
-							Document document = getDocument(entry);
+		summary.setMaxContentLength(200);
 
+		return summary;
+	}
+
+	@Override
+	protected void doReindex(Type type) throws Exception {
+		Document document = getDocument(type);
+
+		indexWriterHelper.updateDocument(
+			getSearchEngineId(), type.getCompanyId(), document,
+			isCommitImmediately());
+	}
+
+	@Override
+	protected void doReindex(String className, long classPK) throws Exception {
+		Type entry = typeLocalService.getType(classPK);
+
+		doReindex(entry);
+	}
+
+	@Override
+	protected void doReindex(String[] ids) throws Exception {
+		long companyId = GetterUtil.getLong(ids[0]);
+
+		reindexEntries(companyId);
+	}
+
+	protected void reindexEntries(long companyId) throws PortalException {
+		final IndexableActionableDynamicQuery indexableActionableDynamicQuery =
+			typeLocalService.getIndexableActionableDynamicQuery();
+
+		indexableActionableDynamicQuery.setAddCriteriaMethod(
+			new ActionableDynamicQuery.AddCriteriaMethod() {
+
+				@Override
+				public void addCriteria(DynamicQuery dynamicQuery) {
+
+				}
+
+			});
+		indexableActionableDynamicQuery.setCompanyId(companyId);
+		indexableActionableDynamicQuery.setPerformActionMethod(
+			new ActionableDynamicQuery.PerformActionMethod<Type>() {
+
+				@Override
+				public void performAction(Type type) {
+					try {
+						Document document = getDocument(type);
+
+						if (document != null) {
 							indexableActionableDynamicQuery.addDocuments(document);
 						}
-						catch (PortalException pe) {
-							if (_log.isWarnEnabled()) {
-								_log.warn(
-									"Unable to index blogs entry " +
-										entry.getTypeId(),
-									pe);
-							}
+					}
+					catch (PortalException pe) {
+						if (LOGGER.isWarnEnabled()) {
+							LOGGER.warn(
+								"Unable to index Type " +
+									type.getTypeId(),
+								pe);
 						}
 					}
+				}
 
-				});
-			indexableActionableDynamicQuery.setSearchEngineId(getSearchEngineId());
+			});
+		indexableActionableDynamicQuery.setSearchEngineId(getSearchEngineId());
 
-			indexableActionableDynamicQuery.performActions();
-		}
-		
-		@Reference
-		protected void setTypeLocalService(
-				TypeLocalService typeLocalService) {
-			this.typeLocalService = typeLocalService;
-		}
-
-		private TypeLocalService typeLocalService;
-
-		private static final Log _log = LogFactoryUtil.getLog(
-			TypeIndexer.class);
+		indexableActionableDynamicQuery.performActions();
 	}
+
+	@Reference
+	public void setTypeLocalService(TypeLocalService typeLocalService) {
+		this.typeLocalService = typeLocalService;
+	}
+	
+	@Reference
+	public void setIndexWriterHelper(IndexWriterHelper indexWriterHelper) {
+		this.indexWriterHelper = indexWriterHelper;
+	}
+
+
+	protected IndexWriterHelper indexWriterHelper;
+
+	protected TypeLocalService typeLocalService;
+
+	private static final Log LOGGER = LogFactoryUtil.getLog(
+			TypeIndexer.class);
+
+}

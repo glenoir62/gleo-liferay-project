@@ -64,10 +64,6 @@ public class TypeLocalServiceUtil {
 		return getService().addType(type, serviceContext);
 	}
 
-	public static com.gleo.modules.ravenbox.model.Type create(long typeId) {
-		return getService().create(typeId);
-	}
-
 	/**
 	* Creates a new type with the primary key. Does not add the type to the database.
 	*
@@ -103,56 +99,8 @@ public class TypeLocalServiceUtil {
 		return getService().deleteType(typeId);
 	}
 
-	public static com.gleo.modules.ravenbox.model.Type fetchByGroupId_First(
-		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator) {
-		return getService().fetchByGroupId_First(groupId, orderByComparator);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type fetchByGroupId_Last(
-		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator) {
-		return getService().fetchByGroupId_Last(groupId, orderByComparator);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type fetchByPrimaryKey(
-		java.io.Serializable primaryKey) {
-		return getService().fetchByPrimaryKey(primaryKey);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type fetchByPrimaryKey(
-		long typeId) {
-		return getService().fetchByPrimaryKey(typeId);
-	}
-
 	public static com.gleo.modules.ravenbox.model.Type fetchType(long typeId) {
 		return getService().fetchType(typeId);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type findByGroupId_First(
-		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator)
-		throws com.gleo.modules.ravenbox.exception.NoSuchTypeException {
-		return getService().findByGroupId_First(groupId, orderByComparator);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type findByGroupId_Last(
-		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator)
-		throws com.gleo.modules.ravenbox.exception.NoSuchTypeException {
-		return getService().findByGroupId_Last(groupId, orderByComparator);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type findByPrimaryKey(
-		java.io.Serializable primaryKey)
-		throws com.liferay.portal.kernel.exception.NoSuchModelException {
-		return getService().findByPrimaryKey(primaryKey);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type findByPrimaryKey(
-		long typeId)
-		throws com.gleo.modules.ravenbox.exception.NoSuchTypeException {
-		return getService().findByPrimaryKey(typeId);
 	}
 
 	/**
@@ -167,66 +115,15 @@ public class TypeLocalServiceUtil {
 		return getService().getType(typeId);
 	}
 
-	public static com.gleo.modules.ravenbox.model.Type remove(
-		com.gleo.modules.ravenbox.model.Type model) {
-		return getService().remove(model);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type remove(
-		java.io.Serializable primaryKey)
-		throws com.liferay.portal.kernel.exception.NoSuchModelException {
-		return getService().remove(primaryKey);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type remove(long typeId)
-		throws com.gleo.modules.ravenbox.exception.NoSuchTypeException {
-		return getService().remove(typeId);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type update(
-		com.gleo.modules.ravenbox.model.Type model) {
-		return getService().update(model);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type update(
-		com.gleo.modules.ravenbox.model.Type model,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
-		return getService().update(model, serviceContext);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type updateImpl(
-		com.gleo.modules.ravenbox.model.Type type) {
-		return getService().updateImpl(type);
-	}
-
 	/**
 	* Updates the type in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param type the type
 	* @return the type that was updated
-	* @throws SystemException
 	*/
 	public static com.gleo.modules.ravenbox.model.Type updateType(
-		com.gleo.modules.ravenbox.model.Type type)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.gleo.modules.ravenbox.model.Type type) {
 		return getService().updateType(type);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type[] filterFindByGroupId_PrevAndNext(
-		long typeId, long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator)
-		throws com.gleo.modules.ravenbox.exception.NoSuchTypeException {
-		return getService()
-				   .filterFindByGroupId_PrevAndNext(typeId, groupId,
-			orderByComparator);
-	}
-
-	public static com.gleo.modules.ravenbox.model.Type[] findByGroupId_PrevAndNext(
-		long typeId, long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator)
-		throws com.gleo.modules.ravenbox.exception.NoSuchTypeException {
-		return getService()
-				   .findByGroupId_PrevAndNext(typeId, groupId, orderByComparator);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
@@ -239,25 +136,6 @@ public class TypeLocalServiceUtil {
 
 	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		return getService().getIndexableActionableDynamicQuery();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.Session getCurrentSession()
-		throws com.liferay.portal.kernel.dao.orm.ORMException {
-		return getService().getCurrentSession();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.Session openSession()
-		throws com.liferay.portal.kernel.dao.orm.ORMException {
-		return getService().openSession();
-	}
-
-	public static com.liferay.portal.kernel.exception.SystemException processException(
-		java.lang.Exception e) {
-		return getService().processException(e);
-	}
-
-	public static com.liferay.portal.kernel.model.ModelListener<com.gleo.modules.ravenbox.model.Type>[] getListeners() {
-		return getService().getListeners();
 	}
 
 	/**
@@ -273,18 +151,6 @@ public class TypeLocalServiceUtil {
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
-	}
-
-	public static int countAll() {
-		return getService().countAll();
-	}
-
-	public static int countByGroupId(long groupId) {
-		return getService().countByGroupId(groupId);
-	}
-
-	public static int filterCountByGroupId(long groupId) {
-		return getService().filterCountByGroupId(groupId);
 	}
 
 	/**
@@ -355,46 +221,6 @@ public class TypeLocalServiceUtil {
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
 
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> filterFindByGroupId(
-		long groupId) {
-		return getService().filterFindByGroupId(groupId);
-	}
-
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> filterFindByGroupId(
-		long groupId, int start, int end) {
-		return getService().filterFindByGroupId(groupId, start, end);
-	}
-
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> filterFindByGroupId(
-		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator) {
-		return getService()
-				   .filterFindByGroupId(groupId, start, end, orderByComparator);
-	}
-
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> findAll() {
-		return getService().findAll();
-	}
-
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> findAll(
-		int start, int end) {
-		return getService().findAll(start, end);
-	}
-
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator) {
-		return getService().findAll(start, end, orderByComparator);
-	}
-
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator,
-		boolean retrieveFromCache) {
-		return getService()
-				   .findAll(start, end, orderByComparator, retrieveFromCache);
-	}
-
 	public static java.util.List<com.gleo.modules.ravenbox.model.Type> findByGroupId(
 		long groupId) {
 		return getService().findByGroupId(groupId);
@@ -403,21 +229,6 @@ public class TypeLocalServiceUtil {
 	public static java.util.List<com.gleo.modules.ravenbox.model.Type> findByGroupId(
 		long groupId, int start, int end) {
 		return getService().findByGroupId(groupId, start, end);
-	}
-
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> findByGroupId(
-		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator) {
-		return getService().findByGroupId(groupId, start, end, orderByComparator);
-	}
-
-	public static java.util.List<com.gleo.modules.ravenbox.model.Type> findByGroupId(
-		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.gleo.modules.ravenbox.model.Type> orderByComparator,
-		boolean retrieveFromCache) {
-		return getService()
-				   .findByGroupId(groupId, start, end, orderByComparator,
-			retrieveFromCache);
 	}
 
 	/**
@@ -434,30 +245,6 @@ public class TypeLocalServiceUtil {
 	public static java.util.List<com.gleo.modules.ravenbox.model.Type> getTypes(
 		int start, int end) {
 		return getService().getTypes(start, end);
-	}
-
-	public static java.util.Map<java.io.Serializable, com.gleo.modules.ravenbox.model.Type> fetchByPrimaryKeys(
-		java.util.Set<java.io.Serializable> primaryKeys) {
-		return getService().fetchByPrimaryKeys(primaryKeys);
-	}
-
-	public static java.util.Set<java.lang.String> getBadColumnNames() {
-		return getService().getBadColumnNames();
-	}
-
-	public static javax.sql.DataSource getDataSource() {
-		return getService().getDataSource();
-	}
-
-	public static long countWithDynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return getService().countWithDynamicQuery(dynamicQuery);
-	}
-
-	public static long countWithDynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return getService().countWithDynamicQuery(dynamicQuery, projection);
 	}
 
 	/**
@@ -482,59 +269,6 @@ public class TypeLocalServiceUtil {
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	public static void cacheResult(com.gleo.modules.ravenbox.model.Type type) {
-		getService().cacheResult(type);
-	}
-
-	public static void cacheResult(
-		java.util.List<com.gleo.modules.ravenbox.model.Type> types) {
-		getService().cacheResult(types);
-	}
-
-	public static void clearCache() {
-		getService().clearCache();
-	}
-
-	public static void clearCache(com.gleo.modules.ravenbox.model.Type model) {
-		getService().clearCache(model);
-	}
-
-	public static void clearCache(
-		java.util.List<com.gleo.modules.ravenbox.model.Type> modelList) {
-		getService().clearCache(modelList);
-	}
-
-	public static void closeSession(
-		com.liferay.portal.kernel.dao.orm.Session session) {
-		getService().closeSession(session);
-	}
-
-	public static void flush() {
-		getService().flush();
-	}
-
-	public static void registerListener(
-		com.liferay.portal.kernel.model.ModelListener<com.gleo.modules.ravenbox.model.Type> listener) {
-		getService().registerListener(listener);
-	}
-
-	public static void removeAll() {
-		getService().removeAll();
-	}
-
-	public static void removeByGroupId(long groupId) {
-		getService().removeByGroupId(groupId);
-	}
-
-	public static void setDataSource(javax.sql.DataSource dataSource) {
-		getService().setDataSource(dataSource);
-	}
-
-	public static void unregisterListener(
-		com.liferay.portal.kernel.model.ModelListener<com.gleo.modules.ravenbox.model.Type> listener) {
-		getService().unregisterListener(listener);
 	}
 
 	public static TypeLocalService getService() {

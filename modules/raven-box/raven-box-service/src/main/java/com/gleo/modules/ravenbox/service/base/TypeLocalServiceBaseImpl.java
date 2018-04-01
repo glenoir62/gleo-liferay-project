@@ -306,11 +306,10 @@ public abstract class TypeLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param type the type
 	 * @return the type that was updated
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public Type updateType(Type type) throws SystemException {
+	public Type updateType(Type type) {
 		return typePersistence.update(type);
 	}
 

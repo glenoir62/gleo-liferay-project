@@ -1,7 +1,17 @@
 
 package com.gleo.modules.ravenbox.web.portlet.types.action.rendercommand;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import javax.portlet.PortletURL;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+import org.osgi.service.component.annotations.Component;
+
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
+import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.model.Type;
 import com.gleo.modules.ravenbox.service.TypeServiceUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -12,18 +22,17 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.QueryConfig;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.SearchContextFactory;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-
-import java.util.List;
-
-import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-
-import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Julien Luczak
@@ -64,6 +73,20 @@ public class ViewTypeMVCRenderCommand implements MVCRenderCommand {
 		int start = searchTypeContainer.getStart();
 		int end = searchTypeContainer.getEnd();
 
+		// Get indexer
+		Indexer<Type> indexer = IndexerRegistryUtil.nullSafeGetIndexer(Type.class);
+		
+		// create search context
+		SearchContext searchContext = SearchContextFactory.getInstance(PortalUtil.getHttpServletRequest(renderRequest));
+		
+		try {
+			Hits hits = indexer.search(searchContext);
+			LOGGER.info(hits.getLength());
+			
+		} catch (SearchException se) {
+			LOGGER.error(se);
+		}
+		
 		try {
 		    List<Type> types = TypeServiceUtil.getTypesByGroupId(groupId, start, end);
 		    int total = TypeServiceUtil.getTypesCount(groupId);

@@ -141,6 +141,8 @@ public class AnnouncementIndexer extends BaseIndexer<Announcement> {
 
 		document.addNumber(Field.COMMENTS, commentsCount);
 		document.addNumber(Field.RATINGS, ratingsCount);
+		
+		LOGGER.debug("announcement");
 
 		return document;
 	}

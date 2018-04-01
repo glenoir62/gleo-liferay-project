@@ -8,8 +8,6 @@ public class RavenBoxPortletKeys {
      * Types portlet key
      */
     public static final String TYPES_CONFIGURATION = "com_gleo_modules_ravenbox_web_portlet_types_TypesConfigurationPortlet";
-    public static final String TYPES = "com_gleo_modules_ravenbox_web_portlet_types_TypesPortlet";
-    
     /**
      * Announcement portlet key
      */

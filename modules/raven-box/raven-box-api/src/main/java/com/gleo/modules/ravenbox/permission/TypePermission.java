@@ -7,7 +7,6 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
-import com.gleo.modules.ravenbox.service.AnnouncementLocalService;
 import com.gleo.modules.ravenbox.service.TypeLocalService;
 import com.liferay.exportimport.kernel.staging.permission.StagingPermissionUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -73,7 +72,7 @@ public class TypePermission implements BaseModelPermissionChecker {
 		Type type = typeLocalService.getType(typeId);
 
 		Boolean hasPermission = StagingPermissionUtil.hasPermission(permissionChecker, type.getGroupId(),
-				Type.class.getName(), type.getTypeId(), RavenBoxPortletKeys.TYPES, actionId);
+				Type.class.getName(), type.getTypeId(), RavenBoxPortletKeys.TYPES_CONFIGURATION, actionId);
 
 		if (hasPermission != null) {
 			return hasPermission.booleanValue();
