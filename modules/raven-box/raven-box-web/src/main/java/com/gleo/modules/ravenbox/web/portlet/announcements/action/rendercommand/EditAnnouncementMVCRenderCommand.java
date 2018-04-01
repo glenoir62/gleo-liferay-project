@@ -1,5 +1,5 @@
 
-package com.gleo.modules.ravenbox.web.portlet.announcements.action;
+package com.gleo.modules.ravenbox.web.portlet.announcements.action.rendercommand;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.gleo.modules.ravenbox.web.portlet.announcements.action;
+package com.gleo.modules.ravenbox.web.portlet.announcements.action.actioncommand;
 
 import java.util.ArrayList;
 
@@ -33,57 +33,67 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 /**
  * @author guillaumelenoir
- * Updates the database record of an existing Announcement.
  * 
+ * Adds a new Announcement to the database
+ *
  */
 @Component(
     property = {
         "javax.portlet.name=" + RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION,
-        "mvc.command.name=/announcements/edit_announcement"
+        "mvc.command.name=/announcements/add_announcement"
     },
     service = MVCActionCommand.class
 )
-public class EditAnnouncementMVCActionCommand extends BaseMVCActionCommand {
-	
+public class AddAnnouncementMVCActionCommand extends BaseMVCActionCommand {
+
     /**
-     * 
+     * The Logger
      */
-    private static Log LOGGER = LogFactoryUtil.getLog(EditAnnouncementMVCActionCommand.class);
+    private static Log LOGGER = LogFactoryUtil.getLog(AddAnnouncementMVCActionCommand.class);
 
-	@Override
-	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-		PortletSession portletSession = actionRequest.getPortletSession();
-
+    /**
+     * Add annoncement in bdd
+     * 
+     * @param actionRequest
+     * @param actionResponse
+     * @throws Exception
+     */
+    @Override
+    protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
+    	
+    	PortletSession portletSession = actionRequest.getPortletSession();
+    	
 		UploadPortletRequest uploadPortletRequest = PortalUtil.getUploadPortletRequest(actionRequest);
-		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-		Announcement announcement = AnnouncementUtil.announcementFromRequest(uploadPortletRequest, themeDisplay);
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(Announcement.class.getName(),
-				uploadPortletRequest);
-		ArrayList<String> errors = new ArrayList<String>();
-
+		ThemeDisplay themeDisplay = (ThemeDisplay) uploadPortletRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		Announcement announcement;
 		try {
+			announcement = AnnouncementUtil.announcementFromRequest(uploadPortletRequest, themeDisplay);
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Announcement.class.getName(),
+					uploadPortletRequest);
+
+			ArrayList<String> errors = new ArrayList<String>();
 
 			if (AnnouncementValidator.validateAnnouncement(announcement, errors, themeDisplay.getLocale())) {
-				announcementService.updateAnnouncement(announcement, serviceContext);
-				SessionMessages.add(actionRequest, "announcement-updated");
+				announcement = announcementService.addAnnouncement(announcement, serviceContext);
+				SessionMessages.add(actionRequest, "announcement-added");
 			} else {
 				for (String error : errors) {
 					SessionErrors.add(actionRequest, error);
 				}
-
-				LiferayPortletURL portletURL = PortletURLFactoryUtil.create(actionRequest,
-						RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION, PortletRequest.RENDER_PHASE);
+				
+				LiferayPortletURL portletURL = PortletURLFactoryUtil.create(actionRequest, RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION, PortletRequest.RENDER_PHASE);
 				portletURL.setWindowState(actionRequest.getWindowState());
 				portletURL.setParameter("mvcRenderCommandName", "/announcements/edit");
 				portletSession.setAttribute("announcement", announcement, PortletSession.PORTLET_SCOPE);
-
+				
+				sendRedirect(actionRequest, actionResponse, portletURL.toString());
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			LOGGER.error(e);
 		}
-	}
-    
+    }
+
 	@Reference
 	protected void setAnnouncementService(
 			AnnouncementService announcementService) {
