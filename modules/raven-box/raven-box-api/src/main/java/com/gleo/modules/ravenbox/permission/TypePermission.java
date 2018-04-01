@@ -103,7 +103,7 @@ public class TypePermission implements BaseModelPermissionChecker {
 	}
 
 	@Reference
-	protected void setTypeLocalServicee(
+	protected void setTypeLocalService(
 			TypeLocalService typeLocalService) {
 		TypePermission.typeLocalService = typeLocalService;
 	}
