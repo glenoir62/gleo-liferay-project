@@ -56,7 +56,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 
     /**
-     * GroupPhotoController Logger.
+     * EditAnnouncementMVCRenderCommand Logger.
      */
     protected static Log LOGGER = LogFactoryUtil.getLog(EditAnnouncementMVCRenderCommand.class);
 
