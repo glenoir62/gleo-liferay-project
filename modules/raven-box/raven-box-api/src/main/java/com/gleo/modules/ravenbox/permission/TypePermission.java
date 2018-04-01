@@ -7,6 +7,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Type;
+import com.gleo.modules.ravenbox.service.AnnouncementLocalService;
 import com.gleo.modules.ravenbox.service.TypeLocalService;
 import com.liferay.exportimport.kernel.staging.permission.StagingPermissionUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -102,5 +103,10 @@ public class TypePermission implements BaseModelPermissionChecker {
 	}
 
 	@Reference
+	protected void setTypeLocalServicee(
+			TypeLocalService typeLocalService) {
+		TypePermission.typeLocalService = typeLocalService;
+	}
+	
 	private static TypeLocalService typeLocalService;
 }
