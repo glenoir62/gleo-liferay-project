@@ -1,3 +1,4 @@
+<%@page import="com.gleo.modules.ravenbox.permission.AnnouncementPermission"%>
 <%@page import="com.gleo.modules.ravenbox.model.Announcement"%>
 <%@ include file="/init.jsp" %>
 
@@ -25,7 +26,7 @@
 		/>
 	</c:if>
 
-	<c:if test="<%= AnnouncementPermission.contains(permissionChecker, typeId, ActionKeys.DELETE) %>">
+	<c:if test="<%= AnnouncementPermission.contains(permissionChecker, annoucementId, ActionKeys.DELETE) %>">
 		<portlet:actionURL var="deleteURL" name="/announcements/delete_announcement">
 			<portlet:param name="announcementId" value="<%= String.valueOf(annoucementId) %>" />
 			<portlet:param name="redirect" value="<%= renderResponse.createRenderURL().toString() %>"/>
@@ -35,7 +36,7 @@
 		
 	</c:if>
 	
-	<c:if test="<%=  AnnouncementPermission.contains(permissionChecker, typeId, ActionKeys.PERMISSIONS) %>">
+	<c:if test="<%=  AnnouncementPermission.contains(permissionChecker, annoucementId, ActionKeys.PERMISSIONS) %>">
 		<liferay-security:permissionsURL
 			modelResource="<%= Announcement.class.getName() %>"
 			modelResourceDescription="<%= announcement.getTitle(locale) %>"
