@@ -135,9 +135,12 @@ public class AnnouncementIndexer extends BaseIndexer<Announcement> {
 		document.addKeyword("announcementId", announcement.getAnnouncementId());
 		document.addKeyword("currencyId", announcement.getCurrencyId());
 		document.addKeyword("price", announcement.getPrice());
+		document.addKeyword("phone", announcement.getPhoneNumber());
 		document.addKeyword("typeId", announcement.getTypeId());
+		document.addLocalizedKeyword("typeName", announcement.getType().getNameMap());
 		document.addKeyword("regionId", announcement.getRegionId());
 		document.addKeyword("countryId", announcement.getCountryId());
+		document.addKeyword("emailAddress", announcement.getEmailAddress());
 
 		document.addNumber(Field.COMMENTS, commentsCount);
 		document.addNumber(Field.RATINGS, ratingsCount);
@@ -358,7 +361,7 @@ public class AnnouncementIndexer extends BaseIndexer<Announcement> {
 
 		addStatus(fullQueryBooleanFilter, searchContext);
 
-		int announcementId = GetterUtil.getInteger(searchContext.getAttribute("announcementId"));
+		long announcementId = GetterUtil.getLong(searchContext.getAttribute("announcementId"));
 		long typeId = GetterUtil.getLong(searchContext.getAttribute("typeId"));
 		long regionId = GetterUtil.getLong(searchContext.getAttribute("regionId"));
 		long countryId = GetterUtil.getLong(searchContext.getAttribute("countryId"));

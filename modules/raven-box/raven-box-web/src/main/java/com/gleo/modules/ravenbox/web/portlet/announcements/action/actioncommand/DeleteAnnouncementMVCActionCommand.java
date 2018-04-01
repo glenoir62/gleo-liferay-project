@@ -8,10 +8,12 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.service.AnnouncementService;
+import com.gleo.modules.ravenbox.web.util.AnnouncementUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -45,7 +47,6 @@ public class DeleteAnnouncementMVCActionCommand extends BaseMVCActionCommand {
 			if (Validator.isNotNull(announcementId)) {
 				announcementService.deleteAnnouncement(announcementId);
 				SessionMessages.add(actionRequest, "announcement-deleted");
-
 			} else {
 				SessionErrors.add(actionRequest, "announcement-errors");
 			}
@@ -61,6 +62,11 @@ public class DeleteAnnouncementMVCActionCommand extends BaseMVCActionCommand {
 			}
 			LOGGER.error(e.getMessage());
 			SessionErrors.add(actionRequest, "permission-error");
+		}finally {
+			LiferayPortletURL portletURL = AnnouncementUtil.getDefaultAnnouncementPortletURL(actionRequest);
+			portletURL.setParameter("resetCur", "true");
+			
+			sendRedirect(actionRequest, actionResponse, portletURL.toString());
 		}
 
 	}

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -150,9 +149,9 @@ public class EditAnnouncementMVCRenderCommand implements MVCRenderCommand {
 			}
 
 		} else {
-			PortletSession portletSession = renderRequest.getPortletSession();
-			
-			announcement = (Announcement) portletSession.getAttribute("announcement");
+//			PortletSession portletSession = renderRequest.getPortletSession();
+//			
+//			announcement = (Announcement) portletSession.getAttribute("announcement");
 			
 			if (announcement == null)
 				announcement = announcementLocalService.createAnnouncement(0l);

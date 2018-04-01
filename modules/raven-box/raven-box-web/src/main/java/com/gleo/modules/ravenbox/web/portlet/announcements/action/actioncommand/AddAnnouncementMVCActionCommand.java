@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
-import javax.portlet.PortletSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -61,8 +60,6 @@ public class AddAnnouncementMVCActionCommand extends BaseMVCActionCommand {
     @Override
     protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
     	
-    	PortletSession portletSession = actionRequest.getPortletSession();
-    	
 		UploadPortletRequest uploadPortletRequest = PortalUtil.getUploadPortletRequest(actionRequest);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) uploadPortletRequest.getAttribute(WebKeys.THEME_DISPLAY);
@@ -77,6 +74,10 @@ public class AddAnnouncementMVCActionCommand extends BaseMVCActionCommand {
 			if (AnnouncementValidator.validateAnnouncement(announcement, errors, themeDisplay.getLocale())) {
 				announcement = announcementService.addAnnouncement(announcement, serviceContext);
 				SessionMessages.add(actionRequest, "announcement-added");
+				LiferayPortletURL portletURL = AnnouncementUtil.getDefaultAnnouncementPortletURL(actionRequest);
+				portletURL.setParameter("resetCur", "true");
+				
+				sendRedirect(actionRequest, actionResponse, portletURL.toString());
 			} else {
 				for (String error : errors) {
 					SessionErrors.add(actionRequest, error);
@@ -85,8 +86,7 @@ public class AddAnnouncementMVCActionCommand extends BaseMVCActionCommand {
 				LiferayPortletURL portletURL = PortletURLFactoryUtil.create(actionRequest, RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION, PortletRequest.RENDER_PHASE);
 				portletURL.setWindowState(actionRequest.getWindowState());
 				portletURL.setParameter("mvcRenderCommandName", "/announcements/edit");
-				portletSession.setAttribute("announcement", announcement, PortletSession.PORTLET_SCOPE);
-				
+
 				sendRedirect(actionRequest, actionResponse, portletURL.toString());
 			}
 		}catch (Exception e) {

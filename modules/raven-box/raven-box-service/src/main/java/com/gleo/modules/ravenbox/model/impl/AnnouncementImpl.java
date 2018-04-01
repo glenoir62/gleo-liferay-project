@@ -31,6 +31,7 @@ import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
 import com.liferay.message.boards.kernel.service.MBMessageLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Country;
@@ -256,24 +257,22 @@ public class AnnouncementImpl extends AnnouncementBaseImpl {
      * @return
      */
     public String getStatus(Locale locale) {
-
-	// TODO fix it
-//	return LanguageUtil.get(locale, WorkflowConstants.getStatusLabel(getStatus()));
-	return WorkflowConstants.getStatusLabel(getStatus());
+    	
+    	return LanguageUtil.get(locale, WorkflowConstants.getStatusLabel(getStatus()));
     }
 
     public User getUser() {
-	User user = null;
+		User user = null;
 
-	try {
-	    user = UserLocalServiceUtil.getUser(getUserId());
-	} catch (PortalException e) {
-	    LOGGER.error(e);
-	} catch (SystemException e) {
-	    LOGGER.error(e);
-	}
+		try {
+			user = UserLocalServiceUtil.getUser(getUserId());
+		} catch (PortalException e) {
+			LOGGER.error(e);
+		} catch (SystemException e) {
+			LOGGER.error(e);
+		}
 
-	return user;
+		return user;
     }
 
     /**

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.portlet.PortletSession;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -16,13 +15,15 @@ import org.osgi.service.component.annotations.Reference;
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.service.AnnouncementLocalService;
-import com.gleo.modules.ravenbox.service.AnnouncementService;
+import com.gleo.modules.ravenbox.web.portlet.announcements.search.AnnouncementDisplayTerms;
+import com.gleo.modules.ravenbox.web.portlet.announcements.search.AnnouncementSearch;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
@@ -38,6 +39,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 /**
  * @author guillaumelenoir
@@ -50,11 +52,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 	}
 )
 public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
-
-	/**
-     * Empty Results Message
-     */
-    private String emptyResultsMessage = "announcement-empty-results-message";
     
     /**
      * ViewAnnouncementsMVCRenderCommand Logger.
@@ -64,19 +61,14 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
 
-		PortletSession portletSession = renderRequest.getPortletSession();
-		portletSession.removeAttribute("announcement", PortletSession.PORTLET_SCOPE);
+//		PortletSession portletSession = renderRequest.getPortletSession();
+//		portletSession.removeAttribute("announcement", PortletSession.PORTLET_SCOPE);
 
 		PortletURL iteratorURL = renderResponse.createRenderURL();
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-
-		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
-				SearchContainer.DEFAULT_DELTA);
-		int cur = ParamUtil.getInteger(renderRequest, "curAnnouncements", SearchContainer.DEFAULT_CUR);
-
+		
 		// create search container
-		SearchContainer<Announcement> announcementSearchContainer = new SearchContainer<Announcement>(renderRequest, null, null,
-				"curAnnouncements", cur, delta, iteratorURL, null, emptyResultsMessage);
+		SearchContainer<Announcement> announcementSearchContainer = new AnnouncementSearch(renderRequest, iteratorURL);
 
 		int total = 0;
 		List<Announcement> announcements = new ArrayList<Announcement>();
@@ -91,6 +83,8 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 			// create search context
 			SearchContext searchContext = createSearchContextFromRequest(renderRequest, announcementSearchContainer, themeDisplay,
 				start, end);
+			
+			LOGGER.info("annnouncementId " + searchContext.getAttribute("announcementId"));
 			
 			Hits hits = null;
 			
@@ -113,6 +107,7 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 			LOGGER.error("SystemException : impossible to get searchTypeContainer");
 		}
 
+		renderRequest.setAttribute("portletURL", announcementSearchContainer.getIteratorURL());
 		renderRequest.setAttribute("searchAnnouncementContainer", announcementSearchContainer);
 
 		return "/ravenbox/announcements/configuration/view.jsp";
@@ -132,17 +127,17 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
     private SearchContext createSearchContextFromRequest(RenderRequest renderRequest,
 	    SearchContainer<Announcement> searchContainer, ThemeDisplay themeDisplay, int start, int end) {
 	
-//		UserDisplayTerms displayTerms = null;
+		AnnouncementDisplayTerms displayTerms = null;
 		SearchContext searchContext = SearchContextFactory.getInstance(PortalUtil.getHttpServletRequest(renderRequest));
-//		displayTerms = (UserDisplayTerms) searchContainer.getDisplayTerms();
+		displayTerms = (AnnouncementDisplayTerms) searchContainer.getDisplayTerms();
 		searchContext.setStart(start);
 		searchContext.setEnd(end);
 	
-//		if (displayTerms.isAdvancedSearch()) {
-//		    searchContext.setAndSearch(displayTerms.isAndOperator());
-//		} else {
-//		    searchContext.setKeywords(displayTerms.getKeywords());
-//		}
+		if (displayTerms.isAdvancedSearch()) {
+		    searchContext.setAndSearch(displayTerms.isAndOperator());
+		} else {
+		    searchContext.setKeywords(displayTerms.getKeywords());
+		}
 		
 		long organizationId = themeDisplay.getScopeGroup().getOrganizationId();
 	
@@ -155,15 +150,15 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 		}
 	
 		// Navigation
-//		String navigation = ParamUtil.getString(renderRequest, "navigation", "active");
-//	
-//		if (!"active".equals(navigation)) {
-//		    searchContext.setAttribute(Field.STATUS, WorkflowConstants.STATUS_INACTIVE);
-//		}
+		String navigation = ParamUtil.getString(renderRequest, "navigation", "active");
+	
+		if (!"active".equals(navigation)) {
+		    searchContext.setAttribute(Field.STATUS, WorkflowConstants.STATUS_INACTIVE);
+		}
 		
 		// Sort
-//		Sort sort = SortFactoryUtil.getSort(Announcement.class, searchContainer.getOrderByCol(), searchContainer.getOrderByType());
-//		searchContext.setSorts(sort);
+		Sort sort = SortFactoryUtil.getSort(Announcement.class, searchContainer.getOrderByCol(), searchContainer.getOrderByType());
+		searchContext.setSorts(sort);
 	
 		QueryConfig queryConfig = new QueryConfig();
 	
@@ -171,11 +166,11 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 		searchContext.setQueryConfig(queryConfig);
 	
 		if (LOGGER.isDebugEnabled()) {
-//		    LOGGER.debug("displayTerms " + displayTerms);
-//		    LOGGER.debug("navigation " + navigation);
+		    LOGGER.debug("displayTerms " + displayTerms);
+		    LOGGER.debug("navigation " + navigation);
 		    LOGGER.debug("start " + start);
 		    LOGGER.debug("end " + end);
-//		    LOGGER.debug("sort " + sort);
+		    LOGGER.debug("sort " + sort);
 	
 		}
 		return searchContext;

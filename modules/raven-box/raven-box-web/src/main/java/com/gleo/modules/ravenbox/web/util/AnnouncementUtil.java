@@ -6,13 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.portlet.PortletRequest;
+import javax.portlet.WindowStateException;
+
 import com.gleo.modules.ravenbox.constants.AnnouncementConstants;
+import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.model.AnnouncementImage;
 import com.gleo.modules.ravenbox.service.AnnouncementImageLocalServiceUtil;
 import com.gleo.modules.ravenbox.service.AnnouncementLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.LiferayPortletURL;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.FileItem;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
@@ -23,6 +29,15 @@ import com.liferay.portal.kernel.util.Validator;
 
 public class AnnouncementUtil {
 
+	public static LiferayPortletURL getDefaultAnnouncementPortletURL(PortletRequest portletRequest) throws WindowStateException {
+		
+		LiferayPortletURL portletURL = PortletURLFactoryUtil.create(portletRequest,
+				RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION, PortletRequest.RENDER_PHASE);
+		portletURL.setWindowState(portletRequest.getWindowState());
+		portletURL.setParameter("mvcRenderCommandName", "/");
+		
+		return portletURL;	
+	}
 	/**
 	 * Convenience method to create a Announcement object out of the request.
 	 * Used by the Add / Edit methods.

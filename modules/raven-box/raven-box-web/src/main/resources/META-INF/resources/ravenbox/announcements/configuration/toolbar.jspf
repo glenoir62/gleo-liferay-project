@@ -1,0 +1,53 @@
+<portlet:renderURL var="addEntryURL">
+		<portlet:param name="mvcRenderCommandName" value="/announcements/edit" />
+		<portlet:param name="redirect" value="<%= renderResponse.createRenderURL().toString() %>" />
+</portlet:renderURL>
+
+<liferay-portlet:renderURL varImpl="searchURL" >
+	<portlet:param name="mvcRenderCommandName" value="/" />
+	<portlet:param name="resetCur" value="true" />
+</liferay-portlet:renderURL>
+
+<aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
+	<aui:nav cssClass="navbar-nav">
+		<aui:nav-item label="com.gleo.modules.ravenbox.announcement.title" selected="<%= true %>" />
+	</aui:nav>
+	
+	<aui:nav-bar-search>
+		<aui:form action="${searchURL}" method="post" name="fm">
+			<liferay-ui:input-search markupView="lexicon" />
+		</aui:form>
+	</aui:nav-bar-search>
+</aui:nav-bar>
+
+<liferay-frontend:management-bar
+	includeCheckBox="<%= false %>"
+	searchContainerId="announcements"
+>
+	<liferay-frontend:management-bar-buttons>
+		<liferay-frontend:management-bar-display-buttons
+			displayViews='<%= new String[] {"descriptive", "icon", "list"} %>'
+			portletURL="<%= renderResponse.createRenderURL() %>"
+			selectedDisplayStyle=""
+		/>
+	</liferay-frontend:management-bar-buttons>
+
+	<liferay-frontend:management-bar-filters>
+		<liferay-frontend:management-bar-sort
+			orderByCol="${searchUserContainer.getOrderByCol()}"
+			orderByType="${searchUserContainer.getOrderByType()}"
+			orderColumns='<%= new String[] {"price","modified-date", "create-date"} %>'
+			portletURL="${portletURL}"
+		/>
+	</liferay-frontend:management-bar-filters>
+
+	<c:if test='<%= RavenBoxPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_ANNOUNCEMENT") %>'>
+		<liferay-frontend:add-menu>
+			<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "com.gleo.modules.ravenbox.announcement.add") %>' url="<%= addEntryURL %>" />
+		</liferay-frontend:add-menu>
+	</c:if>
+</liferay-frontend:management-bar>
+
+<div id="breadcrumb">
+	<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+</div>
