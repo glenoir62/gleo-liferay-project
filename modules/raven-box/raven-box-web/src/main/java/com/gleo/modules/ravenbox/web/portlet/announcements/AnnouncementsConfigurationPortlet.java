@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 			"javax.portlet.expiration-cache=0",
 			"javax.portlet.init-param.always-display-default-configuration-icons=true",
 			"javax.portlet.init-param.template-path=/",
+			"javax.portlet.init-param.add-process-action-success-action=false",
 			"javax.portlet.init-param.view-template=/ravenbox/announcements/configuration/view.jsp",
 			"javax.portlet.name=" + RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION,
 			"javax.portlet.resource-bundle=content.Language",
