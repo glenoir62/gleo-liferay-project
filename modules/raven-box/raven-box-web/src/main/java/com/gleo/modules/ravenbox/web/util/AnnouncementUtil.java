@@ -15,20 +15,31 @@ import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.model.AnnouncementImage;
 import com.gleo.modules.ravenbox.service.AnnouncementImageLocalServiceUtil;
 import com.gleo.modules.ravenbox.service.AnnouncementLocalServiceUtil;
+import com.gleo.modules.ravenbox.web.util.comparator.AnnouncementModelCreateDateComparator;
+import com.gleo.modules.ravenbox.web.util.comparator.AnnouncementModelModifiedDateComparator;
+import com.gleo.modules.ravenbox.web.util.comparator.AnnouncementModelPriceComparator;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.FileItem;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 public class AnnouncementUtil {
 
+	/**
+	 * @param portletRequest
+	 * @return
+	 * @throws WindowStateException
+	 */
 	public static LiferayPortletURL getDefaultAnnouncementPortletURL(PortletRequest portletRequest) throws WindowStateException {
 		
 		LiferayPortletURL portletURL = PortletURLFactoryUtil.create(portletRequest,
@@ -133,4 +144,55 @@ public class AnnouncementUtil {
 
 		return announcement;
 	}
+	
+	/**
+	 * @param orderByCol
+	 * @param orderByType
+	 * @param orderByModel
+	 * @return
+	 */
+	public static <T> OrderByComparator<T> getAnnouncementOrderByComparator(String orderByCol, String orderByType,
+			boolean orderByModel) {
+
+		boolean orderByAsc = true;
+
+		if (orderByType.equals("desc")) {
+			orderByAsc = false;
+		}
+
+		OrderByComparator<T> orderByComparator = null;
+
+		if (orderByCol.equals("createDate")) {
+			orderByComparator = new AnnouncementModelCreateDateComparator<>(orderByAsc, orderByModel);
+		} else if (orderByCol.equals("price")) {
+			orderByComparator = new AnnouncementModelPriceComparator<>(orderByAsc, orderByModel);
+		} else if (orderByCol.equals("modifiedDate")) {
+			orderByComparator = new AnnouncementModelModifiedDateComparator<>(orderByAsc, orderByModel);
+		}
+
+		return orderByComparator;
+	}
+	
+	public static int getSortType(String fieldType) {
+		int sortType = Sort.STRING_TYPE;
+
+		if (fieldType.equals(Field.MODIFIED_DATE) ||
+			fieldType.equals(Field.CREATE_DATE) ||
+			fieldType.equals("price")) {
+
+			sortType = Sort.LONG_TYPE;
+		}
+		else if (fieldType.equals(Field.PRIORITY) ||
+				 fieldType.equals(Field.RATINGS)) {
+
+			sortType = Sort.DOUBLE_TYPE;
+		}
+		else if (fieldType.equals(Field.VIEW_COUNT)) {
+
+			sortType = Sort.INT_TYPE;
+		}
+
+		return sortType;
+	}
+
 }

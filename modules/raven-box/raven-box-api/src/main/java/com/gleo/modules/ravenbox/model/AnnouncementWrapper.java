@@ -382,6 +382,24 @@ public class AnnouncementWrapper implements Announcement,
 		return _announcement.toCacheModel();
 	}
 
+	/**
+	* @param locale
+	* @return
+	*/
+	@Override
+	public com.liferay.portal.kernel.model.Country getCountry() {
+		return _announcement.getCountry();
+	}
+
+	/**
+	* @param locale
+	* @return
+	*/
+	@Override
+	public com.liferay.portal.kernel.model.Region getRegion() {
+		return _announcement.getRegion();
+	}
+
 	@Override
 	public com.liferay.portal.kernel.model.User getUser() {
 		return _announcement.getUser();
@@ -538,8 +556,8 @@ public class AnnouncementWrapper implements Announcement,
 	* @return
 	*/
 	@Override
-	public java.lang.String getCountry(java.util.Locale locale) {
-		return _announcement.getCountry(locale);
+	public java.lang.String getCountryName(java.util.Locale locale) {
+		return _announcement.getCountryName(locale);
 	}
 
 	/**

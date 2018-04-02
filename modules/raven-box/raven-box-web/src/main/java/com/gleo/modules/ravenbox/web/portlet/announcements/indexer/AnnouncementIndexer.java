@@ -133,19 +133,21 @@ public class AnnouncementIndexer extends BaseIndexer<Announcement> {
 		document.addDate(Field.CREATE_DATE, announcement.getCreateDate());
 		document.addLocalizedKeyword(Field.TITLE, announcement.getTitleMap());
 		document.addKeyword("announcementId", announcement.getAnnouncementId());
-		document.addKeyword("currencyId", announcement.getCurrencyId());
-		document.addKeyword("price", announcement.getPrice());
+		document.addNumber("price", announcement.getPrice());
 		document.addKeyword("phone", announcement.getPhoneNumber());
 		document.addKeyword("typeId", announcement.getTypeId());
 		document.addLocalizedKeyword("typeName", announcement.getType().getNameMap());
 		document.addKeyword("regionId", announcement.getRegionId());
 		document.addKeyword("countryId", announcement.getCountryId());
+//		document.addLocalizedKeyword("regionName", announcement.getRegion());
+//		document.addLocalizedKeyword("countryName", announcement.getCountry());
+		
 		document.addKeyword("emailAddress", announcement.getEmailAddress());
 
 		document.addNumber(Field.COMMENTS, commentsCount);
 		document.addNumber(Field.RATINGS, ratingsCount);
 		
-		LOGGER.debug("announcement");
+		LOGGER.info("announcement = "+ document);
 
 		return document;
 	}
@@ -360,28 +362,17 @@ public class AnnouncementIndexer extends BaseIndexer<Announcement> {
 		throws Exception {
 
 		addStatus(fullQueryBooleanFilter, searchContext);
-
-		long announcementId = GetterUtil.getLong(searchContext.getAttribute("announcementId"));
-		long typeId = GetterUtil.getLong(searchContext.getAttribute("typeId"));
-		long regionId = GetterUtil.getLong(searchContext.getAttribute("regionId"));
-		long countryId = GetterUtil.getLong(searchContext.getAttribute("countryId"));
 		
 		boolean isUserAnnouncements = GetterUtil.getBoolean(searchContext.getAttribute("isUserAnnouncements"));;
 
-		if (announcementId != 0) {
-			searchQuery.addRequiredTerm("announcementId", announcementId);
-		}
-		if (typeId != 0) {
-			searchQuery.addRequiredTerm("typeId", typeId);
-		}
-		
-		if (regionId != 0) {
-			searchQuery.addRequiredTerm("regionId", regionId);
-		}
-		
-		if (countryId != 0) {
-			searchQuery.addRequiredTerm("countryId", countryId);
-		}
+		addSearchTerm(searchQuery, searchContext, "emailAddress", false);
+		addSearchTerm(searchQuery, searchContext, "announcementId", false);
+		addSearchTerm(searchQuery, searchContext, "typeId", false);
+		addSearchTerm(searchQuery, searchContext, "typeName", false);
+		addSearchTerm(searchQuery, searchContext, "regionId", false);
+		addSearchTerm(searchQuery, searchContext, "countryId", false);
+		addSearchTerm(searchQuery, searchContext, "emailAddress", false);
+		addSearchTerm(searchQuery, searchContext, "phone", false);
 		
 		if (isUserAnnouncements) {
 			

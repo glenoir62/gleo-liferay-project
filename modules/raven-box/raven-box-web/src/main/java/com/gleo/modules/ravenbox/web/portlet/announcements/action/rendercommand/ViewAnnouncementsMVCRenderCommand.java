@@ -17,6 +17,7 @@ import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.service.AnnouncementLocalService;
 import com.gleo.modules.ravenbox.web.portlet.announcements.search.AnnouncementDisplayTerms;
 import com.gleo.modules.ravenbox.web.portlet.announcements.search.AnnouncementSearch;
+import com.gleo.modules.ravenbox.web.util.AnnouncementUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -81,10 +82,8 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 			Indexer<Announcement> indexer = IndexerRegistryUtil.nullSafeGetIndexer(Announcement.class);
 			
 			// create search context
-			SearchContext searchContext = createSearchContextFromRequest(renderRequest, announcementSearchContainer, themeDisplay,
+			SearchContext searchContext = createSearchContextFromRequest(renderRequest, announcementSearchContainer,indexer, themeDisplay,
 				start, end);
-			
-			LOGGER.info("annnouncementId " + searchContext.getAttribute("announcementId"));
 			
 			Hits hits = null;
 			
@@ -119,13 +118,14 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
      * 
      * @param renderRequest
      * @param searchContainer
+     * @param indexer 
      * @param themeDisplay
      * @param start
      * @param end
      * @return
      */
     private SearchContext createSearchContextFromRequest(RenderRequest renderRequest,
-	    SearchContainer<Announcement> searchContainer, ThemeDisplay themeDisplay, int start, int end) {
+	    SearchContainer<Announcement> searchContainer, Indexer<Announcement> indexer, ThemeDisplay themeDisplay, int start, int end) {
 	
 		AnnouncementDisplayTerms displayTerms = null;
 		SearchContext searchContext = SearchContextFactory.getInstance(PortalUtil.getHttpServletRequest(renderRequest));
@@ -157,22 +157,38 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 		}
 		
 		// Sort
-		Sort sort = SortFactoryUtil.getSort(Announcement.class, searchContainer.getOrderByCol(), searchContainer.getOrderByType());
-		searchContext.setSorts(sort);
+		String  orderByCol = searchContainer.getOrderByCol();
+		String  orderByType = searchContainer.getOrderByType();
+		
+		if (orderByCol.equals("create-date")) {
+			orderByCol = Field.CREATE_DATE;
+		}
+		else if (orderByCol.equals("modified-date")) {
+			orderByCol = Field.MODIFIED_DATE;
+		}
+		
+		int sortType = AnnouncementUtil.getSortType(orderByCol);
+
+		Sort sort = SortFactoryUtil.getSort(Announcement.class, sortType, orderByCol, orderByType);
 	
+		searchContext.setSorts(sort);
+		
 		QueryConfig queryConfig = new QueryConfig();
 	
 		queryConfig.setHighlightEnabled(true);
 		searchContext.setQueryConfig(queryConfig);
-	
+
 		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug("displayTerms " + displayTerms);
-		    LOGGER.debug("navigation " + navigation);
-		    LOGGER.debug("start " + start);
-		    LOGGER.debug("end " + end);
-		    LOGGER.debug("sort " + sort);
-	
+			LOGGER.info("sort" + sort);
+			LOGGER.debug("orderByCol " + orderByCol);
+			LOGGER.debug("orderByType " + orderByType);
+			LOGGER.debug("displayTerms " + displayTerms);
+			LOGGER.debug("navigation " + navigation);
+			LOGGER.debug("start " + start);
+			LOGGER.debug("end " + end);
+			LOGGER.debug("sort " + sort);
 		}
+		
 		return searchContext;
     }
     

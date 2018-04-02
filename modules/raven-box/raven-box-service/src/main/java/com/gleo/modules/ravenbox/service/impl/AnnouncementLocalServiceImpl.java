@@ -126,7 +126,7 @@ public class AnnouncementLocalServiceImpl extends AnnouncementLocalServiceBaseIm
 		announcement.setAnnouncementId(announcementId);
 		announcement.setUserId(userId);
 	
-		Date now = Calendar.getInstance().getTime();
+		Date now = new Date();
 	
 		User user = userPersistence.findByPrimaryKey(userId);
 	
@@ -140,6 +140,7 @@ public class AnnouncementLocalServiceImpl extends AnnouncementLocalServiceBaseIm
 				userFolder.getFolderId(), String.valueOf(announcement.getAnnouncementId()), serviceContext);
 	
 		announcement.setStatus(WorkflowConstants.STATUS_DRAFT);
+		announcement.setStatusDate(serviceContext.getModifiedDate(now));
 		announcement.setFolderId(annoucementFolder.getFolderId());
 		announcement.setUuid(serviceContext.getUuid());
 		announcement.setModifiedDate(now);
@@ -414,13 +415,14 @@ public class AnnouncementLocalServiceImpl extends AnnouncementLocalServiceBaseIm
     public Announcement updateStatus(long userId, long resourcePrimKey, int status, ServiceContext serviceContext)
 	    throws PortalException, SystemException {
 
+    Date now = new Date();
 	User user = userLocalService.getUser(userId);
 	Announcement announcement = getAnnouncement(resourcePrimKey);
 
 	announcement.setStatus(status);
 	announcement.setStatusByUserId(userId);
 	announcement.setStatusByUserName(user.getFullName());
-	announcement.setStatusDate(serviceContext.getModifiedDate());
+	announcement.setStatusDate(serviceContext.getModifiedDate(now));
 
 	updateAnnouncement(announcement);
 

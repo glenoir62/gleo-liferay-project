@@ -33,9 +33,10 @@
 	</liferay-frontend:management-bar-buttons>
 
 	<liferay-frontend:management-bar-filters>
+
 		<liferay-frontend:management-bar-sort
-			orderByCol="${searchUserContainer.getOrderByCol()}"
-			orderByType="${searchUserContainer.getOrderByType()}"
+			orderByCol="${searchAnnouncementContainer.getOrderByCol()}"
+			orderByType="${searchAnnouncementContainer.getOrderByType()}"
 			orderColumns='<%= new String[] {"price","modified-date", "create-date"} %>'
 			portletURL="${portletURL}"
 		/>

@@ -11,6 +11,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
 import com.gleo.modules.ravenbox.model.Announcement;
+import com.gleo.modules.ravenbox.web.util.AnnouncementUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -18,7 +19,9 @@ import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -60,14 +63,14 @@ public class AnnouncementSearch extends SearchContainer<Announcement> {
 		headerNames.add("first-name");
 		headerNames.add("last-name");
 		headerNames.add("screen-name");
-		// headerNames.add("email-address");
+		headerNames.add("email-address");
 		headerNames.add("job-title");
 		headerNames.add("organizations");
 
 		orderableHeaders.put("first-name", "first-name");
 		orderableHeaders.put("last-name", "last-name");
 		orderableHeaders.put("screen-name", "screen-name");
-		// orderableHeaders.put("email-address", "email-address");
+		orderableHeaders.put("email-address", "email-address");
 		orderableHeaders.put("job-title", "job-title");
 	}
 
@@ -80,6 +83,7 @@ public class AnnouncementSearch extends SearchContainer<Announcement> {
      */
 	public AnnouncementSearch(PortletRequest portletRequest, String curParam, PortletURL iteratorURL) {
 
+		//"javax.portlet.init-param.mvc-command-names-default-views=/document_library/view",
 		super(portletRequest, new AnnouncementDisplayTerms(portletRequest), new AnnouncementSearchTerms(portletRequest),
 				curParam, DEFAULT_DELTA, iteratorURL, headerNames, EMPTY_RESULTS_MESSAGE);
 
@@ -114,18 +118,17 @@ public class AnnouncementSearch extends SearchContainer<Announcement> {
 				preferences.setValue(portletId, "announcement-order-by-col", orderByCol);
 				preferences.setValue(portletId, "announcement-order-by-type", orderByType);
 			} else {
-				orderByCol = preferences.getValue(portletId, "announcement-order-by-col", "price");
+				orderByCol = preferences.getValue(portletId, "announcement-order-by-col", Field.CREATE_DATE);
 				orderByType = preferences.getValue(portletId, "announcement-order-by-type", "asc");
 			}
-
-			// OrderByComparator<User> orderByComparator =
-			// UsersAdminUtil.getUserOrderByComparator(orderByCol,
-			// orderByType);
+			
+			boolean orderByModel = false;
+			OrderByComparator<Announcement> orderByComparator = AnnouncementUtil.getAnnouncementOrderByComparator(orderByCol, orderByType, orderByModel);
 
 			setOrderableHeaders(orderableHeaders);
 			setOrderByCol(orderByCol);
 			setOrderByType(orderByType);
-			// setOrderByComparator(orderByComparator);
+			setOrderByComparator(orderByComparator);
 		} catch (Exception e) {
 			LOGGER.error(e);
 		}

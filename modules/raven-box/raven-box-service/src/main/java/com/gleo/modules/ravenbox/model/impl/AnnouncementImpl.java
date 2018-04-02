@@ -35,10 +35,12 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Country;
+import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.service.CountryServiceUtil;
+import com.liferay.portal.kernel.service.RegionServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -274,37 +276,79 @@ public class AnnouncementImpl extends AnnouncementBaseImpl {
 
 		return user;
     }
+    
+	/**
+	 * @param locale
+	 * @return
+	 */
+	public Country getCountry() {
 
-    /**
-     * @param locale
-     * @return
-     */
-    public String getCountry(Locale locale) {
-
-	long countryId = getCountryId();
-	String countryName = StringPool.BLANK;
-
-	if (Validator.isNotNull(countryId)) {
-	    Country country = null;
-	    try {
-		country = CountryServiceUtil.getCountry(countryId);
-	    } catch (PortalException pe) {
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug(pe);
+		long countryId = getCountryId();
+		Country country = null;
+		
+		if (Validator.isNotNull(countryId)) {
+			
+			try {
+				country = CountryServiceUtil.getCountry(countryId);
+			} catch (PortalException pe) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(pe);
+				}
+				LOGGER.error("PortalException : impossible to get country " + countryId);
+			} catch (SystemException se) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(se);
+				}
+				LOGGER.error("SystemException : impossible to get country " + countryId);
+			}
 		}
-		LOGGER.error("PortalException : impossible to get country " + countryId);
-	    } catch (SystemException se) {
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug(se);
-		}
-		LOGGER.error("SystemException : impossible to get country " + countryId);
-	    }
-	    if (Validator.isNotNull(country)) {
-		countryName = country.getName(locale);
-	    }
+		return country;
 	}
-	return countryName;
-    }
+	
+	/**
+	 * @param locale
+	 * @return
+	 */
+	public Region getRegion() {
+
+		long regionId = getRegionId();
+		Region region = null;
+		
+		if (Validator.isNotNull(regionId)) {
+			
+			try {
+				region = RegionServiceUtil.getRegion(regionId);
+			} catch (PortalException pe) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(pe);
+				}
+				LOGGER.error("PortalException : impossible to get region " + regionId);
+			} catch (SystemException se) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(se);
+				}
+				LOGGER.error("SystemException : impossible to get region " + regionId);
+			}
+		}
+		return region;
+	}
+	
+
+	/**
+	 * @param locale
+	 * @return
+	 */
+	public String getCountryName(Locale locale) {
+
+		Country country = getCountry();
+		String countryName = StringPool.BLANK;
+
+		if (Validator.isNotNull(country)) {
+			countryName = country.getName(locale);
+		}
+		
+		return countryName;
+	}
 
     /**
      * @param liferayPortletRequest

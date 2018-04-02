@@ -97,7 +97,19 @@ public interface Announcement extends AnnouncementModel, PersistedModel {
 	* @param locale
 	* @return
 	*/
-	public java.lang.String getCountry(java.util.Locale locale);
+	public com.liferay.portal.kernel.model.Country getCountry();
+
+	/**
+	* @param locale
+	* @return
+	*/
+	public com.liferay.portal.kernel.model.Region getRegion();
+
+	/**
+	* @param locale
+	* @return
+	*/
+	public java.lang.String getCountryName(java.util.Locale locale);
 
 	/**
 	* @param liferayPortletRequest
