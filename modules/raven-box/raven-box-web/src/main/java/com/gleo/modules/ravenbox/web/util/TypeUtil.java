@@ -6,6 +6,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -65,4 +67,19 @@ public class TypeUtil {
 
 	return type;
     }
+    
+    public static int getSortType(String fieldType) {
+		int sortType = Sort.STRING_TYPE;
+
+		if (fieldType.equals(Field.PRIORITY)  ||
+				fieldType.equals(Field.COMPANY_ID) ||
+				fieldType.equals(Field.GROUP_ID) ||
+				fieldType.equals(Field.SCOPE_GROUP_ID) ||
+				fieldType.equals("typeId")) {
+
+			sortType = Sort.DOUBLE_TYPE;
+		}
+
+		return sortType;
+	}
 }

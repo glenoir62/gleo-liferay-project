@@ -1,3 +1,8 @@
+<portlet:renderURL var="addEntryURL">
+		<portlet:param name="mvcRenderCommandName" value="/type/edit" />
+		<portlet:param name="redirect" value="<%= renderResponse.createRenderURL().toString() %>" />
+</portlet:renderURL>
+
 <liferay-portlet:renderURL varImpl="searchURL" >
 	<portlet:param name="mvcRenderCommandName" value="/" />
 	<portlet:param name="resetCur" value="true" />
@@ -15,4 +20,33 @@
 	</aui:nav-bar-search>
 </aui:nav-bar>
 
+<liferay-frontend:management-bar
+	includeCheckBox="<%= false %>"
+	searchContainerId="types"
+>
+	<liferay-portlet:actionURL name="/types/change_display_style" varImpl="changeDisplayStyleURL">
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+	</liferay-portlet:actionURL>
+	<liferay-frontend:management-bar-buttons>
+		<liferay-frontend:management-bar-display-buttons
+			displayViews='<%= new String[] {"descriptive", "icon", "list"} %>'
+			portletURL="${changeDisplayStyleURL}"
+			selectedDisplayStyle="${displayStyle}"
+		/>
+	</liferay-frontend:management-bar-buttons>
+
+	<liferay-frontend:management-bar-filters>
+
+		<liferay-frontend:management-bar-sort
+			orderByCol="${searchTypeContainer.getOrderByCol()}"
+			orderByType="${searchTypeContainer.getOrderByType()}"
+			orderColumns='<%= new String[] {"Id","name","order"} %>'
+			portletURL="${portletURL}"
+		/>
+	</liferay-frontend:management-bar-filters>
+</liferay-frontend:management-bar>
+
+<div id="breadcrumb">
+	<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+</div>
 

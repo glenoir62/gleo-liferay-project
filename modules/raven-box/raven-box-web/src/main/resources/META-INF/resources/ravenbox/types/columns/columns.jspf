@@ -21,7 +21,7 @@
 		<liferay-ui:search-container-column-text
 			colspan="<%= 2 %>"
 		>
-			<h3>${type.getName(locale)}</h5>
+			<h3>${type.getName(locale)}</h3>
 
 			<h6 class="text-default">
 				<span>${type.description}</span>
@@ -41,10 +41,28 @@
 			</aui:input>
 		</liferay-ui:search-container-column-text>
 		
+		
+		<liferay-ui:search-container-column-text
+			name="Id"
+			value="${type.typeId}"
+		/>
+		
+		<liferay-ui:search-container-column-text
+			name="companyId"
+			value="${type.getCompanyId()}"
+		/>
+		
+		<liferay-ui:search-container-column-text
+			name="groupId"
+			value="${type.getGroupId()}"
+		/>
+		
 		<liferay-ui:search-container-column-text
 			name="name"
 			value="${type.getName(locale)}"
 		/>
+		
+		
 		
 		<liferay-ui:search-container-column-text
 			name="order"
