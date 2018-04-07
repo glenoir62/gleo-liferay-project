@@ -11,7 +11,6 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
 import com.gleo.modules.ravenbox.model.Announcement;
-import com.gleo.modules.ravenbox.web.util.AnnouncementUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -121,9 +120,8 @@ public class AnnouncementSearch extends SearchContainer<Announcement> {
 				orderByCol = preferences.getValue(portletId, "announcement-order-by-col", Field.CREATE_DATE);
 				orderByType = preferences.getValue(portletId, "announcement-order-by-type", "asc");
 			}
-			
-			boolean orderByModel = false;
-			OrderByComparator<Announcement> orderByComparator = AnnouncementUtil.getAnnouncementOrderByComparator(orderByCol, orderByType, orderByModel);
+
+			OrderByComparator<Announcement> orderByComparator = null;
 
 			setOrderableHeaders(orderableHeaders);
 			setOrderByCol(orderByCol);
