@@ -97,11 +97,11 @@ public class TypeIndexer extends BaseIndexer<Type> {
 		document.addKeyword(Field.COMPANY_ID, type.getCompanyId());
 		document.addKeyword(Field.GROUP_ID, getSiteGroupId(type.getGroupId()));
 		document.addKeyword(Field.SCOPE_GROUP_ID, type.getGroupId());
-		document.addKeyword(Field.PRIORITY, type.getOrder());
+		document.addNumber(Field.PRIORITY, type.getOrder());
 		document.addKeyword("typeId", type.getTypeId());
 		document.addLocalizedKeyword(Field.TITLE, type.getNameMap());
-
-		LOGGER.debug(document);
+		LOGGER.info(type.getNameMap());
+		LOGGER.info(document);
 
 		return document;
 	}

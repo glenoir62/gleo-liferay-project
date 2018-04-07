@@ -74,7 +74,7 @@ public class TypeUtil {
 		if (fieldType.equals(Field.PRIORITY)  ||
 				fieldType.equals("typeId")) {
 
-			sortType = Sort.INT_TYPE;
+			sortType = Sort.LONG_TYPE;
 		}
 
 		return sortType;
