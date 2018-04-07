@@ -37,6 +37,12 @@
 
 	<liferay-frontend:management-bar-filters>
 
+		<liferay-frontend:management-bar-filter
+			label="types"
+			managementBarFilterItems="${managementBarFilterItems}"
+			value="${managementBarFilterItemLabel}"
+		/>
+		
 		<liferay-frontend:management-bar-sort
 			orderByCol="${searchAnnouncementContainer.getOrderByCol()}"
 			orderByType="${searchAnnouncementContainer.getOrderByType()}"

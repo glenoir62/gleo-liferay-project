@@ -135,7 +135,7 @@ public class AnnouncementIndexer extends BaseIndexer<Announcement> {
 		document.addKeyword("announcementId", announcement.getAnnouncementId());
 		document.addNumber("price", announcement.getPrice());
 		document.addKeyword("phone", announcement.getPhoneNumber());
-		document.addKeyword("typeId", announcement.getTypeId());
+		document.addNumber("typeId", announcement.getTypeId());
 		document.addLocalizedKeyword("typeName", announcement.getType().getNameMap());
 		document.addKeyword("regionId", announcement.getRegionId());
 		document.addKeyword("countryId", announcement.getCountryId());
@@ -365,15 +365,32 @@ public class AnnouncementIndexer extends BaseIndexer<Announcement> {
 		
 		boolean isUserAnnouncements = GetterUtil.getBoolean(searchContext.getAttribute("isUserAnnouncements"));;
 
-		addSearchTerm(searchQuery, searchContext, "emailAddress", false);
-		addSearchTerm(searchQuery, searchContext, "announcementId", false);
-		addSearchTerm(searchQuery, searchContext, "typeId", false);
-		addSearchTerm(searchQuery, searchContext, "typeName", false);
-		addSearchTerm(searchQuery, searchContext, "regionId", false);
-		addSearchTerm(searchQuery, searchContext, "countryId", false);
-		addSearchTerm(searchQuery, searchContext, "emailAddress", false);
-		addSearchTerm(searchQuery, searchContext, "phone", false);
+		int announcementId = GetterUtil.getInteger(searchContext.getAttribute("announcementId"));
+		long currencyId = GetterUtil.getLong(searchContext.getAttribute("currencyId"));
+		long typeId = GetterUtil.getLong(searchContext.getAttribute("typeId"));
+		long regionId = GetterUtil.getLong(searchContext.getAttribute("regionId"));
+		long countryId = GetterUtil.getLong(searchContext.getAttribute("countryId"));
+
+		if (announcementId != 0) {
+			searchQuery.addRequiredTerm("announcementId", announcementId);
+		}
+
+		if (currencyId != 0) {
+			searchQuery.addRequiredTerm("currencyId", currencyId);
+		}
+
+		if (typeId != 0) {
+			searchQuery.addRequiredTerm("typeId", typeId);
+		}
 		
+		if (regionId != 0) {
+			searchQuery.addRequiredTerm("regionId", regionId);
+		}
+		
+		if (countryId != 0) {
+			searchQuery.addRequiredTerm("countryId", countryId);
+		}
+
 		if (isUserAnnouncements) {
 			
 			BooleanQuery userIdQuery = new BooleanQueryImpl();

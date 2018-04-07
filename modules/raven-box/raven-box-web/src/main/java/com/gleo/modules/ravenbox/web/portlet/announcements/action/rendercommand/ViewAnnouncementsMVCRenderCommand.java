@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -14,17 +15,25 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
 import com.gleo.modules.ravenbox.model.Announcement;
+import com.gleo.modules.ravenbox.model.Type;
 import com.gleo.modules.ravenbox.service.AnnouncementLocalService;
+import com.gleo.modules.ravenbox.service.TypeLocalServiceUtil;
+import com.gleo.modules.ravenbox.service.TypeService;
 import com.gleo.modules.ravenbox.web.portlet.announcements.search.AnnouncementDisplayTerms;
 import com.gleo.modules.ravenbox.web.portlet.announcements.search.AnnouncementSearch;
 import com.gleo.modules.ravenbox.web.util.AnnouncementUtil;
+import com.liferay.frontend.taglib.servlet.taglib.ManagementBarFilterItem;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.language.Language;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
@@ -39,8 +48,10 @@ import com.liferay.portal.kernel.search.SearchResultUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -104,13 +115,71 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 			total = searchAnnouncement(renderRequest, renderResponse, themeDisplay, announcements, total, hits);
 			announcementSearchContainer.setTotal(total);
 			announcementSearchContainer.setResults(announcements);
+			
+			// Get types
+			List<Type> types = typeService.getTypesByGroupId(themeDisplay.getScopeGroupId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+			
+			List<ManagementBarFilterItem> managementBarFilterItems = new ArrayList<ManagementBarFilterItem>();
+			
+			try {
+
+				managementBarFilterItems.add(new ManagementBarFilterItem("All",
+						LanguageUtil.get(themeDisplay.getLocale(), "all"),
+						PortletURLUtil.clone(announcementSearchContainer.getIteratorURL(), renderResponse).toString()));
+			} catch (PortletException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			
+			if (types != null && types.size() > 0) {
+
+				for (Type type : types) {
+
+					try {
+						PortletURL portletURL = PortletURLUtil.clone(announcementSearchContainer.getIteratorURL(),
+								renderResponse);
+						portletURL.setParameter("typeId", String.valueOf(type.getTypeId()));
+						ManagementBarFilterItem managementBarFilterItem = new ManagementBarFilterItem(
+								String.valueOf(type.getTypeId()), type.getName(themeDisplay.getLocale()),
+								portletURL.toString());
+						managementBarFilterItems.add(managementBarFilterItem);
+					} catch (PortletException e) {
+						if (LOGGER.isDebugEnabled()) {
+							LOGGER.debug(e);
+						}
+						LOGGER.error("PortletException : impossible to clone announcementSearchContainer.getIteratorURL");
+					}
+				}
+			}
+			long typeId = GetterUtil.getLong(searchContext.getAttribute("typeId"));
+			String managementBarFilterItemLabel = "All";
+
+			if (typeId > 0) {
+
+				try {
+					Type type = TypeLocalServiceUtil.getType(typeId);
+
+					if (Validator.isNotNull(type)) {
+						managementBarFilterItemLabel = type.getName(themeDisplay.getLocale());
+					}
+				} catch (PortalException e) {
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug(e);
+					}
+					LOGGER.error("PortalException : impossible to get type id " + typeId);
+				}
+
+			}
+			renderRequest.setAttribute("managementBarFilterItemLabel", managementBarFilterItemLabel);
+			renderRequest.setAttribute("managementBarFilterItems", managementBarFilterItems);
 		} catch (SystemException e) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug(e);
 			}
-			LOGGER.error("SystemException : impossible to get searchTypeContainer");
+			LOGGER.error("SystemException : impossible to get announcement search");
 		}
-
+		
 		renderRequest.setAttribute("portletURL", announcementSearchContainer.getIteratorURL());
 		renderRequest.setAttribute("searchAnnouncementContainer", announcementSearchContainer);
 		renderRequest.setAttribute("displayStyle", displayStyle);
@@ -247,5 +316,13 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 	}
 
 	private AnnouncementLocalService announcementLocalService;
+	
+	@Reference
+	protected void setTypeService(
+			TypeService typeService) {
+		this.typeService = typeService;
+	}
+
+	private TypeService typeService;
 
 }
