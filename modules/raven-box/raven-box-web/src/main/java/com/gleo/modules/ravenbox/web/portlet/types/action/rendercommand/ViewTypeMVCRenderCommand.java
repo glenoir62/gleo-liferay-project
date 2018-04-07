@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
@@ -84,7 +85,6 @@ public class ViewTypeMVCRenderCommand implements MVCRenderCommand {
 		Hits hits = null;
 		try {
 			hits = indexer.search(searchContext);
-			LOGGER.info(hits.getLength());
 			
 		} catch (SearchException se) {
 			LOGGER.error(se);
@@ -129,18 +129,21 @@ public class ViewTypeMVCRenderCommand implements MVCRenderCommand {
 			// Sort
 			String  orderByCol = searchContainer.getOrderByCol();
 			String  orderByType = searchContainer.getOrderByType();
-			
+			if (orderByCol.equals("order")) {
+				orderByCol = Field.PRIORITY;
+			}
+			else if (orderByCol.equals("name")) {
+				orderByCol = Field.TITLE;
+			}
 			int sortType = TypeUtil.getSortType(orderByCol);
-
 			Sort sort = SortFactoryUtil.getSort(Type.class, sortType, orderByCol, orderByType);
 		
 			searchContext.setSorts(sort);
 			
 			QueryConfig queryConfig = new QueryConfig();
-		
+			LOGGER.info("sort" + sort);
 			queryConfig.setHighlightEnabled(true);
 			searchContext.setQueryConfig(queryConfig);
-
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.info("sort" + sort);
 				LOGGER.debug("orderByCol " + orderByCol);

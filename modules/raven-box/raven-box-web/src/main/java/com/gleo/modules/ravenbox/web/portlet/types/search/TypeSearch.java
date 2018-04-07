@@ -61,15 +61,14 @@ public class TypeSearch extends SearchContainer<Type> {
 	
 	static {
 		headerNames.add("Id");
-		headerNames.add("companyId");
-		headerNames.add("groupId");
-		headerNames.add("email-address");
 		headerNames.add("name");
+		headerNames.add("name_sortable");
+		headerNames.add("order");
 
 		orderableHeaders.put("Id", "Id");
-		orderableHeaders.put("companyId", "companyId");
-		orderableHeaders.put("groupId", "groupId");
 		orderableHeaders.put("name", "name");
+		orderableHeaders.put("name_sortable", "name_sortable");
+		orderableHeaders.put("order", "order");
 	}
 
     /**

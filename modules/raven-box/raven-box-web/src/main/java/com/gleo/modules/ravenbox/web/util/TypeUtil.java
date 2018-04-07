@@ -72,12 +72,9 @@ public class TypeUtil {
 		int sortType = Sort.STRING_TYPE;
 
 		if (fieldType.equals(Field.PRIORITY)  ||
-				fieldType.equals(Field.COMPANY_ID) ||
-				fieldType.equals(Field.GROUP_ID) ||
-				fieldType.equals(Field.SCOPE_GROUP_ID) ||
 				fieldType.equals("typeId")) {
 
-			sortType = Sort.DOUBLE_TYPE;
+			sortType = Sort.INT_TYPE;
 		}
 
 		return sortType;
