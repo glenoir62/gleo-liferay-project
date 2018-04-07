@@ -31,7 +31,7 @@
 		
 	<liferay-frontend:management-bar-buttons>
 
-		<liferay-portlet:actionURL name="/types/change_display_style" varImpl="changeDisplayStyleURL">
+		<liferay-portlet:actionURL name="/announcements/change_display_style" varImpl="changeDisplayStyleURL">
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 		</liferay-portlet:actionURL>
 

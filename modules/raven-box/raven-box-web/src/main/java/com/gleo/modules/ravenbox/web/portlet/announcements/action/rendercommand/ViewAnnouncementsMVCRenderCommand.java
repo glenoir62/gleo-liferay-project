@@ -23,6 +23,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortalPreferences;
+import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
@@ -65,6 +67,9 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 //		PortletSession portletSession = renderRequest.getPortletSession();
 //		portletSession.removeAttribute("announcement", PortletSession.PORTLET_SCOPE);
 
+		PortalPreferences portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(renderRequest);
+		String displayStyle = portalPreferences.getValue(RavenBoxPortletKeys.ANNOUNCEMENTS_CONFIGURATION, "display-style", "icon");
+		
 		PortletURL iteratorURL = renderResponse.createRenderURL();
 		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		
@@ -108,7 +113,7 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 
 		renderRequest.setAttribute("portletURL", announcementSearchContainer.getIteratorURL());
 		renderRequest.setAttribute("searchAnnouncementContainer", announcementSearchContainer);
-
+		renderRequest.setAttribute("displayStyle", displayStyle);
 		return "/ravenbox/announcements/configuration/view.jsp";
 	}
 	

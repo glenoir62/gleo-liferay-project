@@ -24,11 +24,14 @@
 	includeCheckBox="<%= false %>"
 	searchContainerId="announcements"
 >
+	<liferay-portlet:actionURL name="/announcements/change_display_style" varImpl="changeDisplayStyleURL">
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+	</liferay-portlet:actionURL>
 	<liferay-frontend:management-bar-buttons>
 		<liferay-frontend:management-bar-display-buttons
 			displayViews='<%= new String[] {"descriptive", "icon", "list"} %>'
-			portletURL="<%= renderResponse.createRenderURL() %>"
-			selectedDisplayStyle=""
+			portletURL="${changeDisplayStyleURL}"
+			selectedDisplayStyle="${displayStyle}"
 		/>
 	</liferay-frontend:management-bar-buttons>
 
