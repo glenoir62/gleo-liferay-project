@@ -1,6 +1,6 @@
 <portlet:renderURL var="addEntryURL">
-		<portlet:param name="mvcRenderCommandName" value="/type/edit" />
-		<portlet:param name="redirect" value="<%= renderResponse.createRenderURL().toString() %>" />
+		<portlet:param name="mvcRenderCommandName" value="/types/edit" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
 </portlet:renderURL>
 
 <liferay-portlet:renderURL varImpl="searchURL" >
@@ -44,6 +44,12 @@
 			portletURL="${portletURL}"
 		/>
 	</liferay-frontend:management-bar-filters>
+	
+	<c:if test='<%= RavenBoxPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), "ADD_TYPE") %>'>
+		<liferay-frontend:add-menu>
+			<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "com.gleo.modules.ravenbox.type.add") %>' url="<%= addEntryURL %>" />
+		</liferay-frontend:add-menu>
+	</c:if>
 </liferay-frontend:management-bar>
 
 <div id="breadcrumb">
