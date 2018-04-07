@@ -79,20 +79,26 @@ public class AnnouncementImageImpl extends AnnouncementImageBaseImpl {
 
     public String getImageURL(ThemeDisplay themeDisplay) {
 
-	String url = StringPool.BLANK;
-
-		FileEntry fileEntry = null;
-		if (Validator.isNotNull(this.getFileEntryId())) {
-			try {
-				fileEntry = PortletFileRepositoryUtil.getPortletFileEntry(this.getFileEntryId());
-				url = DLUtil.getPreviewURL(fileEntry, fileEntry.getLatestFileVersion(), themeDisplay, StringPool.BLANK);
-			} catch (PortalException e) {
-				e.printStackTrace();
-			} catch (SystemException e) {
-				e.printStackTrace();
+		String url = StringPool.BLANK;
+	
+			FileEntry fileEntry = null;
+			if (Validator.isNotNull(this.getFileEntryId()) && this.getFileEntryId() >0) {
+				try {
+					fileEntry = PortletFileRepositoryUtil.getPortletFileEntry(this.getFileEntryId());
+					url = DLUtil.getPreviewURL(fileEntry, fileEntry.getLatestFileVersion(), themeDisplay, StringPool.BLANK);
+				} catch (PortalException e) {
+					e.printStackTrace();
+				} catch (SystemException e) {
+					e.printStackTrace();
+				}
+			} else {
+				url = themeDisplay.getLayoutSetLogo();
 			}
-		}
-
-	return url;
+			
+			if(Validator.isBlank(url)) {
+				url = themeDisplay.getCompanyLogo();
+			}
+	
+		return url;
     }
 }

@@ -21,60 +21,19 @@
 			modelVar="announcement" escapedModel="true"
 		>	
 			
-			<liferay-ui:search-container-column-text
-				name="name"
-				value="${announcement.getTitle(locale)}" 
-			/>
-	
-			<liferay-ui:search-container-column-text
-				name="price"
-				property="price"
-			/>
-			
-			<liferay-ui:search-container-column-text
-				name="email-address"
-				property="emailAddress"
-			/>
-	
-			<liferay-ui:search-container-column-text
-				name="phone-number"
-				property="phoneNumber"
-			/>
-			
-			<liferay-ui:search-container-column-text
-				name="type"
-				value="${announcement.getType().getName(locale)}"
-			/>
-			
-			<liferay-ui:search-container-column-status
-				name="status"
-				status="${announcement.status}"
-				statusByUserId="${announcement.statusByUserId}"
-				statusDate="${announcement.statusDate}"
-			/>
-			
-			<liferay-ui:search-container-column-text
-				name="country"
-				value="${announcement.getCountryName(locale)}"
-			/>
-			
-			<liferay-ui:search-container-column-date
-				name="modified-date"
-				value="${announcement.getModifiedDate()}"
-			/>
-	
-			<liferay-ui:search-container-column-date
-				name="display-date"
-				value="${announcement.getCreateDate()}"
-			/>
-			
-			<liferay-ui:search-container-column-jsp
-				align="right"
-				name="actions"
-				path="/ravenbox/announcements/configuration/actions.jsp"
-			/>
+		<c:choose>
+			<c:when test='${displayStyle.equals("icon")}'>
+				<%@ include file="/ravenbox/announcements/configuration/columns/icon.jspf" %>
+			</c:when>
+			<c:when test='${displayStyle.equals("descriptive")}'>
+				<%@ include file="/ravenbox/announcements/configuration/columns/descriptive.jspf" %>
+			</c:when>
+			<c:otherwise>
+				<%@ include file="/ravenbox/announcements/configuration/columns/list.jspf" %>
+			</c:otherwise>
+		</c:choose>
 		</liferay-ui:search-container-row>
 	
-		<liferay-ui:search-iterator paginate="true" markupView="lexicon" searchContainer="${searchAnnouncementContainer}"/>
+		<liferay-ui:search-iterator displayStyle="${displayStyle}" markupView="lexicon"/>
 	</liferay-ui:search-container>
 </aui:form>

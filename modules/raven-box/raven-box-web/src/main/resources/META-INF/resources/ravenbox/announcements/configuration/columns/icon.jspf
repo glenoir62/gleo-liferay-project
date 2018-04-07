@@ -1,0 +1,21 @@
+
+<%
+	row.setCssClass("entry-card lfr-asset-item " + row.getCssClass());
+%>
+
+<liferay-ui:search-container-column-text>
+	
+	<c:set var="announcementImage" value="${announcement.getImage()}"></c:set>
+	
+
+	<liferay-frontend:vertical-card
+		imageUrl="${announcementImage.getImageURL(themeDisplay)}"
+		title="${announcement.getTitle(locale)}"
+	>
+	<%-- 		<%@ include file="/article_vertical_card.jspf" %> --%>
+	</liferay-frontend:vertical-card>
+
+	
+	
+
+</liferay-ui:search-container-column-text>

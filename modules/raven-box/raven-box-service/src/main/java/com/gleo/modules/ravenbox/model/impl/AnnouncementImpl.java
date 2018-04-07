@@ -19,6 +19,7 @@ import java.util.Locale;
 
 import javax.portlet.WindowStateException;
 
+import com.gleo.modules.ravenbox.constants.AnnouncementConstants;
 import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.model.AnnouncementImage;
 import com.gleo.modules.ravenbox.model.Type;
@@ -159,19 +160,24 @@ public class AnnouncementImpl extends AnnouncementBaseImpl {
 
     public AnnouncementImage getImage() {
 
-	long announcementId = this.getAnnouncementId();
-	AnnouncementImage announcementImage = null;
+		long announcementId = this.getAnnouncementId();
+		AnnouncementImage announcementImage = null;
 
-	if (announcementId > 0) {
-	    try {
-		announcementImage = AnnouncementImageLocalServiceUtil.getAnnouncementImageByAnnouncementIdOrder(announcementId, 1);
-	    } catch (SystemException se) {
-		if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug(se);
+		if (announcementId > 0) {
+			try {
+				announcementImage = AnnouncementImageLocalServiceUtil
+						.getAnnouncementImageByAnnouncementIdOrder(announcementId, 1);
+			} catch (SystemException se) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug(se);
+				}
+				LOGGER.error("SystemException : impossible to get images for announcement " + announcementId);
+			}
+			
+			if (Validator.isNull(announcementImage)) {
+				announcementImage = AnnouncementConstants.ANNOUNCEMENT_IMAGE;
+			}
 		}
-		LOGGER.error("SystemException : impossible to get images for announcement " + announcementId);
-	    }
-	}
 
 	return announcementImage;
 
