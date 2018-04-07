@@ -1,4 +1,6 @@
 
+<%@page import="com.liferay.portal.kernel.util.StringPool"%>
+<%@page import="com.liferay.portal.kernel.util.StringUtil"%>
 <%
 	row.setCssClass("entry-card lfr-asset-item " + row.getCssClass());
 %>
@@ -21,6 +23,11 @@
 				imageCssClass="user-icon-lg"
 				userId="${announcement.userId}"
 			/>
+			
+			<div class="badge-info badge" style="margin-top: 10px;margin-left: 5px;">
+				<%= StringUtil.shorten(StringUtil.upperCase(announcement.getType().getName(locale)), 10, StringPool.BLANK) %>
+			</div>
+			
 		</liferay-frontend:vertical-card-sticker-bottom>
 
 		<liferay-frontend:vertical-card-header>
