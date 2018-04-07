@@ -13,15 +13,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.gleo.modules.ravenbox.constants.RavenBoxPortletKeys;
-import com.gleo.modules.ravenbox.model.Announcement;
 import com.gleo.modules.ravenbox.model.Type;
-import com.gleo.modules.ravenbox.service.AnnouncementLocalService;
 import com.gleo.modules.ravenbox.service.TypeLocalService;
-import com.gleo.modules.ravenbox.service.TypeServiceUtil;
-import com.gleo.modules.ravenbox.web.portlet.announcements.search.AnnouncementDisplayTerms;
-import com.gleo.modules.ravenbox.web.portlet.announcements.search.AnnouncementSearch;
 import com.gleo.modules.ravenbox.web.portlet.types.search.TypeSearch;
-import com.gleo.modules.ravenbox.web.util.AnnouncementUtil;
 import com.gleo.modules.ravenbox.web.util.TypeUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -32,7 +26,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
@@ -45,10 +38,8 @@ import com.liferay.portal.kernel.search.SearchResultUtil;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 /**
  * @author Julien Luczak
@@ -63,8 +54,6 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 public class ViewTypeMVCRenderCommand implements MVCRenderCommand {
 	
 	protected static Log LOGGER = LogFactoryUtil.getLog(ViewTypeMVCRenderCommand.class);
-	
-	private String emptyResultsMessage = "type-empty-results-message";
 	
 	@Override
     public String render(RenderRequest renderRequest, RenderResponse renderResponse) {

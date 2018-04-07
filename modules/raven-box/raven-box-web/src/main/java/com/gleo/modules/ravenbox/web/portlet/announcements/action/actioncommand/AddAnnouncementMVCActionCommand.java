@@ -72,10 +72,9 @@ public class AddAnnouncementMVCActionCommand extends BaseMVCActionCommand {
 			ArrayList<String> errors = new ArrayList<String>();
 
 			if (AnnouncementValidator.validateAnnouncement(announcement, errors, themeDisplay.getLocale())) {
-				for (int i = 0; i < 100; i++) {
-					announcement = announcementService.addAnnouncement(announcement, serviceContext);
-				}
-				
+
+				announcement = announcementService.addAnnouncement(announcement, serviceContext);
+
 				SessionMessages.add(actionRequest, "announcement-added");
 				LiferayPortletURL portletURL = AnnouncementUtil.getDefaultAnnouncementPortletURL(actionRequest);
 				portletURL.setParameter("resetCur", "true");
