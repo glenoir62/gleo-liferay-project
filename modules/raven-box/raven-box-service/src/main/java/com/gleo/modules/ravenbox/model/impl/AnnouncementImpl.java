@@ -14,10 +14,12 @@
 
 package com.gleo.modules.ravenbox.model.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.portlet.WindowStateException;
+import javax.servlet.http.HttpServletRequest;
 
 import com.gleo.modules.ravenbox.constants.AnnouncementConstants;
 import com.gleo.modules.ravenbox.model.Announcement;
@@ -139,6 +141,12 @@ public class AnnouncementImpl extends AnnouncementBaseImpl {
 	return announcementImages;
     }
 
+    public String getModifiedAgo(HttpServletRequest request) {
+    	
+    	Date createDate = this.getModifiedDate();
+		String modifiedDateDescription = LanguageUtil.getTimeDescription(request, System.currentTimeMillis() - createDate.getTime(), true);
+    	return modifiedDateDescription;
+    }
     public List<AnnouncementImage> getImages() {
 
 	long announcementId = this.getAnnouncementId();

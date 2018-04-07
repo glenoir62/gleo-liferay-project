@@ -65,6 +65,9 @@ public interface Announcement extends AnnouncementModel, PersistedModel {
 
 	public java.util.List<AnnouncementImage> getAnnouncementImages();
 
+	public java.lang.String getModifiedAgo(
+		javax.servlet.http.HttpServletRequest request);
+
 	public java.util.List<AnnouncementImage> getImages();
 
 	public AnnouncementImage getImage();

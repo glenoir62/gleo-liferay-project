@@ -583,6 +583,12 @@ public class AnnouncementWrapper implements Announcement,
 		return _announcement.getEmailAddress();
 	}
 
+	@Override
+	public java.lang.String getModifiedAgo(
+		javax.servlet.http.HttpServletRequest request) {
+		return _announcement.getModifiedAgo(request);
+	}
+
 	/**
 	* Returns the phone number of this announcement.
 	*

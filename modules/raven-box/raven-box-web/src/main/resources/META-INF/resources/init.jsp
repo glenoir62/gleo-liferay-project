@@ -15,8 +15,6 @@
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
 
-
-
 <%@page import="com.gleo.modules.ravenbox.model.Announcement"%>
 
 <%@page import="com.gleo.modules.ravenbox.permission.RavenBoxPermission"%>
