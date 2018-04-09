@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -156,7 +155,7 @@ public class ViewAnnouncementsMVCRenderCommand implements MVCRenderCommand {
 			String managementBarFilterItemLabel = "All";
 
 			if (typeId > 0) {
-
+				announcementSearchContainer.getIteratorURL().setParameter("typeId", String.valueOf(typeId));
 				try {
 					Type type = TypeLocalServiceUtil.getType(typeId);
 

@@ -13,7 +13,7 @@
 	<aui:input name="redirect" type="hidden" value="<%= renderResponse.createRenderURL() %>" />
 	<aui:input name="deleteUserGroupIds" type="hidden" />
 	
-	<liferay-ui:search-container  searchContainer="${searchAnnouncementContainer}" id="types">
+	<liferay-ui:search-container  searchContainer="${searchAnnouncementContainer}" id="announcements">
 	
 		<liferay-ui:search-container-row 
 			className="com.gleo.modules.ravenbox.model.Announcement"

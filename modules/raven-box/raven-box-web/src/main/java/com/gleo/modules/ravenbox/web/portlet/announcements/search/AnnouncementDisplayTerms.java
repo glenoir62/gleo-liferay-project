@@ -42,6 +42,11 @@ public class AnnouncementDisplayTerms extends DisplayTerms {
     public static final String STATUS = "status";
     
     /**
+     * Type Id display term
+     */
+    public static final String TYPE_ID = "typeId";
+    
+    /**
      * UserGroupId display term
      */
     public static final String GROUP_ID = "groupId";
@@ -60,6 +65,7 @@ public class AnnouncementDisplayTerms extends DisplayTerms {
 	price = ParamUtil.getInteger(portletRequest, PRICE);
 	groupId = ParamUtil.getLong(portletRequest, GROUP_ID);
 	organizationId = ParamUtil.getLong(portletRequest, ORGANIZATION_ID);
+	typeId = ParamUtil.getLong(portletRequest, TYPE_ID);
 	
     }
 
@@ -120,11 +126,22 @@ public class AnnouncementDisplayTerms extends DisplayTerms {
 		this.status = status;
 	}
 
-    protected int price;
+	
+    public long getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(long typeId) {
+		this.typeId = typeId;
+	}
+
+
+	protected int price;
     protected Date modidiedDate;
     protected Date createDate;
     protected long organizationId;
     protected int status;
     protected long groupId;
+    protected long typeId;
 
 }

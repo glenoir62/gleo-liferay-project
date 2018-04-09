@@ -1,0 +1,16 @@
+<liferay-ui:search-container-column-text
+			colspan="<%= 2 %>"
+		>
+	<h3>${type.getName(locale)}</h3>
+
+	<h6 class="text-default">
+		<span>${type.description}</span>
+	</h6>
+
+</liferay-ui:search-container-column-text>
+
+<liferay-ui:search-container-column-jsp
+	align="right"
+	name=""
+	path="/ravenbox/types/actions.jsp"
+/>

@@ -1,0 +1,38 @@
+<liferay-ui:search-container-column-text>
+	<aui:input name="typeIds" type="hidden" value="${type.typeId}"> 
+	</aui:input>
+</liferay-ui:search-container-column-text>
+
+
+<liferay-ui:search-container-column-text
+	name="Id"
+	value="${type.typeId}"
+/>
+
+<liferay-ui:search-container-column-text
+	name="companyId"
+	value="${type.getCompanyId()}"
+/>
+
+<liferay-ui:search-container-column-text
+	name="groupId"
+	value="${type.getGroupId()}"
+/>
+
+<liferay-ui:search-container-column-text
+	name="name"
+	value="${type.getName(locale)}"
+/>
+
+
+
+<liferay-ui:search-container-column-text
+	name="order"
+	property="order"
+/>
+
+<liferay-ui:search-container-column-jsp
+	align="right"
+	name=""
+	path="/ravenbox/types/actions.jsp"
+/>

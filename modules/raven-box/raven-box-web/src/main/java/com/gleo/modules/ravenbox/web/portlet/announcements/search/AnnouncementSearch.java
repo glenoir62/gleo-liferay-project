@@ -100,7 +100,7 @@ public class AnnouncementSearch extends SearchContainer<Announcement> {
 		}
 
 		iteratorURL.setParameter(AnnouncementDisplayTerms.STATUS, String.valueOf(displayTerms.getStatus()));
-
+		iteratorURL.setParameter(AnnouncementDisplayTerms.TYPE_ID, String.valueOf(displayTerms.getTypeId()));
 		iteratorURL.setParameter(AnnouncementDisplayTerms.GROUP_ID, String.valueOf(displayTerms.getGroupId()));
 		iteratorURL.setParameter(AnnouncementDisplayTerms.PRICE, String.valueOf(displayTerms.getPrice()));
 		iteratorURL.setParameter(AnnouncementDisplayTerms.ORGANIZATION_ID,

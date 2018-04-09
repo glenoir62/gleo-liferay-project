@@ -18,30 +18,19 @@
 			keyProperty="typeId"
 			modelVar="type" escapedModel="true"
 		>
-		
-		<liferay-ui:search-container-column-text
-						name="Id"
-						value="${type.typeId}"
-					/>
-					
-					<liferay-ui:search-container-column-text
-						name="name"
-						value="${type.getName(locale)}"
-					/>
-					
-					<liferay-ui:search-container-column-text
-						name="order"
-						property="order"
-					/>
-					
-					<liferay-ui:search-container-column-jsp
-						align="right"
-						name=""
-						path="/ravenbox/types/actions.jsp"
-					/>
-		
+			<c:choose>
+				<c:when test='${displayStyle.equals("icon")}'>
+					<%@ include file="/ravenbox/types/columns/icon.jspf" %>
+				</c:when>
+				<c:when test='${displayStyle.equals("descriptive")}'>
+					<%@ include file="/ravenbox/types/columns/descriptive.jspf" %>
+				</c:when>
+				<c:otherwise>
+					<%@ include file="/ravenbox/types/columns/list.jspf" %>
+				</c:otherwise>
+			</c:choose>
 		</liferay-ui:search-container-row>
 	
-		<liferay-ui:search-iterator paginate="true" markupView="lexicon" searchContainer="${searchTypeContainer}"/>
+		<liferay-ui:search-iterator displayStyle="${displayStyle}" markupView="lexicon"/>
 	</liferay-ui:search-container>
 </aui:form>

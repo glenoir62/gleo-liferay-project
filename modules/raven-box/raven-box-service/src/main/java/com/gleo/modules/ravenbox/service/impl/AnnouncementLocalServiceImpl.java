@@ -443,6 +443,7 @@ public class AnnouncementLocalServiceImpl extends AnnouncementLocalServiceBaseIm
      * 
      * @param announcements
      */
+    @Indexable(type = IndexableType.DELETE)
     public void deleteAnnouncements(List<Announcement> announcements) {
 	Iterator<Announcement> iterator = announcements.iterator();
 
