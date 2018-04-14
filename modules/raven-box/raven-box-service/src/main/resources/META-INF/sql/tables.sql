@@ -61,5 +61,6 @@ create table ravenbox_type (
 	groupId LONG,
 	companyId LONG,
 	order_ INTEGER,
-	description STRING null
+	description STRING null,
+	color STRING null
 );

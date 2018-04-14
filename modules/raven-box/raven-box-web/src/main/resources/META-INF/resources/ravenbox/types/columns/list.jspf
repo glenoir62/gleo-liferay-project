@@ -10,16 +10,6 @@
 />
 
 <liferay-ui:search-container-column-text
-	name="companyId"
-	value="${type.getCompanyId()}"
-/>
-
-<liferay-ui:search-container-column-text
-	name="groupId"
-	value="${type.getGroupId()}"
-/>
-
-<liferay-ui:search-container-column-text
 	name="name"
 	value="${type.getName(locale)}"
 />

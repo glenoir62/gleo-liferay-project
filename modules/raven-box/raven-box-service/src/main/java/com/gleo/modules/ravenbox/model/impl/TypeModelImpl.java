@@ -77,7 +77,8 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 			{ "groupId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "order_", Types.INTEGER },
-			{ "description", Types.VARCHAR }
+			{ "description", Types.VARCHAR },
+			{ "color", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -88,9 +89,10 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("order_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("color", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table ravenbox_type (typeId LONG not null primary key,name STRING null,groupId LONG,companyId LONG,order_ INTEGER,description STRING null)";
+	public static final String TABLE_SQL_CREATE = "create table ravenbox_type (typeId LONG not null primary key,name STRING null,groupId LONG,companyId LONG,order_ INTEGER,description STRING null,color STRING null)";
 	public static final String TABLE_SQL_DROP = "drop table ravenbox_type";
 	public static final String ORDER_BY_JPQL = " ORDER BY type.order DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY ravenbox_type.order_ DESC";
@@ -128,6 +130,7 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setOrder(soapModel.getOrder());
 		model.setDescription(soapModel.getDescription());
+		model.setColor(soapModel.getColor());
 
 		return model;
 	}
@@ -198,6 +201,7 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		attributes.put("companyId", getCompanyId());
 		attributes.put("order", getOrder());
 		attributes.put("description", getDescription());
+		attributes.put("color", getColor());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -241,6 +245,12 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		String color = (String)attributes.get("color");
+
+		if (color != null) {
+			setColor(color);
 		}
 	}
 
@@ -504,6 +514,105 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 				LocaleUtil.toLanguageId(defaultLocale)));
 	}
 
+	@JSON
+	@Override
+	public String getColor() {
+		if (_color == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _color;
+		}
+	}
+
+	@Override
+	public String getColor(Locale locale) {
+		String languageId = LocaleUtil.toLanguageId(locale);
+
+		return getColor(languageId);
+	}
+
+	@Override
+	public String getColor(Locale locale, boolean useDefault) {
+		String languageId = LocaleUtil.toLanguageId(locale);
+
+		return getColor(languageId, useDefault);
+	}
+
+	@Override
+	public String getColor(String languageId) {
+		return LocalizationUtil.getLocalization(getColor(), languageId);
+	}
+
+	@Override
+	public String getColor(String languageId, boolean useDefault) {
+		return LocalizationUtil.getLocalization(getColor(), languageId,
+			useDefault);
+	}
+
+	@Override
+	public String getColorCurrentLanguageId() {
+		return _colorCurrentLanguageId;
+	}
+
+	@JSON
+	@Override
+	public String getColorCurrentValue() {
+		Locale locale = getLocale(_colorCurrentLanguageId);
+
+		return getColor(locale);
+	}
+
+	@Override
+	public Map<Locale, String> getColorMap() {
+		return LocalizationUtil.getLocalizationMap(getColor());
+	}
+
+	@Override
+	public void setColor(String color) {
+		_color = color;
+	}
+
+	@Override
+	public void setColor(String color, Locale locale) {
+		setColor(color, locale, LocaleUtil.getDefault());
+	}
+
+	@Override
+	public void setColor(String color, Locale locale, Locale defaultLocale) {
+		String languageId = LocaleUtil.toLanguageId(locale);
+		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
+
+		if (Validator.isNotNull(color)) {
+			setColor(LocalizationUtil.updateLocalization(getColor(), "Color",
+					color, languageId, defaultLanguageId));
+		}
+		else {
+			setColor(LocalizationUtil.removeLocalization(getColor(), "Color",
+					languageId));
+		}
+	}
+
+	@Override
+	public void setColorCurrentLanguageId(String languageId) {
+		_colorCurrentLanguageId = languageId;
+	}
+
+	@Override
+	public void setColorMap(Map<Locale, String> colorMap) {
+		setColorMap(colorMap, LocaleUtil.getDefault());
+	}
+
+	@Override
+	public void setColorMap(Map<Locale, String> colorMap, Locale defaultLocale) {
+		if (colorMap == null) {
+			return;
+		}
+
+		setColor(LocalizationUtil.updateLocalization(colorMap, getColor(),
+				"Color", LocaleUtil.toLanguageId(defaultLocale)));
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -539,6 +648,17 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		Map<Locale, String> descriptionMap = getDescriptionMap();
 
 		for (Map.Entry<Locale, String> entry : descriptionMap.entrySet()) {
+			Locale locale = entry.getKey();
+			String value = entry.getValue();
+
+			if (Validator.isNotNull(value)) {
+				availableLanguageIds.add(LocaleUtil.toLanguageId(locale));
+			}
+		}
+
+		Map<Locale, String> colorMap = getColorMap();
+
+		for (Map.Entry<Locale, String> entry : colorMap.entrySet()) {
 			Locale locale = entry.getKey();
 			String value = entry.getValue();
 
@@ -601,6 +721,15 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 			setDescription(getDescription(defaultLocale), defaultLocale,
 				defaultLocale);
 		}
+
+		String color = getColor(defaultLocale);
+
+		if (Validator.isNull(color)) {
+			setColor(getColor(modelDefaultLanguageId), defaultLocale);
+		}
+		else {
+			setColor(getColor(defaultLocale), defaultLocale, defaultLocale);
+		}
 	}
 
 	@Override
@@ -623,6 +752,7 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		typeImpl.setCompanyId(getCompanyId());
 		typeImpl.setOrder(getOrder());
 		typeImpl.setDescription(getDescription());
+		typeImpl.setColor(getColor());
 
 		typeImpl.resetOriginalValues();
 
@@ -728,12 +858,20 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 			typeCacheModel.description = null;
 		}
 
+		typeCacheModel.color = getColor();
+
+		String color = typeCacheModel.color;
+
+		if ((color != null) && (color.length() == 0)) {
+			typeCacheModel.color = null;
+		}
+
 		return typeCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{typeId=");
 		sb.append(getTypeId());
@@ -747,6 +885,8 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		sb.append(getOrder());
 		sb.append(", description=");
 		sb.append(getDescription());
+		sb.append(", color=");
+		sb.append(getColor());
 		sb.append("}");
 
 		return sb.toString();
@@ -754,7 +894,7 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.gleo.modules.ravenbox.model.Type");
@@ -784,6 +924,10 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>color</column-name><column-value><![CDATA[");
+		sb.append(getColor());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -804,6 +948,8 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 	private int _order;
 	private String _description;
 	private String _descriptionCurrentLanguageId;
+	private String _color;
+	private String _colorCurrentLanguageId;
 	private long _columnBitmask;
 	private Type _escapedModel;
 }

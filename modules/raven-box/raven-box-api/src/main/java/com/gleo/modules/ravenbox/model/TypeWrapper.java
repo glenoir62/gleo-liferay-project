@@ -62,6 +62,7 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 		attributes.put("companyId", getCompanyId());
 		attributes.put("order", getOrder());
 		attributes.put("description", getDescription());
+		attributes.put("color", getColor());
 
 		return attributes;
 	}
@@ -102,6 +103,12 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		String color = (String)attributes.get("color");
+
+		if (color != null) {
+			setColor(color);
 		}
 	}
 
@@ -168,6 +175,73 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 	@Override
 	public java.lang.Object clone() {
 		return new TypeWrapper((Type)_type.clone());
+	}
+
+	/**
+	* Returns the color of this type.
+	*
+	* @return the color of this type
+	*/
+	@Override
+	public java.lang.String getColor() {
+		return _type.getColor();
+	}
+
+	/**
+	* Returns the localized color of this type in the language. Uses the default language if no localization exists for the requested language.
+	*
+	* @param languageId the ID of the language
+	* @return the localized color of this type
+	*/
+	@Override
+	public java.lang.String getColor(java.lang.String languageId) {
+		return _type.getColor(languageId);
+	}
+
+	/**
+	* Returns the localized color of this type in the language, optionally using the default language if no localization exists for the requested language.
+	*
+	* @param languageId the ID of the language
+	* @param useDefault whether to use the default language if no localization exists for the requested language
+	* @return the localized color of this type
+	*/
+	@Override
+	public java.lang.String getColor(java.lang.String languageId,
+		boolean useDefault) {
+		return _type.getColor(languageId, useDefault);
+	}
+
+	/**
+	* Returns the localized color of this type in the language. Uses the default language if no localization exists for the requested language.
+	*
+	* @param locale the locale of the language
+	* @return the localized color of this type
+	*/
+	@Override
+	public java.lang.String getColor(java.util.Locale locale) {
+		return _type.getColor(locale);
+	}
+
+	/**
+	* Returns the localized color of this type in the language, optionally using the default language if no localization exists for the requested language.
+	*
+	* @param locale the local of the language
+	* @param useDefault whether to use the default language if no localization exists for the requested language
+	* @return the localized color of this type. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	*/
+	@Override
+	public java.lang.String getColor(java.util.Locale locale, boolean useDefault) {
+		return _type.getColor(locale, useDefault);
+	}
+
+	@Override
+	public java.lang.String getColorCurrentLanguageId() {
+		return _type.getColorCurrentLanguageId();
+	}
+
+	@Override
+	public java.lang.String getColorCurrentValue() {
+		return _type.getColorCurrentValue();
 	}
 
 	@Override
@@ -326,6 +400,16 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 	}
 
 	/**
+	* Returns a map of the locales and localized colors of this type.
+	*
+	* @return the locales and localized colors of this type
+	*/
+	@Override
+	public Map<java.util.Locale, java.lang.String> getColorMap() {
+		return _type.getColorMap();
+	}
+
+	/**
 	* Returns a map of the locales and localized descriptions of this type.
 	*
 	* @return the locales and localized descriptions of this type
@@ -406,6 +490,67 @@ public class TypeWrapper implements Type, ModelWrapper<Type> {
 	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_type.setCachedModel(cachedModel);
+	}
+
+	/**
+	* Sets the color of this type.
+	*
+	* @param color the color of this type
+	*/
+	@Override
+	public void setColor(java.lang.String color) {
+		_type.setColor(color);
+	}
+
+	/**
+	* Sets the localized color of this type in the language.
+	*
+	* @param color the localized color of this type
+	* @param locale the locale of the language
+	*/
+	@Override
+	public void setColor(java.lang.String color, java.util.Locale locale) {
+		_type.setColor(color, locale);
+	}
+
+	/**
+	* Sets the localized color of this type in the language, and sets the default locale.
+	*
+	* @param color the localized color of this type
+	* @param locale the locale of the language
+	* @param defaultLocale the default locale
+	*/
+	@Override
+	public void setColor(java.lang.String color, java.util.Locale locale,
+		java.util.Locale defaultLocale) {
+		_type.setColor(color, locale, defaultLocale);
+	}
+
+	@Override
+	public void setColorCurrentLanguageId(java.lang.String languageId) {
+		_type.setColorCurrentLanguageId(languageId);
+	}
+
+	/**
+	* Sets the localized colors of this type from the map of locales and localized colors.
+	*
+	* @param colorMap the locales and localized colors of this type
+	*/
+	@Override
+	public void setColorMap(Map<java.util.Locale, java.lang.String> colorMap) {
+		_type.setColorMap(colorMap);
+	}
+
+	/**
+	* Sets the localized colors of this type from the map of locales and localized colors, and sets the default locale.
+	*
+	* @param colorMap the locales and localized colors of this type
+	* @param defaultLocale the default locale
+	*/
+	@Override
+	public void setColorMap(Map<java.util.Locale, java.lang.String> colorMap,
+		java.util.Locale defaultLocale) {
+		_type.setColorMap(colorMap, defaultLocale);
 	}
 
 	/**

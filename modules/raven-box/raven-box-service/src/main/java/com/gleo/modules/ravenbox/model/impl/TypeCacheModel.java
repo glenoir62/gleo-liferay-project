@@ -63,7 +63,7 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{typeId=");
 		sb.append(typeId);
@@ -77,6 +77,8 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 		sb.append(order);
 		sb.append(", description=");
 		sb.append(description);
+		sb.append(", color=");
+		sb.append(color);
 		sb.append("}");
 
 		return sb.toString();
@@ -106,6 +108,13 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 			typeImpl.setDescription(description);
 		}
 
+		if (color == null) {
+			typeImpl.setColor(StringPool.BLANK);
+		}
+		else {
+			typeImpl.setColor(color);
+		}
+
 		typeImpl.resetOriginalValues();
 
 		return typeImpl;
@@ -122,6 +131,7 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 
 		order = objectInput.readInt();
 		description = objectInput.readUTF();
+		color = objectInput.readUTF();
 	}
 
 	@Override
@@ -148,6 +158,13 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 		else {
 			objectOutput.writeUTF(description);
 		}
+
+		if (color == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(color);
+		}
 	}
 
 	public long typeId;
@@ -156,4 +173,5 @@ public class TypeCacheModel implements CacheModel<Type>, Externalizable {
 	public long companyId;
 	public int order;
 	public String description;
+	public String color;
 }

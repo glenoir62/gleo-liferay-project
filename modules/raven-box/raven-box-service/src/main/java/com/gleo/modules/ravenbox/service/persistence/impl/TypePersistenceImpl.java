@@ -1192,6 +1192,7 @@ public class TypePersistenceImpl extends BasePersistenceImpl<Type>
 		typeImpl.setCompanyId(type.getCompanyId());
 		typeImpl.setOrder(type.getOrder());
 		typeImpl.setDescription(type.getDescription());
+		typeImpl.setColor(type.getColor());
 
 		return typeImpl;
 	}

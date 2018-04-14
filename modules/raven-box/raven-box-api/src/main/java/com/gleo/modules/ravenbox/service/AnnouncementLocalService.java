@@ -393,6 +393,7 @@ public interface AnnouncementLocalService extends BaseLocalService,
 	*
 	* @param announcements
 	*/
+	@Indexable(type = IndexableType.DELETE)
 	public void deleteAnnouncements(List<Announcement> announcements);
 
 	public void updateAsset(long userId, Announcement announcement,

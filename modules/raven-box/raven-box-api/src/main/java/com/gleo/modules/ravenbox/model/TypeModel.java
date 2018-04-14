@@ -324,6 +324,105 @@ public interface TypeModel extends BaseModel<Type>, LocalizedModel, ShardedModel
 	public void setDescriptionMap(Map<Locale, String> descriptionMap,
 		Locale defaultLocale);
 
+	/**
+	 * Returns the color of this type.
+	 *
+	 * @return the color of this type
+	 */
+	public String getColor();
+
+	/**
+	 * Returns the localized color of this type in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the locale of the language
+	 * @return the localized color of this type
+	 */
+	@AutoEscape
+	public String getColor(Locale locale);
+
+	/**
+	 * Returns the localized color of this type in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the local of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized color of this type. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	 */
+	@AutoEscape
+	public String getColor(Locale locale, boolean useDefault);
+
+	/**
+	 * Returns the localized color of this type in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @return the localized color of this type
+	 */
+	@AutoEscape
+	public String getColor(String languageId);
+
+	/**
+	 * Returns the localized color of this type in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized color of this type
+	 */
+	@AutoEscape
+	public String getColor(String languageId, boolean useDefault);
+
+	@AutoEscape
+	public String getColorCurrentLanguageId();
+
+	@AutoEscape
+	public String getColorCurrentValue();
+
+	/**
+	 * Returns a map of the locales and localized colors of this type.
+	 *
+	 * @return the locales and localized colors of this type
+	 */
+	public Map<Locale, String> getColorMap();
+
+	/**
+	 * Sets the color of this type.
+	 *
+	 * @param color the color of this type
+	 */
+	public void setColor(String color);
+
+	/**
+	 * Sets the localized color of this type in the language.
+	 *
+	 * @param color the localized color of this type
+	 * @param locale the locale of the language
+	 */
+	public void setColor(String color, Locale locale);
+
+	/**
+	 * Sets the localized color of this type in the language, and sets the default locale.
+	 *
+	 * @param color the localized color of this type
+	 * @param locale the locale of the language
+	 * @param defaultLocale the default locale
+	 */
+	public void setColor(String color, Locale locale, Locale defaultLocale);
+
+	public void setColorCurrentLanguageId(String languageId);
+
+	/**
+	 * Sets the localized colors of this type from the map of locales and localized colors.
+	 *
+	 * @param colorMap the locales and localized colors of this type
+	 */
+	public void setColorMap(Map<Locale, String> colorMap);
+
+	/**
+	 * Sets the localized colors of this type from the map of locales and localized colors, and sets the default locale.
+	 *
+	 * @param colorMap the locales and localized colors of this type
+	 * @param defaultLocale the default locale
+	 */
+	public void setColorMap(Map<Locale, String> colorMap, Locale defaultLocale);
+
 	@Override
 	public boolean isNew();
 

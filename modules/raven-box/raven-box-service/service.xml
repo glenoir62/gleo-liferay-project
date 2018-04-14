@@ -185,6 +185,7 @@
 		<column name="companyId" type="long" />
 		<column name="order" type="int"/>
 		<column name="description" type="String" localized="true" />
+		<column name="color" type="String" localized="true" />
 		 
         <order by="desc">
         	<order-column name="order"/>

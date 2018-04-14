@@ -39,6 +39,7 @@ public class TypeSoap implements Serializable {
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setOrder(model.getOrder());
 		soapModel.setDescription(model.getDescription());
+		soapModel.setColor(model.getColor());
 
 		return soapModel;
 	}
@@ -139,10 +140,19 @@ public class TypeSoap implements Serializable {
 		_description = description;
 	}
 
+	public String getColor() {
+		return _color;
+	}
+
+	public void setColor(String color) {
+		_color = color;
+	}
+
 	private long _typeId;
 	private String _name;
 	private long _groupId;
 	private long _companyId;
 	private int _order;
 	private String _description;
+	private String _color;
 }
