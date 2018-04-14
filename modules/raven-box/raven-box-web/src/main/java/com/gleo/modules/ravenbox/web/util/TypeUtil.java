@@ -14,6 +14,8 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.awt.Color;
+
 import javax.portlet.ActionRequest;
 
 /**
@@ -39,6 +41,7 @@ public class TypeUtil {
 	Type type = null;
 	long typeId = ParamUtil.getLong(request, "typeId");
 	String description = ParamUtil.getString(request, "description");
+	String color = ParamUtil.getString(request, "color");
 	
 	ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 
@@ -64,6 +67,12 @@ public class TypeUtil {
 	type.setGroupId(themeDisplay.getScopeGroupId());
 	type.setOrder(ParamUtil.getInteger(request, "order"));
 	type.setNameMap(LocalizationUtil.getLocalizationMap(request, "name"));
+	type.setColor(color);
+	
+	if(LOGGER.isDebugEnabled()) {
+		LOGGER.debug("color = " + color);
+	}
+
 
 	return type;
     }

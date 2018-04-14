@@ -21,6 +21,10 @@
 					<aui:validator name="required"/>
 				</aui:input>
 				
+				
+                <input id="myColorPickerPopover" class="form-control" type="text" value="Click to select a color">
+				<aui:input type="hidden" name="color" value="#FFFFFF"/>
+
 				<aui:input name="description" type="textarea" />
 		
 				<aui:input name="order" label="annoucements.types.order.label">
@@ -46,3 +50,25 @@
 		</aui:button-row>
 	</div>
 </aui:form>
+
+<aui:script use="aui-base,aui-color-picker-popover">
+
+	var typeColor;
+    var colorPicker = new A.ColorPickerPopover(
+      {
+        trigger: '#myColorPickerPopover',
+        zIndex: 2
+      }
+    ).render();
+
+    colorPicker.set("hex", );
+    
+    colorPicker.on('select',
+      function(event) {
+        event.trigger.setStyle('backgroundColor', event.color);
+        A.one("#<portlet:namespace/>color").set('value', event.color);
+      }
+    );
+
+</aui:script> 
+

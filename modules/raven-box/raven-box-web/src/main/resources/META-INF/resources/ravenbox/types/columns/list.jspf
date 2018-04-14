@@ -9,6 +9,17 @@
 	value="${type.typeId}"
 />
 
+<liferay-ui:search-container-column-text>
+
+<div class="badge" style="background-color: ${type.getColor(locale)};">
+	<aui:input
+		name="color"
+		 type="hidden"
+		value="${type.getColor(locale)}"
+	/>
+</div>
+</liferay-ui:search-container-column-text>
+
 <liferay-ui:search-container-column-text
 	name="name"
 	value="${type.getName(locale)}"
