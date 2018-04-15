@@ -1,7 +1,16 @@
+
 <%
 	row.setCssClass("entry-card lfr-asset-item");
 %>
+
+
 <liferay-ui:search-container-column-text>
+
+	<style>
+	.type-color-${type.typeId} .icon-vertical-card-container{
+		background:${type.getColor(locale)};
+	}
+	</style>
 	<liferay-frontend:icon-vertical-card
 		actionJsp="/ravenbox/types/actions.jsp"
 		actionJspServletContext="<%= application %>"
@@ -9,6 +18,8 @@
 		resultRow="<%= row %>"
 		title="${type.getName(locale)}"
 		subtitle="${type.description}"
-	>
-	</liferay-frontend:icon-vertical-card>
+		cssClass="type-color-${type.typeId}"
+	/>
+	<!--<div class="badge-info badge" style="background-color: ${type.getColor(locale)};">
+	</div>-->
 </liferay-ui:search-container-column-text>

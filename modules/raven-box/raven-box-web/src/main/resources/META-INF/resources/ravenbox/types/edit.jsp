@@ -21,16 +21,24 @@
 					<aui:validator name="required"/>
 				</aui:input>
 				
-				
-                <input id="myColorPickerPopover" class="form-control" type="text" value="Click to select a color">
-				<aui:input type="hidden" name="color" value="#FFFFFF"/>
-
 				<aui:input name="description" type="textarea" />
 		
 				<aui:input name="order" label="annoucements.types.order.label">
 					<aui:validator name="digits"/>
 				</aui:input>
-			
+				
+				
+				
+				<c:choose>
+				    <c:when test="${type.getColor(locale) == ''}">
+				    <input id="myColorPickerPopover" class="form-control" type="text" value="Click to select a color"/>
+				        <aui:input type="hidden" name="color" value="#FFFFFF"/> 
+				    </c:when>    
+				    <c:otherwise>
+				    <input id="myColorPickerPopover" class="form-control" style="background-color:${type.getColor(locale)};" type="text" value="Click to select a color"/>
+				        <aui:input type="hidden" name="color" value="${type.getColor(locale)}"/> 
+				    </c:otherwise>
+				</c:choose>
 	
 				<c:if test="${type == null}">
 					<aui:field-wrapper label="permissions">
