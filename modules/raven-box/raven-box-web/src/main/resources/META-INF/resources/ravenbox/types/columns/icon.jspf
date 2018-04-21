@@ -8,7 +8,7 @@
 
 	<style>
 	.type-color-${type.typeId} .icon-vertical-card-container{
-		background:${type.getColor(locale)};
+		background:${type.getColor()};
 	}
 	</style>
 	<liferay-frontend:icon-vertical-card
@@ -20,6 +20,6 @@
 		subtitle="${type.description}"
 		cssClass="type-color-${type.typeId}"
 	/>
-	<!--<div class="badge-info badge" style="background-color: ${type.getColor(locale)};">
+	<!--<div class="badge-info badge" style="background-color: ${type.getColor()};">
 	</div>-->
 </liferay-ui:search-container-column-text>

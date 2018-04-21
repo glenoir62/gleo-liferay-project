@@ -30,13 +30,13 @@
 				
 				
 				<c:choose>
-				    <c:when test="${type.getColor(locale) == ''}">
+				    <c:when test="${type.getColor() == ''}">
 				    <input id="myColorPickerPopover" class="form-control" type="text" value="Click to select a color"/>
 				        <aui:input type="hidden" name="color" value="#FFFFFF"/> 
 				    </c:when>    
 				    <c:otherwise>
-				    <input id="myColorPickerPopover" class="form-control" style="background-color:${type.getColor(locale)};" type="text" value="Click to select a color"/>
-				        <aui:input type="hidden" name="color" value="${type.getColor(locale)}"/> 
+				    <input id="myColorPickerPopover" class="form-control" style="background-color:${type.getColor()};" type="text" value="Click to select a color"/>
+				        <aui:input type="hidden" name="color" value="${type.getColor()}"/> 
 				    </c:otherwise>
 				</c:choose>
 	

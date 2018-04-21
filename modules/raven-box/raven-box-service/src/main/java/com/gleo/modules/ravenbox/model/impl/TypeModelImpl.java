@@ -92,7 +92,7 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		TABLE_COLUMNS_MAP.put("color", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table ravenbox_type (typeId LONG not null primary key,name STRING null,groupId LONG,companyId LONG,order_ INTEGER,description STRING null,color STRING null)";
+	public static final String TABLE_SQL_CREATE = "create table ravenbox_type (typeId LONG not null primary key,name STRING null,groupId LONG,companyId LONG,order_ INTEGER,description STRING null,color VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table ravenbox_type";
 	public static final String ORDER_BY_JPQL = " ORDER BY type.order DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY ravenbox_type.order_ DESC";
@@ -526,91 +526,8 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 	}
 
 	@Override
-	public String getColor(Locale locale) {
-		String languageId = LocaleUtil.toLanguageId(locale);
-
-		return getColor(languageId);
-	}
-
-	@Override
-	public String getColor(Locale locale, boolean useDefault) {
-		String languageId = LocaleUtil.toLanguageId(locale);
-
-		return getColor(languageId, useDefault);
-	}
-
-	@Override
-	public String getColor(String languageId) {
-		return LocalizationUtil.getLocalization(getColor(), languageId);
-	}
-
-	@Override
-	public String getColor(String languageId, boolean useDefault) {
-		return LocalizationUtil.getLocalization(getColor(), languageId,
-			useDefault);
-	}
-
-	@Override
-	public String getColorCurrentLanguageId() {
-		return _colorCurrentLanguageId;
-	}
-
-	@JSON
-	@Override
-	public String getColorCurrentValue() {
-		Locale locale = getLocale(_colorCurrentLanguageId);
-
-		return getColor(locale);
-	}
-
-	@Override
-	public Map<Locale, String> getColorMap() {
-		return LocalizationUtil.getLocalizationMap(getColor());
-	}
-
-	@Override
 	public void setColor(String color) {
 		_color = color;
-	}
-
-	@Override
-	public void setColor(String color, Locale locale) {
-		setColor(color, locale, LocaleUtil.getDefault());
-	}
-
-	@Override
-	public void setColor(String color, Locale locale, Locale defaultLocale) {
-		String languageId = LocaleUtil.toLanguageId(locale);
-		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
-
-		if (Validator.isNotNull(color)) {
-			setColor(LocalizationUtil.updateLocalization(getColor(), "Color",
-					color, languageId, defaultLanguageId));
-		}
-		else {
-			setColor(LocalizationUtil.removeLocalization(getColor(), "Color",
-					languageId));
-		}
-	}
-
-	@Override
-	public void setColorCurrentLanguageId(String languageId) {
-		_colorCurrentLanguageId = languageId;
-	}
-
-	@Override
-	public void setColorMap(Map<Locale, String> colorMap) {
-		setColorMap(colorMap, LocaleUtil.getDefault());
-	}
-
-	@Override
-	public void setColorMap(Map<Locale, String> colorMap, Locale defaultLocale) {
-		if (colorMap == null) {
-			return;
-		}
-
-		setColor(LocalizationUtil.updateLocalization(colorMap, getColor(),
-				"Color", LocaleUtil.toLanguageId(defaultLocale)));
 	}
 
 	public long getColumnBitmask() {
@@ -648,17 +565,6 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		Map<Locale, String> descriptionMap = getDescriptionMap();
 
 		for (Map.Entry<Locale, String> entry : descriptionMap.entrySet()) {
-			Locale locale = entry.getKey();
-			String value = entry.getValue();
-
-			if (Validator.isNotNull(value)) {
-				availableLanguageIds.add(LocaleUtil.toLanguageId(locale));
-			}
-		}
-
-		Map<Locale, String> colorMap = getColorMap();
-
-		for (Map.Entry<Locale, String> entry : colorMap.entrySet()) {
 			Locale locale = entry.getKey();
 			String value = entry.getValue();
 
@@ -720,15 +626,6 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 		else {
 			setDescription(getDescription(defaultLocale), defaultLocale,
 				defaultLocale);
-		}
-
-		String color = getColor(defaultLocale);
-
-		if (Validator.isNull(color)) {
-			setColor(getColor(modelDefaultLanguageId), defaultLocale);
-		}
-		else {
-			setColor(getColor(defaultLocale), defaultLocale, defaultLocale);
 		}
 	}
 
@@ -949,7 +846,6 @@ public class TypeModelImpl extends BaseModelImpl<Type> implements TypeModel {
 	private String _description;
 	private String _descriptionCurrentLanguageId;
 	private String _color;
-	private String _colorCurrentLanguageId;
 	private long _columnBitmask;
 	private Type _escapedModel;
 }

@@ -61,6 +61,6 @@
 		<field name="companyId" type="long" />
 		<field name="order" type="int" />
 		<field localized="true" name="description" type="String" />
-		<field localized="true" name="color" type="String" />
+		<field name="color" type="String" />
 	</model>
 </model-hints>
