@@ -24,7 +24,7 @@
 				userId="${announcement.userId}"
 			/>
 			
-			<div class="badge-info badge" style="margin-top: 10px;margin-left: 5px;">
+			<div class="badge-info badge" style="margin-top: 10px;margin-left: 5px;background-color:<%= announcement.getType().getColor() %>;">
 				<%= StringUtil.shorten(StringUtil.upperCase(announcement.getType().getName(locale)), 10, StringPool.BLANK) %>
 			</div>
 			
